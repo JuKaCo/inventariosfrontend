@@ -11,12 +11,14 @@ import {PasswordModule} from 'primeng/password';
 
 import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
+import { MesajeFormErrorComponent } from './general/mesaje-form-error/mesaje-form-error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IncioComponent,
-    LoginComponent
+    LoginComponent,
+    MesajeFormErrorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IncioComponent } from './general/incio/incio.component';
+import { LoginComponent } from './general/login/login.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: LoginComponent, },
+  { path: 'incio', component: IncioComponent, },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

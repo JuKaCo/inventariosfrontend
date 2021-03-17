@@ -1,0 +1,4 @@
+<p-blockUI [blocked]="true" *ngIf="isLoading  | async"></p-blockUI>
+<div class="progress-spinner" *ngIf="isLoading  | async">
+    <p-progressSpinner  [style]="{width: '100px', height: '100px'}"></p-progressSpinner>
+</div>

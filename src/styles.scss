@@ -3,3 +3,25 @@ body{
     background: #efefef;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
 }
+
+.text-danger{
+    color: #ed4437;
+}
+
+.p-blockui-document {
+    z-index: 10000  !important;
+}
+
+.progress-spinner {
+    position: fixed;
+    z-index: 10001;
+    height: 1px;
+    width: 1px;
+    overflow: show;
+    margin-left: calc(50vw - 50px);
+    margin-top: calc(50vh - 50px);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
  
-  constructor() { }
+  constructor(
+    private loaderService: LoaderService,
+  ) { }
 
   ngOnInit(): void {
   }
-
+  ingresar(){
+    console.log('--->ingresar');
+    this.loaderService.show();
+  }
 }

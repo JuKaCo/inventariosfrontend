@@ -8,16 +8,19 @@ import { ValidacionService } from '../services/validacion.service';
 })
 export class MesajeFormErrorComponent implements OnInit {
 
-  @Input() control: FormControl = new FormControl;
-  @Input() valid: boolean=false;
+  @Input() control: any;
+  @Input() valid: boolean=true;
   constructor() { }
 
   get errorMessage() {
-    for (let propertyName in this.control.errors) {
-      if ((this.control.errors.hasOwnProperty(propertyName) && this.control.invalid && this.control.touched||this.valid)) {
-       return ValidacionService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+    if(this.control!=undefined){
+      for (let propertyName in this.control.errors) {
+        if ((this.control.errors.hasOwnProperty(propertyName) && this.control.invalid && this.control.touched||this.valid)) {
+         return ValidacionService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+        }
       }
     }
+    
     
     return null;
   }

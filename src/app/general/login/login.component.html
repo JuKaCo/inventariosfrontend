@@ -2,17 +2,26 @@
     <div class="p-col-12 p-md-6 p-lg-6">
         <p-card>
             <h3>Ingreso</h3>
-            <div class="p-fluid">
-                <div class="p-field">
-                    <label for="firstname1">Usuario</label>
-                    <input id="firstname1" type="text" pInputText>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="p-fluid">
+                    <div class="p-field">
+                        <label for="firstname1">Usuario</label>
+                        <input id="firstname1" type="text" pInputText formControlName="user">
+                        <app-mesaje-form-error [control]="loginForm.controls['user']" [valid]="loginFormValid">
+                        </app-mesaje-form-error>
+                    </div>
+                
+                    <div class="p-field">
+                        <label for="lastname1">Contraseña</label>
+                        <p-password [toggleMask]="true" [feedback]="false" formControlName="pass"></p-password>
+                        <app-mesaje-form-error [control]="loginForm.controls['pass']" [valid]="loginFormValid">
+                        </app-mesaje-form-error>
+                    </div>
+                    
                 </div>
-                <div class="p-field">
-                    <label for="lastname1">Contraseña</label>
-                    <p-password [toggleMask]="true"></p-password>
-                </div>
-            </div>
-            <button pButton pRipple type="button" label="Ingresar" (click)="ingresar();"></button>
+                <button pButton pRipple type="button" label="Ingresar" type="submit"></button>
+
+            </form>
         </p-card>
     </div>
 </div>

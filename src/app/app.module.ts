@@ -4,18 +4,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoaderService } from './general/services/loader.service';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+//oauth2 open id
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
 //primeng
-import {InputTextModule} from 'primeng/inputtext';
-import {ButtonModule} from 'primeng/button';
-import {CardModule} from 'primeng/card';
-import {PasswordModule} from 'primeng/password';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
-import {BlockUIModule} from 'primeng/blockui';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { BlockUIModule } from 'primeng/blockui';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //componentes
 import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
 import { MesajeFormErrorComponent } from './general/mesaje-form-error/mesaje-form-error.component';
 import { LoaderComponent } from './general/loader/loader.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,9 +32,16 @@ import { LoaderComponent } from './general/loader/loader.component';
     IncioComponent,
     LoginComponent,
     MesajeFormErrorComponent,
-    LoaderComponent
+    LoaderComponent,
   ],
   imports: [
+    HttpClientModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: environment.OAUTH2OPENID,
+        sendAccessToken: true
+      }
+    }),
     BrowserModule,
     AppRoutingModule,
     InputTextModule,
@@ -33,9 +49,13 @@ import { LoaderComponent } from './general/loader/loader.component';
     CardModule,
     PasswordModule,
     ProgressSpinnerModule,
-    BlockUIModule
+    BlockUIModule,
+    ToastModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [LoaderService],
+  providers: [LoaderService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

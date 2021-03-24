@@ -22,6 +22,8 @@ import { environment } from 'src/environments/environment';
 
     responseType: 'code',
     oidc:false,
+    // uso solo para dev
+    requireHttps: false,
 
     // set the scope for the permissions the client should request
     // The first four are defined by OIDC.

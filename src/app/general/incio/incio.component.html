@@ -1,1 +1,49 @@
-<p>incio works!</p>
+<div class="p-grid p-d-none p-d-md-inline-flex pheader" style=" position: fixed; top: 0; width:100vw; z-index: 2;" >
+    <div class="p-col-12 p-md-12 p-lg-12 p-mb-0 p-pb-0" >
+        <div class="p-grid " style="height: 60px; ">
+            <div class="p-col-12 p-md-3 p-lg-3">
+                logo
+            </div>
+            <div class="p-col-12 p-md-1 p-lg-1 p-text-center">
+                <i class="pi pi-bars enlace" style="font-size: 1.2em" (click)="verMenu()"></i>
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-6 ">
+                X X X
+            </div>
+            <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
+                Nombre Apellido Apellido2
+            </div>
+            <p-menu #menu [popup]="true" [model]="itemsUsuario" appendTo="body"></p-menu>
+        </div>
+    </div>
+</div>
+<div class="p-grid p-d-md-none pheader">
+    <div class="p-col-12 p-md-12 p-lg-12" >
+        <div class="p-grid ">
+            <div class="p-col-12 p-md-3 p-lg-3">
+                logo
+            </div>
+            <div class="p-col-12 p-md-1 p-lg-1 p-text-center">
+                <i class="pi pi-bars enlace" style="font-size: 1.2em" (click)="verMenu()"></i>
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-6 ">
+                X X X
+            </div>
+            <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
+                Nombre Apellido Apellido2
+            </div>
+            <p-menu #menu [popup]="true" [model]="itemsUsuario"></p-menu>
+        </div>
+    </div>
+</div>
+
+<div class="p-grid p-button-success p-d-none p-d-md-inline-flex" style="padding-top: 54px;">
+</div>
+<div class="p-grid">
+    <div class="p-col-12 p-md-3 p-lg-3 p-m-0 p-p-0" *ngIf="itemsMenuDisplay" style="background: #f8f9fa;">
+        <p-panelMenu [model]="itemsMenu"></p-panelMenu>
+    </div>
+    <div  [className]="itemsMenuDisplay ? 'p-col-12 p-md-9 p-lg-9' : 'p-col-12 p-md-12 p-lg-12'" style="height: calc(100vh - 3.8em);">
+        <router-outlet></router-outlet>
+    </div>
+</div>

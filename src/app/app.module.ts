@@ -19,6 +19,8 @@ import { BlockUIModule } from 'primeng/blockui';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import {MenuModule} from 'primeng/menu';
 //componentes
 import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
@@ -53,7 +55,9 @@ import { environment } from 'src/environments/environment';
     ToastModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PanelMenuModule,
+    MenuModule,
   ],
   providers: [LoaderService,MessageService],
   bootstrap: [AppComponent]

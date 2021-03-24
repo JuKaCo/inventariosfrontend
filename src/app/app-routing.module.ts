@@ -5,7 +5,16 @@ import { LoginComponent } from './general/login/login.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, },
-  { path: 'incio', component: IncioComponent, },
+  { 
+    path: 'incio', 
+    component: IncioComponent, 
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('./principal/principal.module').then(m => m.PrincipalModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({

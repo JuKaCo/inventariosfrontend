@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
+import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 import { LoaderService } from '../services/loader.service';
 import { OauthConect } from '../services/oauthConect.service';
 
@@ -23,7 +24,11 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private routeRe: Router
-  ) { }
+  ) { 
+    console.log('++++',authCodeFlowConfig);
+    this.oauthService.configure(authCodeFlowConfig);
+    this.oauthService.loadDiscoveryDocument();
+  }
 
   ngOnInit(): void {
     this.initFormLogin();
@@ -46,18 +51,35 @@ export class LoginComponent implements OnInit {
       password: datos.pass,
       grant_type: 'password'
     }
-
     this.loaderService.show();
+    this.oauthService
+    .fetchTokenUsingPasswordFlowAndLoadUserProfile(
+      datos.user,
+      datos.pass
+    )
+    .then(() => {
+      console.log('successfully logged in');
+      //this.loginFailed = false;
+      this.loaderService.hide();
+      this.routeRe.navigate(['incio']);
+    })
+    .catch(err => {
+      console.log('error logging in', err);
+      //this.loginFailed = true;
+      this.loaderService.hide();
+    });
+    /*
 
     this.oauthConect.enviarDatosLogin(data).subscribe(response => {
       this.messageService.add({ severity: 'success', summary: 'Datos correctos', detail: 'Usurio valido.' });
       this.loaderService.hide();
-      this.routeRe.navigate(['incio']);
+      console.log(response);
+      //this.routeRe.navigate(['incio']);
     },
       error => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Datos incorrectos.' });
         this.loaderService.hide();
-      });
+      });*/
 
   }
   onSubmit() {

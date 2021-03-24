@@ -16,11 +16,11 @@ import { CardModule } from 'primeng/card';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'primeng/blockui';
-import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {PanelMenuModule} from 'primeng/panelmenu';
-import {MenuModule} from 'primeng/menu';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { MenuModule } from 'primeng/menu';
 //componentes
 import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
@@ -40,7 +40,7 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: environment.OAUTH2OPENID,
+        allowedUrls: ['http://localhost:4200'],
         sendAccessToken: true
       }
     }),
@@ -59,7 +59,7 @@ import { environment } from 'src/environments/environment';
     PanelMenuModule,
     MenuModule,
   ],
-  providers: [LoaderService,MessageService],
+  providers: [LoaderService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

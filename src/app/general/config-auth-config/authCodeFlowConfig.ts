@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 
     // URL of the SPA to redirect the user to after login
     //redirectUri: window.location.origin + '/index.html',
-    redirectUri: window.location.origin + '/incio',
+    redirectUri: window.location.origin ,
     
 
     // The SPA's id. The SPA is registerd with this id at the auth-server
@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
     // dummyClientSecret: 'secret',
 
     responseType: 'code',
+    oidc:false,
 
     // set the scope for the permissions the client should request
     // The first four are defined by OIDC.
@@ -28,5 +29,5 @@ import { environment } from 'src/environments/environment';
     // The api scope is a usecase specific one
     scope: 'openid profile email offline_access',
 
-    showDebugInformation: true,
+    showDebugInformation: false,
   };

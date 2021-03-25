@@ -20,12 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private loaderService: LoaderService,
     private oauthService: OAuthService,
-    private oauthConect: OauthConect,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
-    private routeRe: Router
+    private _router: Router
   ) { 
-    console.log('++++',authCodeFlowConfig);
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.loadDiscoveryDocument();
   }
@@ -44,43 +42,21 @@ export class LoginComponent implements OnInit {
   }
   ingresar() {
     let datos = this.loginForm.value;
-    console.log(datos);
-    let data = {
-      client_id: environment.OAUTH2CLIENTID,
-      username: datos.user,
-      password: datos.pass,
-      grant_type: 'password'
-    }
-    this.loaderService.show();
+       this.loaderService.show();
     this.oauthService
     .fetchTokenUsingPasswordFlowAndLoadUserProfile(
       datos.user,
       datos.pass
     )
     .then(() => {
-      console.log('successfully logged in');
-      //this.loginFailed = false;
       this.loaderService.hide();
-      this.routeRe.navigate(['incio']);
+      this.messageService.add({ severity: 'success', summary: 'Ingresar', detail: 'Datos correctos.' });
+      this._router.navigate(['incio']);
     })
     .catch(err => {
-      console.log('error logging in', err);
-      //this.loginFailed = true;
+      console.error('error logging in', err);
       this.loaderService.hide();
     });
-    /*
-
-    this.oauthConect.enviarDatosLogin(data).subscribe(response => {
-      this.messageService.add({ severity: 'success', summary: 'Datos correctos', detail: 'Usurio valido.' });
-      this.loaderService.hide();
-      console.log(response);
-      //this.routeRe.navigate(['incio']);
-    },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Datos incorrectos.' });
-        this.loaderService.hide();
-      });*/
-
   }
   onSubmit() {
     this.loginFormValid = true;

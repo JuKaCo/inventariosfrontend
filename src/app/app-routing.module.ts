@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './general/config-auth-config/auth.guard';
 import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
 
@@ -8,6 +9,7 @@ const routes: Routes = [
   { 
     path: 'incio', 
     component: IncioComponent, 
+    canActivate: [AuthGuard],
     children:[
       {
         path: '',

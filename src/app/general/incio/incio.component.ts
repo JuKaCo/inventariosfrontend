@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { MenuItem, MessageService } from 'primeng/api';
+import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 
 @Component({
   selector: 'app-incio',
@@ -10,37 +13,30 @@ export class IncioComponent implements OnInit {
   itemsMenu: MenuItem[] = [];
   itemsUsuario: MenuItem[] = [];
   itemsMenuDisplay: boolean = true;
-  constructor() { }
+  constructor(
+    private _oAuthService: OAuthService,
+    private _router: Router,
+    private messageService: MessageService,
+  ) { 
+    this._oAuthService.configure(authCodeFlowConfig);
+    this._oAuthService.loadDiscoveryDocument();
+  }
 
   ngOnInit(): void {
 
-    this.itemsUsuario = [{
-      label: 'Options',
-      items: [{
-        label: 'Update',
-        icon: 'pi pi-refresh',
+    this.itemsUsuario = [
+      {
+        label: 'Usuario',
+        icon: 'pi pi-fw pi-user-edit',
+        command: () => this.editUsuario()
       },
       {
-        label: 'Delete',
-        icon: 'pi pi-times',
+        label: 'Cerra sesión',
+        icon: 'pi pi-fw pi-sign-out',
+        command: () => this.logOut()
       }
-      ]
-    },
-    {
-      label: 'Navigate',
-      items: [{
-        label: 'Angular',
-        icon: 'pi pi-external-link',
-        url: 'http://angular.io'
-      },
-      {
-        label: 'Router',
-        icon: 'pi pi-upload',
-        routerLink: '/fileupload'
-      }
-      ]
-    }
     ];
+
 
     this.itemsMenu = [
       {
@@ -125,5 +121,12 @@ export class IncioComponent implements OnInit {
     } else {
       this.itemsMenuDisplay = true;
     }
+  }
+  editUsuario() {
+
+  }
+  logOut() {
+    this._oAuthService.revokeTokenAndLogout();
+    this._router.navigate(['']);
   }
 }

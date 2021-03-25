@@ -21,7 +21,9 @@ import { environment } from 'src/environments/environment';
     // dummyClientSecret: 'secret',
 
     responseType: 'code',
+    //configuracion error angular por oidc solucionado
     oidc:false,
+    //makurin pokemon
     // uso solo para dev
     requireHttps: false,
 

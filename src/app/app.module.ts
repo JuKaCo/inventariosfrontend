@@ -40,7 +40,7 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:4200'],
+        allowedUrls: environment.OAUTH2OPENID,
         sendAccessToken: true
       }
     }),

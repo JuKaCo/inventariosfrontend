@@ -6,7 +6,6 @@ import { MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 import { LoaderService } from '../services/loader.service';
-import { OauthConect } from '../services/oauthConect.service';
 
 @Component({
   selector: 'app-login',

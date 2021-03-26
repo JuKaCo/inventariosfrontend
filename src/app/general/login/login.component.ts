@@ -23,9 +23,12 @@ export class LoginComponent implements OnInit {
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private _router: Router
-  ) { 
+  ) {
     this.oauthService.configure(authCodeFlowConfig);
     this.oauthService.loadDiscoveryDocument();
+    if(this.oauthService.hasValidAccessToken()){
+      this._router.navigate(['incio']);
+    }
   }
 
   ngOnInit(): void {
@@ -42,21 +45,26 @@ export class LoginComponent implements OnInit {
   }
   ingresar() {
     let datos = this.loginForm.value;
-       this.loaderService.show();
+    this.loaderService.show();
     this.oauthService
-    .fetchTokenUsingPasswordFlowAndLoadUserProfile(
-      datos.user,
-      datos.pass
-    )
-    .then(() => {
-      this.loaderService.hide();
-      this.messageService.add({ severity: 'success', summary: 'Ingresar', detail: 'Datos correctos.' });
-      this._router.navigate(['incio']);
-    })
-    .catch(err => {
-      console.error('error logging in', err);
-      this.loaderService.hide();
-    });
+      .fetchTokenUsingPasswordFlowAndLoadUserProfile(
+        datos.user,
+        datos.pass
+      )
+      .then(() => {
+        this.loaderService.hide();
+        this.messageService.add({ severity: 'success', summary: 'Ingresar', detail: 'Datos correctos.' });
+
+        for (let entry of Object.keys(sessionStorage)) {
+          let data: any = sessionStorage.getItem(entry);
+          localStorage.setItem(entry, data);
+        }
+        this._router.navigate(['incio']);
+      })
+      .catch(err => {
+        console.error('error logging in', err);
+        this.loaderService.hide();
+      });
   }
   onSubmit() {
     this.loginFormValid = true;

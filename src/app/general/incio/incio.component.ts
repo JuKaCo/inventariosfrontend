@@ -20,6 +20,7 @@ export class IncioComponent implements OnInit {
   ) { 
     this._oAuthService.configure(authCodeFlowConfig);
     this._oAuthService.loadDiscoveryDocument();
+    this._oAuthService.setupAutomaticSilentRefresh();
   }
 
   ngOnInit(): void {
@@ -127,6 +128,7 @@ export class IncioComponent implements OnInit {
   }
   logOut() {
     this._oAuthService.revokeTokenAndLogout();
+    localStorage.clear();
     this._router.navigate(['']);
   }
 }

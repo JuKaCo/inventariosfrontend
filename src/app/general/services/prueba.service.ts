@@ -25,7 +25,10 @@ export class Prueba {
 
   prueva(): Observable<any>{
     let url = environment.CEASSBACKEND;
-    return this.http.get('public/');
+    //return this.http.get(url+'users').pipe(
+      return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
   }
   
   handleError(error: any) {

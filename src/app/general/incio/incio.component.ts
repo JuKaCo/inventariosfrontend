@@ -118,6 +118,7 @@ export class IncioComponent implements OnInit {
       }
     ];
     this._prueba.prueva().subscribe(response => {
+      console.log("🚀 ~ file: incio.component.ts ~ line 121 ~ IncioComponent ~ this._prueba.prueva ~ response", response)
       if (response.success) {
       } else {
       }

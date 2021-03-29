@@ -1,0 +1,9 @@
+  
+{
+    "/public/*": {
+        "target": "http://localhost:80/ceass-back-end",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MenuItem, MessageService } from 'primeng/api';
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
+import { Prueba } from '../services/prueba.service';
 
 @Component({
   selector: 'app-incio',
@@ -17,6 +18,7 @@ export class IncioComponent implements OnInit {
     private _oAuthService: OAuthService,
     private _router: Router,
     private messageService: MessageService,
+    private _prueba: Prueba,
   ) { 
     this._oAuthService.configure(authCodeFlowConfig);
     this._oAuthService.loadDiscoveryDocument();
@@ -36,6 +38,7 @@ export class IncioComponent implements OnInit {
         icon: 'pi pi-fw pi-sign-out',
         command: () => this.logOut()
       }
+
     ];
 
 
@@ -114,6 +117,13 @@ export class IncioComponent implements OnInit {
         ]
       }
     ];
+    this._prueba.prueva().subscribe(response => {
+      if (response.success) {
+      } else {
+      }
+    },
+      error => {
+      });
   }
 
   verMenu() {

@@ -10,14 +10,13 @@ import { environment } from 'src/environments/environment';
 export class AuthGuard implements CanActivate{
 
   constructor(private router: Router, private oauthService: OAuthService) {}
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
 
     if (
       this.oauthService.hasValidAccessToken() 
-      //verificar
-//    &&  this.oauthService.hasValidIdToken()
+      &&  this.oauthService.hasValidIdToken()
     ) {
+      console.log('2--->');
       return true;
     } else {
       this.router.navigate(['/']);

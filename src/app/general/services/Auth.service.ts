@@ -7,30 +7,31 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class Prueba {
+export class Auth {
 
   constructor(private http: HttpClient) { }
-
+/*
   enviarDatosLogin(data: any): Observable<any> {
     const payload = new HttpParams()
-  .set('client_id', data.client_id)
-  .set('username', data.username)
-  .set('password', data.password)
-  .set('grant_type', data.grant_type);
+      .set('client_id', data.client_id)
+      .set('username', data.username)
+      .set('password', data.password)
+      .set('grant_type', data.grant_type);
     let url = environment.OAUTH2SERVICE;
     return this.http.post(url, payload).pipe(
       catchError(this.handleError)
     );
   }
-
-  prueva(): Observable<any>{
+*/
+  prueva(): Observable<any> {
     let url = environment.CEASSBACKEND;
     //return this.http.get(url+'users').pipe(
-      return this.http.get(url).pipe(
+    //return this.http.get(url).pipe(
+    return this.http.get(url + 'general/menu').pipe(
       catchError(this.handleError)
     );
   }
-  
+
   handleError(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

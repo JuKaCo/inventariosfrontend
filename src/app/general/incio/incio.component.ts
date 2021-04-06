@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MenuItem, MessageService } from 'primeng/api';
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
-import { Prueba } from '../services/prueba.service';
+import { Auth } from '../services/Auth.service';
+import { GeneralService } from '../services/general.service';
 
 @Component({
   selector: 'app-incio',
@@ -18,8 +19,8 @@ export class IncioComponent implements OnInit {
     private _oAuthService: OAuthService,
     private _router: Router,
     private messageService: MessageService,
-    private _prueba: Prueba,
-  ) { 
+    private generalService: GeneralService,
+  ) {
     this._oAuthService.configure(authCodeFlowConfig);
     this._oAuthService.loadDiscoveryDocument();
     this._oAuthService.setupAutomaticSilentRefresh();
@@ -42,84 +43,10 @@ export class IncioComponent implements OnInit {
     ];
 
 
-    this.itemsMenu = [
-      {
-        label: 'File',
-        icon: 'pi pi-pw pi-file',
-        items: [{
-          label: 'New',
-          icon: 'pi pi-fw pi-plus',
-          items: [
-            { label: 'User', icon: 'pi pi-fw pi-user-plus' },
-            { label: 'Filter', icon: 'pi pi-fw pi-filter' }
-          ]
-        },
-        { label: 'Open', icon: 'pi pi-fw pi-external-link' },
-        { separator: true },
-        { label: 'Quit', icon: 'pi pi-fw pi-times' }
-        ]
-      },
-      {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-        items: [
-          { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-          { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-        ]
-      },
-      {
-        label: 'Help',
-        icon: 'pi pi-fw pi-question',
-        items: [
-          {
-            label: 'Contents',
-            icon: 'pi pi-pi pi-bars'
-          },
-          {
-            label: 'Search',
-            icon: 'pi pi-pi pi-search',
-            items: [
-              {
-                label: 'Text',
-                items: [
-                  {
-                    label: 'Workspace'
-                  }
-                ]
-              },
-              {
-                label: 'User',
-                icon: 'pi pi-fw pi-file',
-              }
-            ]
-          }
-        ]
-      },
-      {
-        label: 'Actions',
-        icon: 'pi pi-fw pi-cog',
-        items: [
-          {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-              { label: 'Save', icon: 'pi pi-fw pi-save' },
-              { label: 'Update', icon: 'pi pi-fw pi-save' },
-            ]
-          },
-          {
-            label: 'Other',
-            icon: 'pi pi-fw pi-tags',
-            items: [
-              { label: 'Delete', icon: 'pi pi-fw pi-minus' }
-            ]
-          }
-        ]
-      }
-    ];
-    this._prueba.prueva().subscribe(response => {
-      console.log("🚀 ~ file: incio.component.ts ~ line 121 ~ IncioComponent ~ this._prueba.prueva ~ response", response)
+   
+    this.generalService.getMenu().subscribe(response => {
       if (response.success) {
+        this.itemsMenu=response.data;
       } else {
       }
     },

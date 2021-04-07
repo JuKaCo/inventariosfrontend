@@ -17,10 +17,22 @@ const routes: Routes = [
       },
     ]
   },
+  { 
+    path: 'rrhh', 
+    component: IncioComponent, 
+    canActivate: [AuthGuard],
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('./rrhh/rrhh.module').then(m => m.RrhhModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  //imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -43,16 +43,23 @@ export class IncioComponent implements OnInit {
 
     ];
 
-
-
-    this.generalService.getMenu().subscribe(response => {
-      if (response.success) {
-        this.itemsMenu = response.data;
-      } else {
-      }
-    },
-      error => {
-      });
+    if (sessionStorage.getItem("menu_gen") === null) {
+      this.generalService.getMenu().subscribe(response => {
+        if (response.success) {
+          this.itemsMenu = response.data;
+          sessionStorage.setItem("menu_gen", JSON.stringify(response.data))
+        } else {
+          this.itemsMenu = [];
+        }
+      },
+        error => {
+        });
+    } else {
+      let dataMenu: any = sessionStorage.getItem("menu_gen");
+      var obj = JSON.parse(dataMenu);
+      console.log('----->>>', obj);
+      this.itemsMenu = obj;
+    }
   }
 
   verMenu() {
@@ -61,6 +68,9 @@ export class IncioComponent implements OnInit {
     } else {
       this.itemsMenuDisplay = true;
     }
+  }
+  activeMenu(event: any) {
+    sessionStorage.setItem("menu_gen", JSON.stringify(this.itemsMenu))
   }
   editUsuario() {
 
@@ -71,6 +81,7 @@ export class IncioComponent implements OnInit {
   logOut() {
     this.oAuthService.revokeTokenAndLogout();
     localStorage.clear();
+    sessionStorage.clear();
     this._router.navigate(['']);
   }
 }

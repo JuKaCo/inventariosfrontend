@@ -2,7 +2,7 @@
     <div class="p-col-12 p-md-12 p-lg-12 p-mb-0 p-pb-0" >
         <div class="p-grid " style="height: 60px; ">
             <div class="p-col-12 p-md-3 p-lg-3">
-                logo
+                logo1
             </div>
             <div class="p-col-12 p-md-1 p-lg-1 p-text-center">
                 <i class="pi pi-bars enlace" style="font-size: 1.2em" (click)="verMenu()"></i>
@@ -14,7 +14,7 @@
                 {{datosUsuario?.name}}<br>
                 <small>{{datosUsuario?.cargo_usuario}}</small>
             </div>
-            <p-menu #menu [popup]="true" [model]="itemsUsuario" appendTo="body"></p-menu>
+            <p-menu #menu [popup]="true" [model]="itemsUsuario" appendTo="body" ></p-menu>
         </div>
     </div>
 </div>
@@ -22,7 +22,7 @@
     <div class="p-col-12 p-md-12 p-lg-12" >
         <div class="p-grid ">
             <div class="p-col-12 p-md-3 p-lg-3">
-                logo
+                logo2
             </div>
             <div class="p-col-12 p-md-1 p-lg-1 p-text-center">
                 <i class="pi pi-bars enlace" style="font-size: 1.2em" (click)="verMenu()"></i>
@@ -43,7 +43,7 @@
 </div>
 <div class="p-grid">
     <div class="p-col-12 p-md-3 p-lg-3 p-m-0 p-p-0" *ngIf="itemsMenuDisplay" style="background: #f8f9fa;">
-        <p-panelMenu [model]="itemsMenu"></p-panelMenu>
+        <p-panelMenu [model]="itemsMenu" (click)="activeMenu($event)"></p-panelMenu>
     </div>
     <div  [className]="itemsMenuDisplay ? 'p-col-12 p-md-9 p-lg-9' : 'p-col-12 p-md-12 p-lg-12'" style="height: calc(100vh - 3.8em);">
         <router-outlet></router-outlet>

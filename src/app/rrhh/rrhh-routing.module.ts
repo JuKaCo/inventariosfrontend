@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VistaInicioComponent } from './vista-inicio/vista-inicio.component';
+import {InicioComponent} from './inicio/inicio.component';
 
 const routes: Routes = [{
   path: '',
@@ -10,7 +10,7 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      component: VistaInicioComponent,
+      component: InicioComponent,
     },
   ]
 }];
@@ -19,4 +19,4 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PrincipalRoutingModule { }
+export class RrhhRoutingModule { }

@@ -29,12 +29,27 @@ export class AuthGuard implements CanActivate {
   }*/
 
   canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    console.log('---->',this.oauthService.hasValidAccessToken());
+    console.log('---->',this.oauthService.hasValidAccessToken(),this.oauthService.hasValidIdToken());
     if (
       this.oauthService.hasValidAccessToken()
     ) {
       return true;
     } else {
+
+    /*  const promise = new Promise<boolean>( (resolve, reject) => {
+        return this.oauthService.loadDiscoveryDocumentAndTryLogin().then( (success: boolean) => {
+         if (!success) {
+           this.router.navigate(['/']);
+           resolve(false);
+         } else {
+           resolve(true);
+         }
+       });
+   
+       });
+   
+       return promise;*/
+
       this.router.navigate(['/']);
       return false;
     }

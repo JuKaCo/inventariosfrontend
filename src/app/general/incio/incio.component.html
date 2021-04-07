@@ -11,7 +11,8 @@
                 X X X
             </div>
             <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
-                Nombre Apellido Apellido2
+                {{datosUsuario?.name}}<br>
+                <small>{{datosUsuario?.cargo_usuario}}</small>
             </div>
             <p-menu #menu [popup]="true" [model]="itemsUsuario" appendTo="body"></p-menu>
         </div>
@@ -30,7 +31,8 @@
                 X X X
             </div>
             <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
-                Nombre Apellido Apellido2
+                {{datosUsuario?.name}}<br>
+                <small>{{datosUsuario?.cargo_usuario}}</small>
             </div>
             <p-menu #menu [popup]="true" [model]="itemsUsuario"></p-menu>
         </div>

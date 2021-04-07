@@ -15,19 +15,20 @@ export class IncioComponent implements OnInit {
   itemsMenu: MenuItem[] = [];
   itemsUsuario: MenuItem[] = [];
   itemsMenuDisplay: boolean = true;
+  datosUsuario: any;
   constructor(
-    private _oAuthService: OAuthService,
+    private oAuthService: OAuthService,
     private _router: Router,
     private messageService: MessageService,
     private generalService: GeneralService,
   ) {
-    this._oAuthService.configure(authCodeFlowConfig);
-    this._oAuthService.loadDiscoveryDocument();
-    this._oAuthService.setupAutomaticSilentRefresh();
+    this.oAuthService.configure(authCodeFlowConfig);
+    this.oAuthService.loadDiscoveryDocument();
+    this.oAuthService.setupAutomaticSilentRefresh();
   }
 
   ngOnInit(): void {
-
+    this.getDatosUsuario();
     this.itemsUsuario = [
       {
         label: 'Usuario',
@@ -43,10 +44,10 @@ export class IncioComponent implements OnInit {
     ];
 
 
-   
+
     this.generalService.getMenu().subscribe(response => {
       if (response.success) {
-        this.itemsMenu=response.data;
+        this.itemsMenu = response.data;
       } else {
       }
     },
@@ -64,8 +65,11 @@ export class IncioComponent implements OnInit {
   editUsuario() {
 
   }
+  getDatosUsuario() {
+    this.datosUsuario = this.oAuthService.getIdentityClaims();
+  }
   logOut() {
-    this._oAuthService.revokeTokenAndLogout();
+    this.oAuthService.revokeTokenAndLogout();
     localStorage.clear();
     this._router.navigate(['']);
   }

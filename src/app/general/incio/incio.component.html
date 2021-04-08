@@ -39,13 +39,14 @@
     </div>
 </div>
 
-<div class="p-grid p-button-success p-d-none p-d-md-inline-flex" style="padding-top: 54px;">
-</div>
+<div class="p-grid p-button-success p-d-none p-d-md-inline-flex" style="padding-top: 54px;"></div>
 <div class="p-grid">
     <div class="p-col-12 p-md-3 p-lg-3 p-m-0 p-p-0" *ngIf="itemsMenuDisplay" style="background: #f8f9fa;">
         <p-panelMenu [model]="itemsMenu" (click)="activeMenu($event)"></p-panelMenu>
     </div>
     <div  [className]="itemsMenuDisplay ? 'p-col-12 p-md-9 p-lg-9' : 'p-col-12 p-md-12 p-lg-12'" style="height: calc(100vh - 3.8em);">
+        
+        <app-breadcrumb-general #breadcrumbGeneral></app-breadcrumb-general>
         <router-outlet></router-outlet>
     </div>
 </div>

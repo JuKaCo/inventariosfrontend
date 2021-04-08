@@ -21,12 +21,15 @@ import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuModule } from 'primeng/menu';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 //componentes
 import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
 import { MesajeFormErrorComponent } from './general/mesaje-form-error/mesaje-form-error.component';
 import { LoaderComponent } from './general/loader/loader.component';
 import { environment } from 'src/environments/environment';
+import { BreadcrumbGeneralComponent } from './general/breadcrumb-general/breadcrumb-general.component';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { environment } from 'src/environments/environment';
     LoginComponent,
     MesajeFormErrorComponent,
     LoaderComponent,
+    BreadcrumbGeneralComponent,
   ],
   imports: [
     HttpClientModule,
@@ -58,6 +62,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     PanelMenuModule,
     MenuModule,
+    BreadcrumbModule
   ],
   providers: [LoaderService, MessageService],
   bootstrap: [AppComponent]

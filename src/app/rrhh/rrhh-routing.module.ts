@@ -9,7 +9,7 @@ const routes: Routes = [{
   },
   children: [
     {
-      path: '',
+      path: 'reporte-marcado',
       component: InicioComponent,
     },
   ]

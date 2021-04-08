@@ -12,6 +12,10 @@ body{
     z-index: 10000  !important;
 }
 
+.p-breadcrumb{
+    padding: .4rem  !important;
+}
+
 .progress-spinner {
     position: fixed;
     z-index: 10001;
@@ -25,3 +29,13 @@ body{
     bottom: 0;
     right: 0;
 }
+h1, h2, h3, h4, h5, h6 {
+    margin: 1.5rem 0 1rem !important;
+    font-family: inherit !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    color: inherit !important;
+}
+body {
+    color: #495057 !important;
+  }

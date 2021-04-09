@@ -1,6 +1,32 @@
-<h1> Float Label
-    <small style="font-size: .5em;">Reporte de marcado biometrico</small>
+<h1> Reporte de marcado
+    <small style="font-size: .5em;">Marcado biometrico</small>
 </h1>
 <p-card>
-
+    <form [formGroup]="repBioForm" (ngSubmit)="onSubmitReporteBiometrico()">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="biometrico" inputId="inputtext_reg" [suggestions]="filterBiometrico"
+                        (completeMethod)="getFilterBiometrico($event)" field="valor" [minLength]="1" [dropdown]="true">
+                        <ng-template let-biometrico pTemplate="item">
+                            <div>{{biometrico.cod_grupo}} <b>{{biometrico.codigo}}</b></div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inputtext_reg">Regional</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-calendar formControlName="fini" inputId="inputtext_fini" [showIcon]="true"></p-calendar>
+                    <label for="inputtext_fini">Fecha inicio</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-calendar formControlName="ffin" inputId="inputtext_ffin" [showIcon]="true"></p-calendar>
+                    <label for="inputtext_ffin">Fecha fin</label>
+                </span>
+            </div>
+        </div>
+    </form>
 </p-card>

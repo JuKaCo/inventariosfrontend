@@ -7,7 +7,13 @@ body{
 .text-danger{
     color: #ed4437;
 }
-
+.p-datepicker table td{
+    padding: 0.1rem !important;
+}
+.p-datepicker table td > span{
+    width: 2rem !important;
+    height: 2rem !important;
+}
 .p-blockui-document {
     z-index: 10000  !important;
 }

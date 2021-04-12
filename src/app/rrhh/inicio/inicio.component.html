@@ -2,30 +2,68 @@
     <small style="font-size: .5em;">Marcado biometrico</small>
 </h1>
 <p-card>
+
     <form [formGroup]="repBioForm" (ngSubmit)="onSubmitReporteBiometrico()">
         <div class="p-fluid p-grid">
+            <div class="p-col-12">
+                <h3>Datos biometrico</h3>
+            </div>
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
-                    <p-autoComplete formControlName="biometrico" inputId="inputtext_reg" [suggestions]="filterBiometrico"
-                        (completeMethod)="getFilterBiometrico($event)" field="valor" [minLength]="1" [dropdown]="true">
+                    <p-autoComplete formControlName="biometrico" inputId="inputtext_reg"
+                        [suggestions]="filterBiometrico" (completeMethod)="getFilterBiometrico($event)" field="valor"
+                        [minLength]="1" [dropdown]="true">
                         <ng-template let-biometrico pTemplate="item">
                             <div>{{biometrico.cod_grupo}} <b>{{biometrico.codigo}}</b></div>
                         </ng-template>
                     </p-autoComplete>
                     <label for="inputtext_reg">Regional</label>
                 </span>
+                <app-mesaje-form-error [control]="repBioForm.controls['fini']" [valid]="repBioFormValid">
+                </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
-                    <p-calendar formControlName="fini" inputId="inputtext_fini" [showIcon]="true"></p-calendar>
+                    <p-calendar formControlName="fini" dataType="string" inputId="inputtext_fini" [showIcon]="true"></p-calendar>
                     <label for="inputtext_fini">Fecha inicio</label>
                 </span>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
-                    <p-calendar formControlName="ffin" inputId="inputtext_ffin" [showIcon]="true"></p-calendar>
+                    <p-calendar formControlName="ffin" dataType="string" inputId="inputtext_ffin" [showIcon]="true"></p-calendar>
                     <label for="inputtext_ffin">Fecha fin</label>
                 </span>
+            </div>
+        </div>
+        <div class="p-fluid p-grid">
+            <div class="p-col-12">
+                <h3>Datos de marcado</h3>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-calendar formControlName="hini" dataType="string" inputId="inputtext_hini" [timeOnly]="true" [showIcon]="true">
+                    </p-calendar>
+                    <label for="inputtext_hini">Hora entrada</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-calendar formControlName="hfin" dataType="string" inputId="inputtext_hfin" [timeOnly]="true" [showIcon]="true">
+                    </p-calendar>
+                    <label for="inputtext_hfin">Hora salida</label>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-calendar formControlName="hto" dataType="string" inputId="inputtext_hto" [timeOnly]="true" [showIcon]="true">
+                    </p-calendar>
+                    <label for="inputtext_hto">Tolerancia</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-grid p-jc-end">
+            <div class="p-col-2">
+                <button pButton pRipple type="button" label="Generar reporte" class="p-button-raised p-button-success"></button>
             </div>
         </div>
     </form>

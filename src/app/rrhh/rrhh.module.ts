@@ -12,6 +12,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import { RrhhRoutingModule } from './rrhh-routing.module';
 import { InicioComponent } from './inicio/inicio.component';
+import { AppModule } from '../app.module';
 
 
 @NgModule({
@@ -26,7 +27,11 @@ import { InicioComponent } from './inicio/inicio.component';
     CalendarModule,
     AutoCompleteModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    //AppModule
+  ],
+  exports:[
+
   ]
 })
 export class RrhhModule { }

@@ -28,6 +28,17 @@ const routes: Routes = [
       },
     ]
   },
+  { 
+    path: 'liname', 
+    component: IncioComponent, 
+    canActivate: [AuthGuard],
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('./liname-module/liname-module.module').then(m => m.LinameModuleModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({

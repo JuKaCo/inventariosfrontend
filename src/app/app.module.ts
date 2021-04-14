@@ -18,17 +18,21 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'primeng/blockui';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuModule } from 'primeng/menu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+
 //componentes
 import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
-import { MesajeFormErrorComponent } from './general/mesaje-form-error/mesaje-form-error.component';
 import { LoaderComponent } from './general/loader/loader.component';
 import { environment } from 'src/environments/environment';
 import { BreadcrumbGeneralComponent } from './general/breadcrumb-general/breadcrumb-general.component';
+//import component
+import { GeneralModuleModule } from './general-module/general-module.module';
 
 
 @NgModule({
@@ -36,7 +40,6 @@ import { BreadcrumbGeneralComponent } from './general/breadcrumb-general/breadcr
     AppComponent,
     IncioComponent,
     LoginComponent,
-    MesajeFormErrorComponent,
     LoaderComponent,
     BreadcrumbGeneralComponent,
   ],
@@ -48,6 +51,7 @@ import { BreadcrumbGeneralComponent } from './general/breadcrumb-general/breadcr
         sendAccessToken: true
       }
     }),
+    GeneralModuleModule,
     BrowserModule,
     AppRoutingModule,
     InputTextModule,
@@ -62,9 +66,12 @@ import { BreadcrumbGeneralComponent } from './general/breadcrumb-general/breadcr
     ReactiveFormsModule,
     PanelMenuModule,
     MenuModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    ConfirmPopupModule
   ],
-  providers: [LoaderService, MessageService],
+  exports: [
+  ],
+  providers: [LoaderService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,7 +13,7 @@ export class GeneralService {
 
   getMenu(): Observable<any> {
     let url = environment.CEASSBACKEND;
-    return this.http.get(url + 'general/menu').pipe(
+    return this.http.get(url + 'api/v1/general/menu').pipe(
       catchError(this.handleError)
     );
   }

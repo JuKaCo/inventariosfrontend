@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ValidacionService } from '../services/validacion.service';
+import { ValidacionService } from 'src/app/general/services/validacion.service';
 @Component({
   selector: 'app-mesaje-form-error',
   templateUrl: './mesaje-form-error.component.html',

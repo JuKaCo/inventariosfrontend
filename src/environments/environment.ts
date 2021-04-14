@@ -1,9 +1,25 @@
 export const environment = {
   production: false,
-  OAUTH2OPENID: ['http://127.0.0.1/ceass-back-end/public/','http://localhost/ceass-back-end/public/','http://localhost/ceass-back-end/public'],
-  OAUTH2USER:'web',
+  OAUTH2OPENID: ['http://127.0.0.1/ceass-back-end/public/', 'http://localhost/ceass-back-end/public/', 'http://localhost/ceass-back-end/public'],
+  OAUTH2USER: 'web',
   OAUTH2SERVER: 'http://192.168.1.232:8080/auth/realms/web',
   OAUTH2CLIENTID: 'angular-web',
   OAUTH2SERVICE: "http://192.168.1.232:8080/auth/realms/web/protocol/openid-connect/token",
-  CEASSBACKEND: "http://localhost/ceass-back-end/public/"
+  CEASSBACKEND: "http://localhost/ceass-back-end/public/",
+  lang: {
+    "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    "dayNamesShort": ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+    "dayNamesMin": ["D", "L", "M", "X", "J", "V", "S"],
+    "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    "monthNamesShort": ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+    "today": "Hoy",
+    "clear": "Borrar",
+    "accept": "Si",
+    "reject": "No",
+    "choose": "Eligir",
+    "upload": "Subir",
+    "cancel": "Cancel",
+    "weekHeader": "Wk",
+    "apply": "Aplicar",
+  }
 };

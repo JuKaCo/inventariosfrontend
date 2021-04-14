@@ -2,8 +2,7 @@
     <small style="font-size: .5em;">Marcado biometrico</small>
 </h1>
 <p-card>
-
-    <form [formGroup]="repBioForm" (ngSubmit)="onSubmitReporteBiometrico()">
+    <form [formGroup]="repBioForm" >
         <div class="p-fluid p-grid">
             <div class="p-col-12">
                 <h3>Datos biometrico</h3>
@@ -17,22 +16,26 @@
                             <div>{{biometrico.cod_grupo}} <b>{{biometrico.codigo}}</b></div>
                         </ng-template>
                     </p-autoComplete>
-                    <label for="inputtext_reg">Regional</label>
+                    <label for="inputtext_reg">Regional <span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="repBioForm.controls['biometrico']" [valid]="repBioFormValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-calendar formControlName="fini" dateFormat="dd/mm/yy" [locale]="es" dataType="string" inputId="inputtext_fini" [showIcon]="true"></p-calendar>
+                    <label for="inputtext_fini">Fecha inicio  <span class="text-danger">*</span></label>
                 </span>
                 <app-mesaje-form-error [control]="repBioForm.controls['fini']" [valid]="repBioFormValid">
                 </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
-                    <p-calendar formControlName="fini" dataType="string" inputId="inputtext_fini" [showIcon]="true"></p-calendar>
-                    <label for="inputtext_fini">Fecha inicio</label>
+                    <p-calendar formControlName="ffin" dateFormat="dd/mm/yy" dataType="string" inputId="inputtext_ffin" [showIcon]="true"></p-calendar>
+                    <label for="inputtext_ffin">Fecha fin  <span class="text-danger">*</span></label>
                 </span>
-            </div>
-            <div class="p-field p-col-12 p-md-4">
-                <span class="p-float-label">
-                    <p-calendar formControlName="ffin" dataType="string" inputId="inputtext_ffin" [showIcon]="true"></p-calendar>
-                    <label for="inputtext_ffin">Fecha fin</label>
-                </span>
+                <app-mesaje-form-error [control]="repBioForm.controls['ffin']" [valid]="repBioFormValid">
+                </app-mesaje-form-error>
             </div>
         </div>
         <div class="p-fluid p-grid">
@@ -43,27 +46,33 @@
                 <span class="p-float-label">
                     <p-calendar formControlName="hini" dataType="string" inputId="inputtext_hini" [timeOnly]="true" [showIcon]="true">
                     </p-calendar>
-                    <label for="inputtext_hini">Hora entrada</label>
+                    <label for="inputtext_hini">Hora entrada  <span class="text-danger">*</span></label>
                 </span>
+                <app-mesaje-form-error [control]="repBioForm.controls['hini']" [valid]="repBioFormValid">
+                </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <p-calendar formControlName="hfin" dataType="string" inputId="inputtext_hfin" [timeOnly]="true" [showIcon]="true">
                     </p-calendar>
-                    <label for="inputtext_hfin">Hora salida</label>
+                    <label for="inputtext_hfin">Hora salida  <span class="text-danger">*</span></label>
                 </span>
+                <app-mesaje-form-error [control]="repBioForm.controls['hfin']" [valid]="repBioFormValid">
+                </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <p-calendar formControlName="hto" dataType="string" inputId="inputtext_hto" [timeOnly]="true" [showIcon]="true">
                     </p-calendar>
-                    <label for="inputtext_hto">Tolerancia</label>
+                    <label for="inputtext_hto">Tolerancia  <span class="text-danger">*</span></label>
                 </span>
+                <app-mesaje-form-error [control]="repBioForm.controls['hto']" [valid]="repBioFormValid">
+                </app-mesaje-form-error>
             </div>
         </div>
         <div class="p-grid p-jc-end">
             <div class="p-col-2">
-                <button pButton pRipple type="button" label="Generar reporte" class="p-button-raised p-button-success"></button>
+                <button pButton pRipple type="button" label="Generar reporte" class="p-button-raised p-button-success" (click)="onSubmitReporteBiometrico($event)"></button>
             </div>
         </div>
     </form>

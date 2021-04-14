@@ -12,8 +12,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import { RrhhRoutingModule } from './rrhh-routing.module';
 import { InicioComponent } from './inicio/inicio.component';
-import { AppModule } from '../app.module';
-
+import { GeneralModuleModule } from '../general-module/general-module.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +20,7 @@ import { AppModule } from '../app.module';
   ],
   imports: [
     CommonModule,
+    GeneralModuleModule,
     RrhhRoutingModule,
     CardModule,
     InputTextModule,
@@ -28,10 +28,7 @@ import { AppModule } from '../app.module';
     AutoCompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    //AppModule
   ],
-  exports:[
-
-  ]
+  exports:[]
 })
 export class RrhhModule { }

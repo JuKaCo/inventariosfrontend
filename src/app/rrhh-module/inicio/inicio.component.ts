@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RrhhService } from '../service/rrhh.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -12,33 +12,36 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class InicioComponent implements OnInit {
   repBioForm: FormGroup = new FormGroup({});
   repBioFormValid: boolean = false;
+  es: any;
 
   listaBiometrico: any = [];
   filterBiometrico: any = [];
   constructor(
     private rrhhService: RrhhService,
     private messageService: MessageService,
-    //private loaderService: LoaderService,
+    private loaderService: LoaderService,
     private formBuilder: FormBuilder,
-  ) { }
+    private confirmationService: ConfirmationService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.cargaBiome();
     this.initrepBioForm();
   }
   cargaBiome() {
-    //this.loaderService.show();
+    this.loaderService.show();
     this.rrhhService.getListaBiometrico().subscribe(response => {
       if (response.success) {
         this.listaBiometrico = response.data;
       } else {
         this.listaBiometrico = [];
       }
-      //this.loaderService.hide();
+      this.loaderService.hide();
     },
       error => {
-        console.log(error.error.message);
-        //this.loaderService.hide();
+        this.loaderService.hide();
         this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos correctos.' });
       });
   }
@@ -65,7 +68,35 @@ export class InicioComponent implements OnInit {
       hto: new FormControl({ value: '00:05', disabled: false }, [Validators.required]),
     })
   }
-  onSubmitReporteBiometrico(){
+  onSubmitReporteBiometrico(event: any) {
+    if (this.repBioForm.valid) {
+      this.confirmationService.confirm({
+        target: event.target,
+        message: 'Esta seguro de generar el reporte',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.messageService.add({ severity: 'success', summary: 'Confirmado', detail: 'Se empieza a generar el reporte' });
 
+          this.rrhhService.generarReporteGeneral(this.repBioForm.value).subscribe(response => {
+            this.messageService.add({ severity: 'success', summary: 'Reporte', detail: 'Se genero correctamente.' });
+            let blob: any = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = window.URL.createObjectURL(blob);
+            window.open(url);
+          },
+            error => {
+              console.log(error);
+              this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'No se pudo generar el reporte' });
+            });
+
+        },
+        reject: () => {
+          this.messageService.add({ severity: 'info', summary: 'Rechazada', detail: 'Has rechazado hacer la acción' });
+        }
+      });
+
+    } else {
+      this.repBioFormValid = true;
+      this.messageService.add({ severity: 'warn', summary: 'Generar reprote', detail: 'Datos incorrectos.' });
+    }
   }
 }

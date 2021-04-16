@@ -3,12 +3,22 @@ body{
     background: #efefef;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
 }
-
+/*estilo table icons*/
+.icon-table{
+   padding: 5px !important;
+}
+.icon-table i{
+    cursor: pointer !important;
+}
+.icon-table i:hover{
+    font-size: 1.1em;
+}
 .text-danger{
     color: #ed4437;
     font-weight: 700;
     font-size: .7em;
 }
+/*tamaño calendar*/
 .p-datepicker table td{
     padding: 0.1rem !important;
 }
@@ -23,7 +33,7 @@ body{
 .p-breadcrumb{
     padding: .4rem  !important;
 }
-
+/* loader*/
 .progress-spinner {
     position: fixed;
     z-index: 10001;
@@ -37,6 +47,7 @@ body{
     bottom: 0;
     right: 0;
 }
+/*vista estilo*/
 h1, h2, h3, h4, h5, h6 {
     margin: 1.5rem 0 1rem !important;
     font-family: inherit !important;
@@ -47,3 +58,89 @@ h1, h2, h3, h4, h5, h6 {
 body {
     color: #495057 !important;
   }
+  :host ::ng-deep .p-button {
+    margin-right: .5rem;
+}
+
+
+/* button responsive */
+:host ::ng-deep .p-buttonset {
+    .p-button {
+        margin-right: 0;
+    }
+}
+:host ::ng-deep .sizes {
+    .button {
+        margin-bottom: .5rem;
+        display: block;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .p-button {
+        margin-bottom: .5rem;
+
+        &:not(.p-button-icon-only) {
+            display: flex;
+            width: 100%;
+        }
+    }
+
+    .p-buttonset {
+        .p-button {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* tabla responsive*/
+.p-datatable-responsive-general  .p-datatable-tbody > tr > td .p-column-title {
+        display: none;
+}
+
+@media screen and (max-width: 40rem) {
+   .p-datatable {
+            &.p-datatable-responsive-general {
+                .p-datatable-thead > tr > th,
+                .p-datatable-tfoot > tr > td {
+                    display: none !important;
+                }
+
+                .p-datatable-tbody > tr > td {
+                    text-align: left;
+                    display: block;
+                    width: 100%;
+                    float: left;
+                    clear: left;
+                    border: 0 none;
+
+                    .p-column-title {
+                        padding: .4rem;
+                        min-width: 30%;
+                        display: inline-block;
+                        margin: -.4em 1em -.4em -.4rem;
+                        font-weight: bold;
+                    }
+
+                    &:last-child {
+                        border-bottom: 1px solid var(--surface-d);
+                    }
+                }
+            }
+    }
+}
+/* file upload*/
+.p-fluid .p-fileupload .p-button{
+    width: 100% !important;
+}
+/*button dialog*/
+@media screen and (max-width: 960px) {
+    .p-dialog .p-dialog-footer button {
+        width: 100% !important;
+    }
+}
+

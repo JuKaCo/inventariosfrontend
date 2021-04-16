@@ -1,1 +1,89 @@
-<h1>Listado de liname</h1>
+<div class="p-grid">
+    <h1>Listado de liname parametrica </h1>
+</div>
+<p-card>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-1" pTooltip="Regargar contenido de tabla" tooltipPosition="top">
+            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+        </div>
+        <div class="p-col-12 p-md-11 p-text-right">
+            <button pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
+                (click)="dialogAddLiname()"></button>
+        </div>
+    </div>
+    <p-table [value]="listaLiname" [lazy]="true" (onLazyLoad)="loadData($event)" [paginator]="true" [rows]="rows"
+        [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
+        styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[10,25,50]"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col>
+                <col>
+                <col>
+                <col style="width:7em">
+            </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Código</th>
+                <th>Fecha</th>
+                <th>Comentario</th>
+                <th>Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-liname>
+            <tr>
+                <td>
+                    <span class="p-column-title">Código</span>
+                    1
+                </td>
+                <td>
+                    <span class="p-column-title">Fecha</span>
+                    2
+                </td>
+                <td>
+                    <span class="p-column-title">Comentario</span>
+                    3
+                </td>
+                <td>
+                    <span class="p-column-title">accion</span>
+
+                    <span class="icon-table"><i class="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+                            placeholder="Top"></i></span>
+                    <span class="icon-table"><i class="pi pi-trash" pTooltip="Eliminar" tooltipPosition="top"
+                            placeholder="Top"></i></span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</p-card>
+
+
+<p-dialog header="Adicionar un nuevo documento LINAME" [(visible)]="displayFrmUpload" [modal]="true"
+    [style]="{width: '50vw'}" [contentStyle]="{'overflow':'visible'}">
+    <form [formGroup]="uploadForm">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="firstname1">Documentos a adjuntar</label>
+                <input id="firstname1" type="hidden" pInputText>
+                <p-fileUpload mode="basic" #fubauto chooseLabel="Seleccionar" (onClear)="updateUpload(null)"
+                    accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    (onSelect)="updateUpload('done');" ></p-fileUpload>
+                <app-mesaje-form-error [control]="uploadForm.controls['archivo']" [valid]="uploadFormValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field">
+                <label for="comen">Comentario</label>
+                <textarea formControlName="comentarios" [rows]="5" [cols]="30" pInputTextarea ></textarea>
+                <app-mesaje-form-error [control]="uploadForm.controls['comentarios']" [valid]="uploadFormValid">
+                </app-mesaje-form-error>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayFrmUpload=false;fubauto.clear();" icon="pi pi-times" label="Cerrar" styleClass="p-button-raised p-button-text"></p-button>
+        <p-button label="Guardar" icon="pi pi-check" ></p-button>
+    </ng-template>
+</p-dialog>

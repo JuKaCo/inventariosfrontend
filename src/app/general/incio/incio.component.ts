@@ -6,6 +6,7 @@ import { BreadcrumbGeneralComponent } from '../breadcrumb-general/breadcrumb-gen
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 import { Auth } from '../services/Auth.service';
 import { GeneralService } from '../services/general.service';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-incio',
@@ -18,12 +19,13 @@ export class IncioComponent implements OnInit {
   itemsMenuDisplay: boolean = true;
   datosUsuario: any;
   @ViewChild('breadcrumbGeneral') breadcrumbGeneral: BreadcrumbGeneralComponent | undefined;
-  
+
   constructor(
     private oAuthService: OAuthService,
     private _router: Router,
     private messageService: MessageService,
     private generalService: GeneralService,
+    private loaderService: LoaderService,
   ) {
     this.oAuthService.configure(authCodeFlowConfig);
     this.oAuthService.loadDiscoveryDocument();
@@ -31,6 +33,7 @@ export class IncioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.getDatosUsuario();
     this.itemsUsuario = [
       {
@@ -45,10 +48,11 @@ export class IncioComponent implements OnInit {
       }
 
     ];
-
     if (sessionStorage.getItem("menu_gen") === null) {
+      this.loaderService.show();
       this.generalService.getMenu().subscribe(response => {
         if (response.success) {
+          this.loaderService.hide();
           this.itemsMenu = response.data;
           sessionStorage.setItem("menu_gen", JSON.stringify(response.data))
           this.breadcrumbGeneral?.cargar();

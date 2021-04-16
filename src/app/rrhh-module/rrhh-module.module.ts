@@ -12,6 +12,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import { RrhhRoutingModule } from './rrhh-routing.module';
 import { InicioComponent } from './inicio/inicio.component';
+//importar componente general
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
 @NgModule({

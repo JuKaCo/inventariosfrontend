@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LazyLoadEvent } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload/fileupload';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
   selector: 'app-listado-liname',
@@ -35,7 +36,8 @@ export class ListadoLinameComponent implements OnInit {
   
 
   constructor( 
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private confirmationService: ConfirmationService
     ) { }
 
   ngOnInit(): void {
@@ -70,4 +72,18 @@ export class ListadoLinameComponent implements OnInit {
     this.uploadFormValid = false;
     this.fubauto.clear();
   }
+  confirmUpload(event:any){
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'Are you sure that you want to proceed?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          //confirm action
+      },
+      reject: () => {
+          //reject action
+      }
+    });
+  }
+  
 }

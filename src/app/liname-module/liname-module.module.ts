@@ -13,6 +13,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
 
 
 //importar componente general
@@ -40,7 +41,8 @@ import { ListadoLinameComponent } from './listado-liname/listado-liname.componen
     InputTextareaModule,
     DynamicDialogModule,
     FileUploadModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfirmPopupModule,
   ]
 })
 export class LinameModuleModule { }

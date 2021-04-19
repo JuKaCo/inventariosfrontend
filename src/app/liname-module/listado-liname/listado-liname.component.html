@@ -62,7 +62,7 @@
 
 
 <p-dialog header="Adicionar un nuevo documento LINAME" [(visible)]="displayFrmUpload" [modal]="true"
-    [style]="{width: '50vw'}" [contentStyle]="{'overflow':'visible'}">
+    [style]="{width: '70vw'}" [contentStyle]="{'overflow':'visible'}" >
     <form [formGroup]="uploadForm">
         <div class="p-fluid">
             <div class="p-field">
@@ -84,6 +84,6 @@
     </form>
     <ng-template pTemplate="footer">
         <p-button (click)="displayFrmUpload=false;fubauto.clear();" icon="pi pi-times" label="Cerrar" styleClass="p-button-raised p-button-text"></p-button>
-        <p-button label="Guardar" icon="pi pi-check" ></p-button>
+        <p-button (click)="confirmUpload($event)" label="Guardar" icon="pi pi-check" ></p-button>
     </ng-template>
 </p-dialog>

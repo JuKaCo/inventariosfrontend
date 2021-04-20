@@ -35,7 +35,7 @@ export class LinameService {
 
   getListaLiname(data:any): Observable<any> {
     let url = environment.CEASSBACKEND;
-    return this.http.get(url + 'api/v1/liname/listar').pipe(
+    return this.http.get(url + 'api/v1/liname/listar?indice='+data.indice+'&limite='+data.limite+'&filtro='+data.filtro).pipe(
       catchError(this.handleError)
     );
   }

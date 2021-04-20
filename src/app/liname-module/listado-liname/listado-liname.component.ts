@@ -44,10 +44,16 @@ export class ListadoLinameComponent implements OnInit {
     this.initFormValidUpload();
   }
 
-  loadData(event: LazyLoadEvent) {
+  loadData(event: any) {
+    let indice=event.first;
+    let limite=event.rows;
+    let filtro="";
+    if(event.globalFilter?.value!=undefined){
+      filtro=event.globalFilter.value;
+    }
     this.loading = true;
     this.listaLiname = [];
-    let dataTable = { 'inicio': event.first, 'cantidad': event.rows, 'filtro': event.globalFilter };
+    let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
     this.linameService.getListaLiname(dataTable).subscribe(response => {
       if (response.success) {
         this.listaLiname = response.data;
@@ -58,8 +64,12 @@ export class ListadoLinameComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
       });
   }
-  reset() {
-    this.first = 0;
+  
+  clearTable(dt: any) {
+    dt.clear();
+  }
+  resetTable() {
+    this.dt.reset();
   }
   dialogAddLiname() {
     this.displayFrmUpload = true;

@@ -4,7 +4,7 @@
 <p-card>
     <div class="p-grid">
         <div class="p-col-12 p-md-1" pTooltip="Regargar contenido de tabla" tooltipPosition="top">
-            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+           <!-- <p-button type="button" icon="pi pi-refresh" (click)="resetTable()" styleClass="p-button-text"></p-button>-->
         </div>
         <div class="p-col-12 p-md-11 p-text-right">
             <button pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
@@ -16,21 +16,23 @@
         styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[10,25,50]"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
         [showCurrentPageReport]="true">
-        <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col style="width:7em">
-            </colgroup>
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <!--<button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clearTable(dt)"></button>-->
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')" placeholder="Buscar...." />
+                </span>
+            </div>
         </ng-template>
+
         <ng-template pTemplate="header">
             <tr>
                 <th>Código</th>
                 <th>Fecha</th>
+                <th>Estado</th>
                 <th>Comentario</th>
-                <th>Acción</th>
+                <th style="width:7em">Acción</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-liname>
@@ -44,8 +46,12 @@
                     2
                 </td>
                 <td>
-                    <span class="p-column-title">Comentario</span>
+                    <span class="p-column-title">Estado</span>
                     3
+                </td>
+                <td>
+                    <span class="p-column-title">Comentario</span>
+                    4
                 </td>
                 <td>
                     <span class="p-column-title">accion</span>

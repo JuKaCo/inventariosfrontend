@@ -4,7 +4,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload/fileupload';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { LinameService } from '../service/liname.service';
-
+import { Table } from 'primeng/table/table';
 
 @Component({
   selector: 'app-listado-liname',
@@ -15,7 +15,6 @@ export class ListadoLinameComponent implements OnInit {
   displayFrmUpload: boolean = false;
   uploadForm!: FormGroup;
   uploadFormValid: boolean = false;
-  @ViewChild('fubauto') fubauto!: FileUpload;
   autoResize = true;
   datosValidosExcel: any = null;
 
@@ -28,18 +27,11 @@ export class ListadoLinameComponent implements OnInit {
   rows: number = 10;
   first: number = 0;
 
-  listaLiname: any = [{
-    uno: "uno",
-    uno1: "uno",
-    uno2: "uno",
-  },
-  {
-    uno: "uno",
-    uno1: "uno",
-    uno2: "uno",
-  }];
+  listaLiname: any = [];
 
 
+  @ViewChild('dt') dt!: Table;
+  @ViewChild('fubauto') fubauto!: FileUpload;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,8 +46,17 @@ export class ListadoLinameComponent implements OnInit {
 
   loadData(event: LazyLoadEvent) {
     this.loading = true;
-
-    this.loading = false;
+    this.listaLiname = [];
+    let dataTable = { 'inicio': event.first, 'cantidad': event.rows, 'filtro': event.globalFilter };
+    this.linameService.getListaLiname(dataTable).subscribe(response => {
+      if (response.success) {
+        this.listaLiname = response.data;
+        this.loading = false;
+      }
+    },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+      });
   }
   reset() {
     this.first = 0;
@@ -130,6 +131,7 @@ export class ListadoLinameComponent implements OnInit {
       this.linameService.uploadLinameConsolida(file, this.uploadForm.value['comentarios']).subscribe(response => {
         if (response.success) {
           this.messageService.add({ severity: 'success', summary: 'Archivo liname consolidar', detail: 'Se consolido el archivo.' });
+          this.dt.reset();
         } else {
           this.messageService.add({ severity: 'warn', summary: 'Archivo liname consolidar', detail: response.message });
         }

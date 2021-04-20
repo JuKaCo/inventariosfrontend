@@ -14,7 +14,7 @@ export class LinameService {
   ) { }
 
   uploadLinameValid(dato: File, cometarios: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/liname/cargar/valid/upload';
+    let url = environment.CEASSBACKEND + 'api/v1/liname/cargar/validar';
     const formData = new FormData();
     formData.append('uploadFile', dato, dato.name);
     formData.append('descripcion', cometarios);
@@ -22,13 +22,20 @@ export class LinameService {
       catchError(this.handleError)
     );
   }
-  
+
   uploadLinameConsolida(dato: File, cometarios: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/liname/carga/consolida';
+    let url = environment.CEASSBACKEND + 'api/v1/liname/cargar/consolidar';
     const formData = new FormData();
     formData.append('uploadFile', dato, dato.name);
     formData.append('descripcion', cometarios);
     return this.http.post(url, formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getListaLiname(data:any): Observable<any> {
+    let url = environment.CEASSBACKEND;
+    return this.http.get(url + 'api/v1/liname/listar').pipe(
       catchError(this.handleError)
     );
   }

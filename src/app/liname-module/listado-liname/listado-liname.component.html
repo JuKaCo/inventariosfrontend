@@ -11,13 +11,14 @@
                 (click)="dialogAddLiname()"></button>
         </div>
     </div>
-    <p-table [value]="listaLiname" [lazy]="true" (onLazyLoad)="loadData($event)" [paginator]="true" [rows]="rows"
+    <p-table #dt [value]="listaLiname" [lazy]="true" (onLazyLoad)="loadData($event)" [paginator]="true" [rows]="rows"
         [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
         styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[10,25,50]"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
         [showCurrentPageReport]="true">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
+                <col>
                 <col>
                 <col>
                 <col>

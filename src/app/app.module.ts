@@ -67,7 +67,7 @@ import { GeneralModuleModule } from './general-module/general-module.module';
     PanelMenuModule,
     MenuModule,
     BreadcrumbModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
   ],
   exports: [
   ],

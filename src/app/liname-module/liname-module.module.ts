@@ -14,6 +14,7 @@ import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
 
 
 //importar componente general
@@ -43,6 +44,7 @@ import { ListadoLinameComponent } from './listado-liname/listado-liname.componen
     FileUploadModule,
     HttpClientModule,
     ConfirmPopupModule,
+    ScrollPanelModule,
   ]
 })
 export class LinameModuleModule { }

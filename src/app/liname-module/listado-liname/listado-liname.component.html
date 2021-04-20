@@ -60,9 +60,9 @@
 
 </p-card>
 
-
+<!-- file upload-->
 <p-dialog header="Adicionar un nuevo documento LINAME" [(visible)]="displayFrmUpload" [modal]="true"
-    [style]="{width: '70vw'}" [contentStyle]="{'overflow':'visible'}" >
+    [style]="{width: '70vw'}" [contentStyle]="{'overflow':'visible'}">
     <form [formGroup]="uploadForm">
         <div class="p-fluid">
             <div class="p-field">
@@ -70,20 +70,113 @@
                 <input id="firstname1" type="hidden" pInputText>
                 <p-fileUpload mode="basic" #fubauto chooseLabel="Seleccionar" (onClear)="updateUpload(null)"
                     accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                    (onSelect)="updateUpload('done');" ></p-fileUpload>
+                    (onSelect)="updateUpload('done');"></p-fileUpload>
                 <app-mesaje-form-error [control]="uploadForm.controls['archivo']" [valid]="uploadFormValid">
                 </app-mesaje-form-error>
             </div>
+            <div class="p-field" *ngIf="uploadForm.value['archivo']!=null">
+                <button pButton pRipple icon="pi pi-trash" type="button" label="Quitar Archivo"
+                    class="p-button-raised p-button-danger" (click)="fubauto.clear()"></button>
+            </div>
             <div class="p-field">
                 <label for="comen">Comentario</label>
-                <textarea formControlName="comentarios" [rows]="5" [cols]="30" pInputTextarea ></textarea>
+                <textarea formControlName="comentarios" [rows]="5" [cols]="30" pInputTextarea></textarea>
                 <app-mesaje-form-error [control]="uploadForm.controls['comentarios']" [valid]="uploadFormValid">
                 </app-mesaje-form-error>
             </div>
         </div>
     </form>
     <ng-template pTemplate="footer">
-        <p-button (click)="displayFrmUpload=false;fubauto.clear();" icon="pi pi-times" label="Cerrar" styleClass="p-button-raised p-button-text"></p-button>
-        <p-button (click)="confirmUpload($event)" label="Guardar" icon="pi pi-check" ></p-button>
+        <p-button (click)="displayFrmUpload=false;fubauto.clear();" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmUpload($event)" label="Verificar" icon="pi pi-check"></p-button>
+    </ng-template>
+</p-dialog>
+
+
+<!-- error display-->
+<p-dialog [contentStyle]="{'overflow':'visible'}" header="Errores del documento subido" [(visible)]="uploadConfirmModal"
+    [position]="'top'" [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false"
+    [resizable]="false">
+    <div *ngIf="datosValidosExcel!=null">
+        <p>Tiene datos invalidos en el archivo favor corriga los los datos y vuelva a subir el documento</p>
+        <p><strong>Datos validos :</strong>{{datosValidosExcel?.valid}}</p>
+        <p><strong>Datos invalidos: </strong>{{datosValidosExcel?.invalid}}</p>
+        <h3>Lista de registros no validos</h3>
+        <p-scrollPanel [style]="{width: '100%', height: '200px'}">
+            <div style="padding:1em;line-height:1.5">
+                <p-table [value]="datosValidosExcel?.obs" [paginator]="true" [rows]="10">
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col style="width:3em">
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>#</th>
+                            <th>Código</th>
+                            <th>Medicamento</th>
+                            <th>Forma Farmacéutica</th>
+                            <th>Concentración</th>
+                            <th>Classific. A.T.Q.</th>
+                            <th>Precio Referencial</th>
+                            <th>Aclaración de <br> Particularidades</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-obs>
+                        <tr>
+                            <td>{{obs.fila}}</td>
+                            <td>
+                                {{obs.A}}
+                            </td>
+                            <td>
+                                {{obs.E}}
+                            </td>
+                            <td>
+                                {{obs.F}}
+                            </td>
+                            <td>
+                                {{obs.G}}
+                            </td>
+                            <td>
+                                {{obs.H}}
+                            </td>
+                            <td>
+                                {{obs.I}}
+                            </td>
+                            <td>
+                                {{obs.J}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-scrollPanel>
+    </div>
+    <div *ngIf="datosValidosExcel==null">
+        <h3>No se pudo verificar el archivo.</h3>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-times" (click)="uploadConfirmModal=false;resetFormValidUpload()"
+            label="Cerrar" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+<!--modal acept-->
+<p-dialog header="Confirmar" [(visible)]="displayModalCargarDatos" [modal]="true" [style]="{width: '50vw'}"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p class="p-m-0"> 
+        <i class="pi pi-exclamation-triangle" style="font-size: 1.5em;"></i> ¿Esta seguro de consolidar el documento liname?.
+    </p>
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayModalCargarDatos=false;" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmConsolidar($event)" label="Consolidar" icon="pi pi-cloud-upload"></p-button>
     </ng-template>
 </p-dialog>

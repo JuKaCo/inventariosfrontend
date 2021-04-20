@@ -139,7 +139,7 @@ body {
 }
 /*button dialog*/
 @media screen and (max-width: 960px) {
-    .p-dialog .p-dialog-footer button {
+    .p-dialog .p-dialog-footer button, .p-confirm-popup .p-confirm-popup-footer button {
         width: 100% !important;
     }
 }

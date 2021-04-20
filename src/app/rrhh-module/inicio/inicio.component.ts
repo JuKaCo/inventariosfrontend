@@ -42,7 +42,7 @@ export class InicioComponent implements OnInit {
     },
       error => {
         this.loaderService.hide();
-        this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos correctos.' });
+        this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
       });
   }
 

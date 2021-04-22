@@ -79,9 +79,9 @@ export class BreadcrumbGeneralComponent implements OnInit {
         this.items.push({ label: menuSelected.nivel2.label });
       }
       if (menuSelected.nivel2 != "") {
-        sessionStorage.setItem("menu_gen_active", JSON.stringify(menuSelected.nivel2.permisos))
+        sessionStorage.setItem("menu_gen_active", JSON.stringify(menuSelected.nivel2))
       } else {
-        sessionStorage.setItem("menu_gen_active", JSON.stringify(menuSelected.nivel1.permisos))
+        sessionStorage.setItem("menu_gen_active", JSON.stringify(menuSelected.nivel1))
       }
       if (menuSelected.nivel1 == "")
         sessionStorage.removeItem("menu_gen_active");

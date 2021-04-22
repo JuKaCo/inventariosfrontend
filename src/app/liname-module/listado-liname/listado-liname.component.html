@@ -1,5 +1,5 @@
 <div class="p-grid">
-    <h1>Listado de liname parametrica </h1>
+    <h1>{{titulo}}</h1>
 </div>
 <p-messages severity="info">
     <ng-template pTemplate>
@@ -71,10 +71,10 @@
                 </td>
                 <td>
                     <span class="p-column-title">Accion</span>
-                    <span class="icon-table"><i (click)="activarInactivar($event,liname.activo,liname.codigo,liname.id)" class="pi pi-check-circle" pTooltip="Acivar/Inactivar" tooltipPosition="top"
-                        placeholder="Top"></i></span>
-                    <span class="icon-table"><i (click)="descargarLiname(liname.id)" class="pi pi-download" pTooltip="Descargar archivo que se consolido" tooltipPosition="top"
-                            placeholder="Top"></i></span>
+
+                    <span [controlAcceso]="'editar'" class="icon-table"><i (click)="activarInactivar($event,liname.activo,liname.codigo,liname.id)" class="pi pi-check-circle" pTooltip="Acivar/Inactivar" tooltipPosition="top" placeholder="Top"></i></span>
+
+                    <span [controlAcceso]="'descargar'" class="icon-table"><i (click)="descargarLiname(liname.id)" class="pi pi-download" pTooltip="Descargar archivo que se consolido" tooltipPosition="top"  placeholder="Top"></i></span>
                         
 
                 </td>

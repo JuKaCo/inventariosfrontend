@@ -14,6 +14,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./listado-liname.component.scss']
 })
 export class ListadoLinameComponent implements OnInit {
+  titulo:string="";
+
   displayFrmUpload: boolean = false;
   uploadForm!: FormGroup;
   uploadFormValid: boolean = false;
@@ -40,9 +42,16 @@ export class ListadoLinameComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private linameService: LinameService
-  ) { }
+  ) {
+    let menu_gen_active:any = sessionStorage.getItem('menu_gen_active');
+    if (menu_gen_active != null) {
+      menu_gen_active = JSON.parse(menu_gen_active + '');
+      this.titulo= menu_gen_active.descripcion;
+    }
+   }
 
   ngOnInit(): void {
+  
     this.initFormValidUpload();
   }
 

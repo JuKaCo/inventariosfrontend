@@ -15,6 +15,9 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
+import { TagModule } from 'primeng/tag';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 
 //importar componente general
@@ -45,6 +48,9 @@ import { ListadoLinameComponent } from './listado-liname/listado-liname.componen
     HttpClientModule,
     ConfirmPopupModule,
     ScrollPanelModule,
+    TagModule,
+    MessagesModule,
+    MessageModule
   ]
 })
 export class LinameModuleModule { }

@@ -5,6 +5,8 @@ import { FileUpload } from 'primeng/fileupload/fileupload';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { LinameService } from '../service/liname.service';
 import { Table } from 'primeng/table/table';
+import { of, concat } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listado-liname',
@@ -45,18 +47,19 @@ export class ListadoLinameComponent implements OnInit {
   }
 
   loadData(event: any) {
-    let indice=event.first;
-    let limite=event.rows;
-    let filtro="";
-    if(event.globalFilter?.value!=undefined){
-      filtro=event.globalFilter.value;
+    let indice = event.first;
+    let limite = event.rows;
+    let filtro = "";
+    if (event.globalFilter?.value != undefined) {
+      filtro = event.globalFilter.value;
     }
     this.loading = true;
     this.listaLiname = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
     this.linameService.getListaLiname(dataTable).subscribe(response => {
       if (response.success) {
-        this.listaLiname = response.data;
+        this.listaLiname = response.data.resultados;
+        this.totalRecords = response.data.total;
         this.loading = false;
       }
     },
@@ -64,7 +67,7 @@ export class ListadoLinameComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
       });
   }
-  
+
   clearTable(dt: any) {
     dt.clear();
   }
@@ -152,4 +155,32 @@ export class ListadoLinameComponent implements OnInit {
         });
     }
   }
+  activarInactivar(event: any, tipo: string, codigo: string) {
+    //p-confirm-popup-message ng-tns-c69-1
+    this.confirmationService.close();
+    let texto = "";
+    if (tipo == 'activo') {
+      texto = "¿Esta seguro de inactivar el registro con el codigo :" + codigo + '?.';
+    } else {
+      texto = "¿Esta seguro de activar el registro con el codigo :" + codigo + '?.';
+    }
+    setTimeout(() => {
+      this.confirmationService.confirm({
+        target: event.target,
+        message: texto,
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          //confirm action
+        },
+        reject: () => {
+          //reject action
+        }
+      })
+    }, 250);
+
+  }
+  descargarLiname(id:string){
+    console.log(id);
+  }
+
 }

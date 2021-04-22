@@ -155,7 +155,7 @@ export class ListadoLinameComponent implements OnInit {
         });
     }
   }
-  activarInactivar(event: any, tipo: string, codigo: string) {
+  activarInactivar(event: any, tipo: string, codigo: string, id:string) {
     //p-confirm-popup-message ng-tns-c69-1
     this.confirmationService.close();
     let texto = "";
@@ -171,6 +171,19 @@ export class ListadoLinameComponent implements OnInit {
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           //confirm action
+          let data={activo:tipo,uuid:id}
+          this.linameService.setActivaInactiva(data).subscribe(response => {
+            if (response.success) {
+              this.messageService.add({ severity: 'success', summary: 'Archivo liname consolidar', detail: 'Se consolido el archivo.' });
+              this.dt.reset();
+            } else {
+              this.messageService.add({ severity: 'warn', summary: 'Archivo liname consolidar', detail: response.message });
+            }
+          },
+            error => {
+              this.messageService.add({ severity: 'error', summary: 'Archivo liname consolidar', detail: 'Error al consumir el servicio.' });
+              this.datosValidosExcel = null;
+            });
         },
         reject: () => {
           //reject action
@@ -180,7 +193,18 @@ export class ListadoLinameComponent implements OnInit {
 
   }
   descargarLiname(id:string){
-    console.log(id);
+    this.linameService.descargaLiname(id).subscribe(response => {
+      this.messageService.add({ severity: 'info', summary: 'Archivo liname', detail: 'Se incia la descarga de documentos.' });
+      let blob: any = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+      this.messageService.add({ severity: 'success', summary: 'Archivo liname', detail: 'Se terina la descarga de documentos.' });
+    },
+      error => {
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Archivo liname', detail: error.message  });
+        console.log(error.status);
+      });
   }
 
 }

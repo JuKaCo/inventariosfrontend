@@ -33,9 +33,25 @@ export class LinameService {
     );
   }
 
-  getListaLiname(data:any): Observable<any> {
-    let url = environment.CEASSBACKEND;
-    return this.http.get(url + 'api/v1/liname/listar?indice='+data.indice+'&limite='+data.limite+'&filtro='+data.filtro).pipe(
+  getListaLiname(data: any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/liname/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
+    return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  setActivaInactiva(data: any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/liname/cambia_estado/' + data.activo + '/' + data.uuid;
+    return this.http.put(url, null).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  descargaLiname(uuid: any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/liname/descargar/' + uuid;
+    return this.http.get(url, {
+      responseType: 'arraybuffer'
+    }).pipe(
       catchError(this.handleError)
     );
   }

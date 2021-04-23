@@ -58,7 +58,7 @@ export class AdministraService {
   }
   //LINADIME
   uploadLinadimeValid(dato: File, cometarios: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/liname/cargar/validar';
+    let url = environment.CEASSBACKEND + 'api/v1/linadime/cargar/validar';
     const formData = new FormData();
     formData.append('uploadFile', dato, dato.name);
     formData.append('descripcion', cometarios);
@@ -68,7 +68,7 @@ export class AdministraService {
   }
 
   uploadLinadimeConsolida(dato: File, cometarios: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/liname/cargar/consolidar';
+    let url = environment.CEASSBACKEND + 'api/v1/linadime/cargar/consolidar';
     const formData = new FormData();
     formData.append('uploadFile', dato, dato.name);
     formData.append('descripcion', cometarios);
@@ -78,21 +78,21 @@ export class AdministraService {
   }
 
   getListaLinadime(data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/liname/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
+    let url = environment.CEASSBACKEND + 'api/v1/linadime/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
   }
 
   setActivaInactivaLinadime(data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/liname/cambia_estado/' + data.activo + '/' + data.uuid;
+    let url = environment.CEASSBACKEND + 'api/v1/linadime/cambia_estado/' + data.activo + '/' + data.uuid;
     return this.http.put(url, null).pipe(
       catchError(this.handleError)
     );
   }
 
   descargaLinadime(uuid: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/liname/descargar/' + uuid;
+    let url = environment.CEASSBACKEND + 'api/v1/linadime/descargar/' + uuid;
     return this.http.get(url, {
       responseType: 'arraybuffer'
     }).pipe(

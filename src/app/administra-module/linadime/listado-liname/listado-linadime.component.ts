@@ -5,11 +5,11 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { AdministraService } from '../../service/administra.service';
 import { Table } from 'primeng/table/table';
 @Component({
-  selector: 'app-listado-liname',
-  templateUrl: './listado-liname.component.html',
-  styleUrls: ['./listado-liname.component.scss']
+  selector: 'app-listado-linadime',
+  templateUrl: './listado-linadime.component.html',
+  styleUrls: ['./listado-linadime.component.scss']
 })
-export class ListadoLinameComponent implements OnInit {
+export class ListadoLinadimeComponent implements OnInit {
   titulo:string="";
 
   displayFrmUpload: boolean = false;

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListadoLinameComponent } from './listado-liname.component';
+import { ListadoLinadimeComponent } from './listado-linadime.component';
 
 describe('ListadoLinameComponent', () => {
-  let component: ListadoLinameComponent;
-  let fixture: ComponentFixture<ListadoLinameComponent>;
+  let component: ListadoLinadimeComponent;
+  let fixture: ComponentFixture<ListadoLinadimeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListadoLinameComponent ]
+      declarations: [ ListadoLinadimeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListadoLinameComponent);
+    fixture = TestBed.createComponent(ListadoLinadimeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

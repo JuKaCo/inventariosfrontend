@@ -26,10 +26,14 @@ import { GeneralModuleModule } from '../general-module/general-module.module';
 
 import { AdministraModuleRoutingModule } from './administra-module-routing.module';
 import { ListadoLinameComponent } from './liname/listado-liname/listado-liname.component';
+import { ListadoLinadimeComponent } from './linadime/listado-liname/listado-linadime.component';
 
 
 @NgModule({
-  declarations: [ListadoLinameComponent],
+  declarations: [
+    ListadoLinameComponent,
+    ListadoLinadimeComponent
+  ],
   imports: [
     CommonModule,
     GeneralModuleModule,

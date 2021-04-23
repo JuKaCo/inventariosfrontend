@@ -24,8 +24,8 @@ import {MessageModule} from 'primeng/message';
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
 
-import { LinameModuleRoutingModule } from './liname-module-routing.module';
-import { ListadoLinameComponent } from './listado-liname/listado-liname.component';
+import { AdministraModuleRoutingModule } from './administra-module-routing.module';
+import { ListadoLinameComponent } from './liname/listado-liname/listado-liname.component';
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import { ListadoLinameComponent } from './listado-liname/listado-liname.componen
     GeneralModuleModule,
     FormsModule,
     ReactiveFormsModule,
-    LinameModuleRoutingModule,
+    AdministraModuleRoutingModule,
     CardModule,
     TableModule,
     ButtonModule,
@@ -53,4 +53,4 @@ import { ListadoLinameComponent } from './listado-liname/listado-liname.componen
     MessageModule
   ]
 })
-export class LinameModuleModule { }
+export class AdministraModuleModule { }

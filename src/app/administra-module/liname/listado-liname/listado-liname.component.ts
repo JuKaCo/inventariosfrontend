@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { LazyLoadEvent } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload/fileupload';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { LinameService } from '../service/liname.service';
+import { LinameService } from '../../service/liname.service';
 import { Table } from 'primeng/table/table';
 import { of, concat } from 'rxjs';
 import { map } from 'rxjs/operators';

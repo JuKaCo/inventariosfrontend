@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListadoLinameComponent } from './listado-liname/listado-liname.component';
+import { ListadoLinameComponent } from './liname/listado-liname/listado-liname.component';
 
 const routes: Routes =  [{
   path: '',
@@ -9,7 +9,7 @@ const routes: Routes =  [{
   },
   children: [
     {
-      path: 'listado',
+      path: 'liname',
       component: ListadoLinameComponent,
     },
   ]
@@ -18,4 +18,4 @@ const routes: Routes =  [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LinameModuleRoutingModule { }
+export class AdministraModuleRoutingModule { }

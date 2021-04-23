@@ -156,3 +156,8 @@ body {
 .p-confirm-popup .p-confirm-popup-message{
     max-width: 400px !important;
 }*/
+//menu text 
+.p-panelmenu .p-menuitem-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

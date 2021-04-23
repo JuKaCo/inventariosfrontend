@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LazyLoadEvent } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload/fileupload';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { LinameService } from '../../service/liname.service';
+import { AdministraService } from '../../service/administra.service';
 import { Table } from 'primeng/table/table';
-import { of, concat } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-listado-liname',
@@ -41,7 +39,7 @@ export class ListadoLinameComponent implements OnInit {
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private linameService: LinameService
+    private AdministraService: AdministraService
   ) {
     let menu_gen_active:any = sessionStorage.getItem('menu_gen_active');
     if (menu_gen_active != null) {
@@ -65,7 +63,7 @@ export class ListadoLinameComponent implements OnInit {
     this.loading = true;
     this.listaLiname = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.linameService.getListaLiname(dataTable).subscribe(response => {
+    this.AdministraService.getListaLiname(dataTable).subscribe(response => {
       if (response.success) {
         this.listaLiname = response.data.resultados;
         this.totalRecords = response.data.total;
@@ -113,7 +111,7 @@ export class ListadoLinameComponent implements OnInit {
           //confirm action
           let files = this.fubauto.files;
           for (let file of files) {
-            this.linameService.uploadLinameValid(file, this.uploadForm.value['comentarios']).subscribe(response => {
+            this.AdministraService.uploadLinameValid(file, this.uploadForm.value['comentarios']).subscribe(response => {
               if (response.success) {
                 if (response.data.invalid == 0) {
                   this.messageService.add({ severity: 'success', summary: 'Archivo liname', detail: 'Se verifico correctamente.' });
@@ -150,7 +148,7 @@ export class ListadoLinameComponent implements OnInit {
     this.displayModalCargarDatos = false;
     let files = this.fubauto.files;
     for (let file of files) {
-      this.linameService.uploadLinameConsolida(file, this.uploadForm.value['comentarios']).subscribe(response => {
+      this.AdministraService.uploadLinameConsolida(file, this.uploadForm.value['comentarios']).subscribe(response => {
         if (response.success) {
           this.messageService.add({ severity: 'success', summary: 'Archivo liname consolidar', detail: 'Se consolido el archivo.' });
           this.dt.reset();
@@ -181,7 +179,7 @@ export class ListadoLinameComponent implements OnInit {
         accept: () => {
           //confirm action
           let data={activo:tipo,uuid:id}
-          this.linameService.setActivaInactiva(data).subscribe(response => {
+          this.AdministraService.setActivaInactivaLinadime(data).subscribe(response => {
             if (response.success) {
               this.messageService.add({ severity: 'success', summary: 'Archivo liname consolidar', detail: 'Se consolido el archivo.' });
               this.dt.reset();
@@ -202,7 +200,7 @@ export class ListadoLinameComponent implements OnInit {
 
   }
   descargarLiname(id:string){
-    this.linameService.descargaLiname(id).subscribe(response => {
+    this.AdministraService.descargaLiname(id).subscribe(response => {
       this.messageService.add({ severity: 'info', summary: 'Archivo liname', detail: 'Se incia la descarga de documentos.' });
       let blob: any = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const url = window.URL.createObjectURL(blob);

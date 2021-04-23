@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListadoLinadimeComponent } from './listado-linadime.component';
 
-describe('ListadoLinameComponent', () => {
+describe('ListadoLinadimeComponent', () => {
   let component: ListadoLinadimeComponent;
   let fixture: ComponentFixture<ListadoLinadimeComponent>;
 

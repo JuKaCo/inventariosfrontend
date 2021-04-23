@@ -4,13 +4,13 @@
 <p-messages severity="info">
     <ng-template pTemplate>
         <i class="pi pi-info-circle"></i>
-        <div class="p-ml-2">Solo puede tener un LINAME activa, si inactiva todas los registros LINAME podria afectar a otros modulos la cual requiera de estos datos.</div>
+        <div class="p-ml-2">Solo puede tener un LINADIME activa, si inactiva todas los registros LINADIME podria afectar a otros modulos la cual requiera de estos datos.</div>
     </ng-template>
 </p-messages>
 <p-messages severity="info">
     <ng-template pTemplate>
         <i class="pi pi-info-circle"></i>
-        <div class="p-ml-2">Cuando active una LINAME todas las demas se inhabilitaran.</div>
+        <div class="p-ml-2">Cuando active una LINADIME todas las demas se inhabilitaran.</div>
     </ng-template>
 </p-messages>
 
@@ -23,10 +23,10 @@
         </div>-->
         <div [controlAcceso]="'crear'" class="p-col-12 p-md-12 p-text-right">
             <button  pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
-                (click)="dialogAddLiname()"></button>
+                (click)="dialogAddLinadime()"></button>
         </div>
     </div>
-    <p-table #dt [value]="listaLiname" [lazy]="true" (onLazyLoad)="loadData($event)" [paginator]="true" [rows]="rows"
+    <p-table #dt [value]="listaLinadime" [lazy]="true" (onLazyLoad)="loadData($event)" [paginator]="true" [rows]="rows"
         [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
         styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[5,10,25,50]"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
@@ -50,31 +50,31 @@
                 <th style="width:7em">Acción</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-liname>
+        <ng-template pTemplate="body" let-linadime>
             <tr>
                 <td>
                     <span class="p-column-title">Código</span>
-                    {{liname.codigo}}
+                    {{linadime.codigo}}
                 </td>
                 <td>
                     <span class="p-column-title">Fecha</span>
-                    {{liname.f_crea | date :'dd/MM/YYYY'}}
+                    {{linadime.f_crea | date :'dd/MM/YYYY'}}
                 </td>
                 <td>
                     <span class="p-column-title">Estado</span>
-                    <p-tag *ngIf="liname.activo=='activo'"  styleClass="p-mr-2" icon="pi pi-check" severity="success" value="Activo"></p-tag>
-                    <p-tag *ngIf="liname.activo=='inactivo'"  styleClass="p-mr-2" icon="pi pi-info-circle" severity="info" value="Inactivo"></p-tag>
+                    <p-tag *ngIf="linadime.activo=='activo'"  styleClass="p-mr-2" icon="pi pi-check" severity="success" value="Activo"></p-tag>
+                    <p-tag *ngIf="linadime.activo=='inactivo'"  styleClass="p-mr-2" icon="pi pi-info-circle" severity="info" value="Inactivo"></p-tag>
                 </td>
                 <td>
                     <span class="p-column-title">Comentario</span>
-                    {{liname.comentario}}
+                    {{linadime.comentario}}
                 </td>
                 <td>
                     <span class="p-column-title">Accion</span>
 
-                    <span [controlAcceso]="'editar'" class="icon-table"><i (click)="activarInactivar($event,liname.activo,liname.codigo,liname.id)" class="pi pi-check-circle" pTooltip="Acivar/Inactivar" tooltipPosition="top" placeholder="Top"></i></span>
+                    <span [controlAcceso]="'editar'" class="icon-table"><i (click)="activarInactivar($event,linadime.activo,linadime.codigo,linadime.id)" class="pi pi-check-circle" pTooltip="Acivar/Inactivar" tooltipPosition="top" placeholder="Top"></i></span>
 
-                    <span [controlAcceso]="'descargar'" class="icon-table"><i (click)="descargarLiname(liname.id)" class="pi pi-download" pTooltip="Descargar archivo que se consolido" tooltipPosition="top"  placeholder="Top"></i></span>
+                    <span [controlAcceso]="'descargar'" class="icon-table"><i (click)="descargarLinadime(linadime.id)" class="pi pi-download" pTooltip="Descargar archivo que se consolido" tooltipPosition="top"  placeholder="Top"></i></span>
                         
 
                 </td>
@@ -196,7 +196,7 @@
 <p-dialog header="Confirmar" [(visible)]="displayModalCargarDatos" [modal]="true" [style]="{width: '50vw'}"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false">
     <p class="p-m-0"> 
-        <i class="pi pi-exclamation-triangle" style="font-size: 1.5em;"></i> ¿Esta seguro de consolidar el documento liname?.
+        <i class="pi pi-exclamation-triangle" style="font-size: 1.5em;"></i> ¿Esta seguro de consolidar el documento linadime?.
     </p>
     <ng-template pTemplate="footer">
         <p-button (click)="displayModalCargarDatos=false;" icon="pi pi-times" label="Cerrar"

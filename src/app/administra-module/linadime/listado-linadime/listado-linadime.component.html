@@ -85,7 +85,7 @@
 </p-card>
 
 <!-- file upload-->
-<p-dialog header="Adicionar un nuevo documento LINAME" [(visible)]="displayFrmUpload" [modal]="true"
+<p-dialog header="Adicionar un nuevo documento LINADIME" [(visible)]="displayFrmUpload" [modal]="true"
     [style]="{width: '70vw'}" [contentStyle]="{'overflow':'visible'}">
     <form [formGroup]="uploadForm">
         <div class="p-fluid">
@@ -140,18 +140,20 @@
                             <col>
                             <col>
                             <col>
+                            <col>
                         </colgroup>
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
                             <th>#</th>
-                            <th>Código</th>
-                            <th>Medicamento</th>
-                            <th>Forma Farmacéutica</th>
-                            <th>Concentración</th>
-                            <th>Classific. A.T.Q.</th>
-                            <th>Precio Referencial</th>
-                            <th>Aclaración de <br> Particularidades</th>
+                            <th>ÍTEM</th>
+                            <th>CÓDIGO</th>
+                            <th>DISPOSITIVO</th>
+                            <th>ESPECIFICACIÓN TÉCNICA</th>
+                            <th>PRESENTACIÓN</th>
+                            <th>I</th>
+                            <th>II</th>
+                            <th>II</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-obs>
@@ -159,6 +161,15 @@
                             <td>{{obs.fila}}</td>
                             <td>
                                 {{obs.A}}
+                            </td>
+                            <td>
+                                {{obs.B}}
+                            </td>
+                            <td>
+                                {{obs.C}}
+                            </td>
+                            <td>
+                                {{obs.D}}
                             </td>
                             <td>
                                 {{obs.E}}
@@ -171,12 +182,6 @@
                             </td>
                             <td>
                                 {{obs.H}}
-                            </td>
-                            <td>
-                                {{obs.I}}
-                            </td>
-                            <td>
-                                {{obs.J}}
                             </td>
                         </tr>
                     </ng-template>

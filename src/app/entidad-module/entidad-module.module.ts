@@ -31,12 +31,16 @@ import { GeneralModuleModule } from '../general-module/general-module.module';
 import { EntidadModuleRoutingModule } from './entidad-module-routing.module';
 import { ListadoProveedorComponent } from './proveedor/listado-provedor/listado-proveedor.component';
 import { FormularioProveedorComponent } from './proveedor/formulario-proveedor/formulario-proveedor.component';
+import { ListadoClienteComponent } from './cliente/listado-cliente/listado-cliente.component';
+import { FormularioClienteComponent } from './cliente/formulario-cliente/formulario-cliente.component';
 
 
 @NgModule({
   declarations: [
     ListadoProveedorComponent,
-    FormularioProveedorComponent
+    FormularioProveedorComponent,
+    ListadoClienteComponent,
+    FormularioClienteComponent
   ],
   imports: [
     EntidadModuleRoutingModule,

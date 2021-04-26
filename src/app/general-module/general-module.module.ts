@@ -11,7 +11,7 @@ import { ControlAccesoDirective } from './directivas/control-acceso/control-acce
 @NgModule({
   declarations: [
     MesajeFormErrorComponent,
-    ControlAccesoDirective
+    ControlAccesoDirective,
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { ControlAccesoDirective } from './directivas/control-acceso/control-acce
   ],
   exports: [
     MesajeFormErrorComponent,
-    ControlAccesoDirective
+    ControlAccesoDirective,
   ]
 })
 export class GeneralModuleModule { }

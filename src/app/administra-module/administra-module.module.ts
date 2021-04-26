@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+//primeng
 import {CardModule} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';

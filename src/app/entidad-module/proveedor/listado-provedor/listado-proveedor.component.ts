@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormularioProveedorComponent } from '../formulario-proveedor/formulario-proveedor.component';
 
 @Component({
   selector: 'app-listado-proveedor',
@@ -7,17 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListadoProveedorComponent implements OnInit {
   //titulo
-  titulo:string="";
+  titulo: string = "";
 
-  constructor() { 
-    let menu_gen_active:any = sessionStorage.getItem('menu_gen_active');
+  //datos generales
+
+
+  //componentes
+  @ViewChild('frmprov') frmprov!: FormularioProveedorComponent;
+  constructor() {
+    let menu_gen_active: any = sessionStorage.getItem('menu_gen_active');
     if (menu_gen_active != null) {
       menu_gen_active = JSON.parse(menu_gen_active + '');
-      this.titulo= menu_gen_active.descripcion;
+      this.titulo = menu_gen_active.descripcion;
     }
   }
 
   ngOnInit(): void {
+  }
+
+  dialogAdd() {
+    this.frmprov.crear();
   }
 
 }

@@ -161,3 +161,21 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+//dialog reponsive
+.dialog-responsive-50{
+    width: 50vw !important;
+}
+@media screen and (max-width: 960px) {
+    .dialog-responsive-50{
+        width: 90vw !important;
+    }
+}
+
+.p-dialog .p-dialog-content{
+    padding :0 1.5rem 1rem 1.5rem !important;
+}
+//forms
+.p-field{
+    margin-bottom:.5em !important;
+}

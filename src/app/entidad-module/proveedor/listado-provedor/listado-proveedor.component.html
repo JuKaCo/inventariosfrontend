@@ -3,5 +3,15 @@
 </div>
 
 <p-card>
-    Content
+    <div class="p-grid">
+        <!-- <div class="p-col-12 p-md-1" pTooltip="Regargar contenido de tabla" tooltipPosition="top">
+           <p-button type="button" icon="pi pi-refresh" (click)="resetTable()" styleClass="p-button-text"></p-button>
+        </div>-->
+        <div [controlAcceso]="'crear'" class="p-col-12 p-md-12 p-text-right">
+            <button  pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
+                (click)="dialogAdd()"></button>
+        </div>
+    </div>
 </p-card>
+
+<app-formulario-proveedor #frmprov></app-formulario-proveedor>

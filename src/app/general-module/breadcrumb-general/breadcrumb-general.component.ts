@@ -14,7 +14,6 @@ export class BreadcrumbGeneralComponent implements OnInit {
   home: MenuItem = { icon: 'pi pi-home', routerLink: '/incio' };
   titulo!:string;
   constructor(private router: Router) {
-    console.log(this.router.url);
     this.items = this.cargar(this.router.url);
     let menu_gen_active:any = sessionStorage.getItem('menu_gen_active');
     if (menu_gen_active != null) {
@@ -71,7 +70,6 @@ export class BreadcrumbGeneralComponent implements OnInit {
     if (menu) {
       menu = JSON.parse(menu);
       let menuSelected = this.getNameMenu(menu, ruta);
-      console.log(menuSelected.nivel1 != "", menuSelected.nivel1);
       if (menuSelected.nivel1 != "") {
         items.push({ label: menuSelected.nivel1.label });
       }

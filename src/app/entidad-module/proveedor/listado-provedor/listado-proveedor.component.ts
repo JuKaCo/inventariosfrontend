@@ -90,6 +90,4 @@ export class ListadoProveedorComponent implements OnInit {
       }
     }
   }
-
-
 }

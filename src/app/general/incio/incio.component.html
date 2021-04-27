@@ -1,42 +1,80 @@
-<div class="p-grid p-d-none p-d-md-inline-flex pheader" style=" position: fixed; top: 0; width:100vw; z-index: 2;" >
-    <div class="p-col-12 p-md-12 p-lg-12 p-mb-0 p-pb-0" >
-        <div class="p-grid " style="height: 60px; ">
-            <div class="p-col-12 p-md-3 p-lg-3">
-                logo1
+<div class="p-grid p-d-none p-d-md-inline-flex pheader" style=" position: fixed; top: 0; width:100vw; z-index: 2;">
+  <div class="p-col-12 p-md-12 p-lg-12 p-mb-0 p-pb-0">
+    <div class="p-grid " style="height: 60px; ">
+      <div class="p-col-12 p-md-2 p-lg-2">
+        <a href="http://localhost:4200/incio"><img src="assets/img/logo.jpg" alt="" height="55px" width="100px"></a>
+      </div>
+      <div class="p-col-12 p-md-1 p-lg-1 p-text-center iconMenu">
+        <i class="pi pi-bars enlace" style="font-size: 1.5em" (click)="verMenu()"></i>
+      </div>
+      <div class="p-col-12 p-md-6 p-lg-6" style="align-self: center">
+        <!-- INICIO NOTIFICACIONES -->
+        <i class="pi pi-bell p-mr-4 p-text-primary enlace" severity="danger" pBadge style="font-size: 1.5rem"
+          [value]="nroNotificacionesPendient ? nroNotificacionesPendient: '0'" (click)="prueba.toggle($event)"></i>
+
+        <p-overlayPanel #prueba [showCloseIcon]="false" [style]="{width: '300px'}" class="panel">
+          <ng-template pTemplate>
+            <p class="titulo">NOTIFICACIONES</p>
+            <p-divider></p-divider>
+
+            <div class="card">
+              <div *ngFor="let notificacion of notificaciones; let i = index">
+                <div class="p-grid" *ngIf="i < 4">
+                  <i class="p-col-2 p-md-2 p-lg-2 pi pi-info-circle icono2"></i>
+
+                  <div *ngIf="notificacion.confirmacion == 0" class="p-col-8 p-md-8 p-lg-8 mensaje" [ngStyle]="validNotificacion(i) ? {'white-space': 'normal'}:{}" >
+                    {{ notificacion.mensaje }}
+                    <p class="fecha"> {{ notificacion.f_crea}}</p>
+                  </div>
+
+                  <div *ngIf="notificacion.confirmacion == 1" class="p-col-8 p-md-8 p-lg-8 mensaje1" [ngStyle]="validNotificacion(i) ? {'white-space': 'normal'}:{}" >
+                    {{ notificacion.mensaje }}
+                    <p class="fecha"> {{ notificacion.f_crea}}</p>
+                  </div>
+
+                  <div class="p-col-2 p-md-2 p-lg-2">
+                    <i class="pi pi-times-circle enlace icono" (click)="eliminaNotificacion(notificacion.id)"></i>
+                    <br>
+                    <i class="pi pi-eye enlace icono " (click)="mostrar(notificacion.id, i)" ></i>
+                  </div>
+                </div>
+                <p-divider *ngIf="i < 4"></p-divider>
+              </div>
+              <p class="vermas enlace" *ngIf="nroNotificaciones > 4" (click)="verNotificaciones()" >Ver mas..</p>
             </div>
-            <div class="p-col-12 p-md-1 p-lg-1 p-text-center">
-                <i class="pi pi-bars enlace" style="font-size: 1.2em" (click)="verMenu()"></i>
-            </div>
-            <div class="p-col-12 p-md-6 p-lg-6 ">
-                X X X
-            </div>
-            <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
-                {{datosUsuario?.name}}<br>
-                <small>{{datosUsuario?.cargo_usuario}}</small>
-            </div>
-            <p-menu #menu [popup]="true" [model]="itemsUsuario" appendTo="body" ></p-menu>
-        </div>
+
+          </ng-template>
+        </p-overlayPanel>
+        <!-- FIN NOTIFICACIONES -->
+      </div>
+      <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
+        {{datosUsuario?.name}}<br>
+        <small>{{datosUsuario?.cargo_usuario}}</small>
+      </div>
+      <p-menu #menu [popup]="true" [model]="itemsUsuario" appendTo="body"></p-menu>
     </div>
+  </div>
 </div>
+
 <div class="p-grid p-d-md-none pheader">
-    <div class="p-col-12 p-md-12 p-lg-12" >
-        <div class="p-grid ">
-            <div class="p-col-12 p-md-3 p-lg-3">
-                logo2
-            </div>
-            <div class="p-col-12 p-md-1 p-lg-1 p-text-center">
-                <i class="pi pi-bars enlace" style="font-size: 1.2em" (click)="verMenu()"></i>
-            </div>
-            <div class="p-col-12 p-md-6 p-lg-6 ">
-                X X X
-            </div>
-            <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
-                {{datosUsuario?.name}}<br>
-                <small>{{datosUsuario?.cargo_usuario}}</small>
-            </div>
-            <p-menu #menu [popup]="true" [model]="itemsUsuario"></p-menu>
-        </div>
+  <div class="p-col-12 p-md-12 p-lg-12">
+    <div class="p-grid ">
+      <div class="p-col-12 p-md-3 p-lg-3">
+        logo2
+      </div>
+      <div class="p-col-12 p-md-1 p-lg-1 p-text-center">
+        <i class="pi pi-bars enlace" style="font-size: 1.2em" (click)="verMenu()"></i>
+      </div>
+      <div class="p-col-12 p-md-6 p-lg-6 ">
+        X X X
+      </div>
+      <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
+        {{datosUsuario?.name}}<br>
+        <small>{{datosUsuario?.cargo_usuario}}</small>
+      </div>
+      <p-menu #menu [popup]="true" [model]="itemsUsuario"></p-menu>
     </div>
+  </div>
 </div>
 
 <div class="p-grid p-button-success p-d-none p-d-md-inline-flex" style="padding-top: 54px;"></div>
@@ -48,3 +86,4 @@
         <router-outlet></router-outlet>
     </div>
 </div>
+

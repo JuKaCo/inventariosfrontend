@@ -23,6 +23,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { BadgeModule } from "primeng/badge";
+import { NotificacionService } from './general/services/notificacion.service';
+import { TimelineModule } from "primeng/timeline";
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { DividerModule } from "primeng/divider";
 
 //componentes
 import { IncioComponent } from './general/incio/incio.component';
@@ -64,10 +69,14 @@ import { GeneralModuleModule } from './general-module/general-module.module';
     PanelMenuModule,
     MenuModule,
     ConfirmPopupModule,
+    BadgeModule,
+    TimelineModule,
+    OverlayPanelModule,
+    DividerModule,
   ],
   exports: [
   ],
-  providers: [LoaderService, MessageService, ConfirmationService],
+  providers: [LoaderService, MessageService, ConfirmationService, NotificacionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

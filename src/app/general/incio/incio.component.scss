@@ -5,3 +5,59 @@
 .enlace{
     cursor: pointer;
 }
+.iconMenu {
+    align-self: center;
+    padding: 0;
+}
+
+/*  para notificaciones*/
+.fecha {
+    font-size: 10px;
+    align-self: center;
+    text-align: right;
+}
+.mensaje {
+    text-align: justify;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.mensaje1 {
+    text-align: justify;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #a0abb2;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.vermas {
+    text-decoration: none;
+    text-align: right;
+    color: #4484CE;
+}
+.titulo{
+    margin: 0;
+    padding: 15px;
+    color: #FFF;
+    background-color: #4484ce;
+}
+
+.icono {
+    align-self: auto; 
+    color: #4484CE; 
+    text-align: center;
+    font-size: 18px;
+}
+
+.icono2 {
+    align-self: center; 
+    color: #4484CE; 
+    text-align: center;
+    font-size: 18px;
+}
+

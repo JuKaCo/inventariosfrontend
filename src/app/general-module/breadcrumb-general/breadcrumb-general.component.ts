@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-breadcrumb-general',
@@ -8,24 +10,20 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./breadcrumb-general.component.scss']
 })
 export class BreadcrumbGeneralComponent implements OnInit {
-  items: MenuItem[] = [];
-  home!: MenuItem;
+  items: any[] = [];
+  home: MenuItem = { icon: 'pi pi-home', routerLink: '/incio' };
+  titulo!:string;
   constructor(private router: Router) {
-
+    console.log(this.router.url);
+    this.items = this.cargar(this.router.url);
+    let menu_gen_active:any = sessionStorage.getItem('menu_gen_active');
+    if (menu_gen_active != null) {
+      menu_gen_active = JSON.parse(menu_gen_active + '');
+      this.titulo= menu_gen_active.descripcion;
+    }
   }
 
   ngOnInit(): void {
-    this.cargar()
-    //let res = this.router.url.split("/");
-    /* res.forEach(element => {
-       if (element != '') {
-         if (element != 'incio') {
-           this.items.push({ label: element });
-         } else {
-           this.items.push({ label: 'Inicio' });
-         }
-       }
-     });*/
   }
 
   getNameMenu(menu: any, bus: any): any {
@@ -67,25 +65,28 @@ export class BreadcrumbGeneralComponent implements OnInit {
     return { "nivel1": "", "nivel2": "" }
   }
 
-  cargar() {
+  cargar(ruta: any) {
+    let items = [];
     let menu: any = sessionStorage.getItem('menu_gen');
     if (menu) {
       menu = JSON.parse(menu);
-      let menuSelected = this.getNameMenu(menu, this.router.url);
+      let menuSelected = this.getNameMenu(menu, ruta);
+      console.log(menuSelected.nivel1 != "", menuSelected.nivel1);
       if (menuSelected.nivel1 != "") {
-        this.items.push({ label: menuSelected.nivel1.label });
+        items.push({ label: menuSelected.nivel1.label });
       }
       if (menuSelected.nivel2 != "") {
-        this.items.push({ label: menuSelected.nivel2.label });
+        items.push({ label: menuSelected.nivel2.label });
       }
       if (menuSelected.nivel2 != "") {
         sessionStorage.setItem("menu_gen_active", JSON.stringify(menuSelected.nivel2))
       } else {
         sessionStorage.setItem("menu_gen_active", JSON.stringify(menuSelected.nivel1))
       }
-      if (menuSelected.nivel1 == "")
+      if (menuSelected.nivel1 == "") {
         sessionStorage.removeItem("menu_gen_active");
+      }
     }
-    this.home = { icon: 'pi pi-home', routerLink: '/incio' };
+    return items;
   }
 }

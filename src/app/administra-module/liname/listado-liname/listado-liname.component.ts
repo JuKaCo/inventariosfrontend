@@ -12,7 +12,6 @@ import { Table } from 'primeng/table/table';
   styleUrls: ['./listado-liname.component.scss']
 })
 export class ListadoLinameComponent implements OnInit {
-  titulo:string="";
 
   displayFrmUpload: boolean = false;
   uploadForm!: FormGroup;
@@ -40,13 +39,7 @@ export class ListadoLinameComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private AdministraService: AdministraService
-  ) {
-    let menu_gen_active:any = sessionStorage.getItem('menu_gen_active');
-    if (menu_gen_active != null) {
-      menu_gen_active = JSON.parse(menu_gen_active + '');
-      this.titulo= menu_gen_active.descripcion;
-    }
-   }
+  ) {}
 
   ngOnInit(): void {
   

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../general/config-auth-config/auth.guard';
 import { ListadoProveedorComponent } from './proveedor/listado-provedor/listado-proveedor.component';
 
 const routes: Routes = [{
@@ -11,6 +12,7 @@ const routes: Routes = [{
     {
       path: 'provedores',
       component: ListadoProveedorComponent,
+      canActivate: [AuthGuard],
     },
   ]
 }];

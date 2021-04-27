@@ -45,8 +45,6 @@
         <p-panelMenu [model]="itemsMenu" (click)="activeMenu($event)"></p-panelMenu>
     </div>
     <div  [className]="itemsMenuDisplay ? 'p-col-12 p-md-10 p-lg-10' : 'p-col-12 p-md-12 p-lg-12'" style="height: calc(100vh - 3.8em);">
-        
-        <app-breadcrumb-general #breadcrumbGeneral></app-breadcrumb-general>
         <router-outlet></router-outlet>
     </div>
 </div>

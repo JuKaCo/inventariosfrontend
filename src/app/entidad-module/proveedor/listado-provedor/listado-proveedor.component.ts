@@ -11,8 +11,7 @@ import { Table } from 'primeng/table/table';
 })
 export class ListadoProveedorComponent implements OnInit {
   //titulo
-  titulo: string = "";
-  modulo: string = "Proveedor";
+   modulo: string = "Proveedor";
 
   //formularios
 
@@ -30,13 +29,7 @@ export class ListadoProveedorComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private entidadService: EntidadService,
-  ) {
-    let menu_gen_active: any = sessionStorage.getItem('menu_gen_active');
-    if (menu_gen_active != null) {
-      menu_gen_active = JSON.parse(menu_gen_active + '');
-      this.titulo = menu_gen_active.descripcion;
-    }
-  }
+  ) {}
 
   ngOnInit(): void {
   }

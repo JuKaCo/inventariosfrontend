@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MenuItem, MessageService } from 'primeng/api';
-import { BreadcrumbGeneralComponent } from '../breadcrumb-general/breadcrumb-general.component';
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 import { Auth } from '../services/Auth.service';
 import { GeneralService } from '../services/general.service';
@@ -18,7 +17,6 @@ export class IncioComponent implements OnInit {
   itemsUsuario: MenuItem[] = [];
   itemsMenuDisplay: boolean = true;
   datosUsuario: any;
-  @ViewChild('breadcrumbGeneral') breadcrumbGeneral: BreadcrumbGeneralComponent | undefined;
 
   constructor(
     private oAuthService: OAuthService,
@@ -27,13 +25,14 @@ export class IncioComponent implements OnInit {
     private generalService: GeneralService,
     private loaderService: LoaderService,
   ) {
+
+    
     this.oAuthService.configure(authCodeFlowConfig);
     this.oAuthService.loadDiscoveryDocument();
     this.oAuthService.setupAutomaticSilentRefresh();
   }
 
   ngOnInit(): void {
-    
     this.getDatosUsuario();
     this.itemsUsuario = [
       {
@@ -55,7 +54,7 @@ export class IncioComponent implements OnInit {
           this.loaderService.hide();
           this.itemsMenu = response.data;
           sessionStorage.setItem("menu_gen", JSON.stringify(response.data))
-          this.breadcrumbGeneral?.cargar();
+          //this.breadcrumbGeneral?.cargar();
         } else {
           this.itemsMenu = [];
         }

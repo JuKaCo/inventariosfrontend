@@ -22,7 +22,6 @@ import { ConfirmationService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { MenuModule } from 'primeng/menu';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 //componentes
@@ -30,7 +29,6 @@ import { IncioComponent } from './general/incio/incio.component';
 import { LoginComponent } from './general/login/login.component';
 import { LoaderComponent } from './general/loader/loader.component';
 import { environment } from 'src/environments/environment';
-import { BreadcrumbGeneralComponent } from './general/breadcrumb-general/breadcrumb-general.component';
 //import component
 import { GeneralModuleModule } from './general-module/general-module.module';
 
@@ -41,7 +39,6 @@ import { GeneralModuleModule } from './general-module/general-module.module';
     IncioComponent,
     LoginComponent,
     LoaderComponent,
-    BreadcrumbGeneralComponent,
   ],
   imports: [
     HttpClientModule,
@@ -66,7 +63,6 @@ import { GeneralModuleModule } from './general-module/general-module.module';
     ReactiveFormsModule,
     PanelMenuModule,
     MenuModule,
-    BreadcrumbModule,
     ConfirmPopupModule,
   ],
   exports: [

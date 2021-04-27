@@ -157,9 +157,35 @@ body {
     max-width: 400px !important;
 }*/
 
-
-
-
 .panel >.p-overlaypanel .p-overlaypanel-content {
     padding: 0px !important;
+
+//menu text 
+.p-panelmenu .p-menuitem-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+//dialog reponsive
+.dialog-responsive-50{
+    width: 50vw !important;
+}
+@media screen and (max-width: 960px) {
+    .dialog-responsive-50{
+        width: 90vw !important;
+    }
+}
+
+.p-dialog .p-dialog-content{
+    padding :0 1.5rem 1rem 1.5rem !important;
+}
+//forms
+.p-field{
+    margin-bottom:.5em !important;
+}
+//ver datos
+.ver-datos{
+    display: block;
+    margin-bottom: .5em;
+    font-weight: bolder;
 }

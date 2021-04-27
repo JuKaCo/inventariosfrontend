@@ -29,13 +29,24 @@ const routes: Routes = [
     ]
   },
   { 
-    path: 'liname', 
+    path: 'administra', 
     component: IncioComponent, 
     canActivate: [AuthGuard],
     children:[
       {
         path: '',
-        loadChildren: () => import('./liname-module/liname-module.module').then(m => m.LinameModuleModule)
+        loadChildren: () => import('./administra-module/administra-module.module').then(m => m.AdministraModuleModule)
+      },
+    ]
+  },
+  { 
+    path: 'entidad', 
+    component: IncioComponent, 
+    canActivate: [AuthGuard],
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('./entidad-module/entidad-module.module').then(m => m.EntidadModuleModule)
       },
     ]
   },

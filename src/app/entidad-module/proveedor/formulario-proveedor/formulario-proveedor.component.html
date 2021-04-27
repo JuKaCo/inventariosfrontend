@@ -1,0 +1,89 @@
+<p-dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-50"
+    [contentStyle]="{'overflow':'visible'}">
+    <form [formGroup]="formulario"  *ngIf="tipo!='ver'">
+        <input id="id" type="hidden" pInputText>
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
+                    <label for="inp_codigo">P1. Código<span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="pais" inputId="inp_pais" [suggestions]="param.pais"
+                        (completeMethod)="getFilter($event,'param_paises')" field="valor" [minLength]="1"
+                        [dropdown]="true">
+                        <ng-template let-biometrico pTemplate="item">
+                            <div><b>({{biometrico.codigo}})</b> {{biometrico.valor}}</div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_pais">P2. País <span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['pais']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input formControlName="nombre" type="text" id="inp_nombre" pInputText>
+                    <label for="inp_nombre">P3. Nombre <span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['nombre']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <textarea formControlName="direccion" inputId="inp_direccion" rows="2" cols="30"
+                        pInputTextarea></textarea>
+                    <label for="inp_direccion">P4. Dirección <span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['direccion']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <textarea formControlName="comentarios" inputId="inp_comentarios" rows="2" cols="30"
+                        pInputTextarea></textarea>
+                    <label for="inp_comentarios">P5. Comentarios <span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['comentarios']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="tipo=='ver'">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P1. Código</span>
+                {{datos.codigo}}
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P2. País</span>
+                {{datos.pais.valor}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P3. Nombre</span>
+                {{datos.nombre}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P4. Dirección</span>
+                {{datos.direccion}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P5. Comentarios</span>
+                {{datos.comentarios}}
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmarGuardar($event)" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'"></p-button>
+
+        <p-button (click)="confirmarEditar($event)" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+        </p-button>
+    </ng-template>
+</p-dialog>

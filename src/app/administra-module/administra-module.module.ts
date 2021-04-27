@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+//primeng
 import {CardModule} from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
@@ -24,18 +25,22 @@ import {MessageModule} from 'primeng/message';
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
 
-import { LinameModuleRoutingModule } from './liname-module-routing.module';
-import { ListadoLinameComponent } from './listado-liname/listado-liname.component';
+import { AdministraModuleRoutingModule } from './administra-module-routing.module';
+import { ListadoLinameComponent } from './liname/listado-liname/listado-liname.component';
+import { ListadoLinadimeComponent } from './linadime/listado-linadime/listado-linadime.component';
 
 
 @NgModule({
-  declarations: [ListadoLinameComponent],
+  declarations: [
+    ListadoLinameComponent,
+    ListadoLinadimeComponent
+  ],
   imports: [
     CommonModule,
     GeneralModuleModule,
     FormsModule,
     ReactiveFormsModule,
-    LinameModuleRoutingModule,
+    AdministraModuleRoutingModule,
     CardModule,
     TableModule,
     ButtonModule,
@@ -53,4 +58,4 @@ import { ListadoLinameComponent } from './listado-liname/listado-liname.componen
     MessageModule
   ]
 })
-export class LinameModuleModule { }
+export class AdministraModuleModule { }

@@ -19,6 +19,7 @@ export class ValidacionService {
     }
     let config:any = {
       required: "Este campo es requerido.",
+      requiredAutoComplete: "Este campo es requerido.",
       invalidEmailAddress: "Correo electrónico inválido",
       invalidNumber: "Introduzca un número válido",
       invalidAlphanumeric: "Introduzca solo letras y numeros",
@@ -89,6 +90,7 @@ export class ValidacionService {
     };
   }
   static required(control:any) {
+    console.log('-->',control.value?.codigo);
     if (
       control.value != undefined &&
       control.value != null &&
@@ -99,6 +101,17 @@ export class ValidacionService {
       return { required: true };
     }
   }
+
+  static requiredAutoComplete(control:any) {
+    if (
+      control.value?.codigo !=undefined 
+    ) {
+      return null;
+    } else {
+      return { requiredAutoComplete: true };
+    }
+  }
+  
 
   /*static minkbSize(control:any, valor:any) {
     var str = new String(control.value);

@@ -1,19 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LazyLoadEvent } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload/fileupload';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { LinameService } from '../service/liname.service';
+import { AdministraService } from '../../service/administra.service';
 import { Table } from 'primeng/table/table';
-import { of, concat } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 @Component({
-  selector: 'app-listado-liname',
-  templateUrl: './listado-liname.component.html',
-  styleUrls: ['./listado-liname.component.scss']
+  selector: 'app-listado-linadime',
+  templateUrl: './listado-linadime.component.html',
+  styleUrls: ['./listado-linadime.component.scss']
 })
-export class ListadoLinameComponent implements OnInit {
+export class ListadoLinadimeComponent implements OnInit {
+
   displayFrmUpload: boolean = false;
   uploadForm!: FormGroup;
   uploadFormValid: boolean = false;
@@ -29,7 +26,7 @@ export class ListadoLinameComponent implements OnInit {
   rows: number = 10;
   first: number = 0;
 
-  listaLiname: any = [];
+  listaLinadime: any = [];
 
 
   @ViewChild('dt') dt!: Table;
@@ -39,10 +36,11 @@ export class ListadoLinameComponent implements OnInit {
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private linameService: LinameService
-  ) { }
+    private AdministraService: AdministraService
+  ) {}
 
   ngOnInit(): void {
+  
     this.initFormValidUpload();
   }
 
@@ -54,17 +52,17 @@ export class ListadoLinameComponent implements OnInit {
       filtro = event.globalFilter.value;
     }
     this.loading = true;
-    this.listaLiname = [];
+    this.listaLinadime = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.linameService.getListaLiname(dataTable).subscribe(response => {
+    this.AdministraService.getListaLinadime(dataTable).subscribe(response => {
       if (response.success) {
-        this.listaLiname = response.data.resultados;
+        this.listaLinadime = response.data.resultados;
         this.totalRecords = response.data.total;
         this.loading = false;
       }
     },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+        this.messageService.add({ severity: 'error', summary: 'Listado linadime', detail: 'Error al consumir el servicio.' });
       });
   }
 
@@ -74,7 +72,7 @@ export class ListadoLinameComponent implements OnInit {
   resetTable() {
     this.dt.reset();
   }
-  dialogAddLiname() {
+  dialogAddLinadime() {
     this.displayFrmUpload = true;
     this.resetFormValidUpload();
   }
@@ -104,26 +102,26 @@ export class ListadoLinameComponent implements OnInit {
           //confirm action
           let files = this.fubauto.files;
           for (let file of files) {
-            this.linameService.uploadLinameValid(file, this.uploadForm.value['comentarios']).subscribe(response => {
+            this.AdministraService.uploadLinadimeValid(file, this.uploadForm.value['comentarios']).subscribe(response => {
               if (response.success) {
                 if (response.data.invalid == 0) {
-                  this.messageService.add({ severity: 'success', summary: 'Archivo liname', detail: 'Se verifico correctamente.' });
+                  this.messageService.add({ severity: 'success', summary: 'Archivo linadime', detail: 'Se verifico correctamente.' });
                   this.displayModalCargarDatos = true;
 
                 } else {
-                  this.messageService.add({ severity: 'warn', summary: 'Archivo liname', detail: 'Tiene errores en la información.' });
+                  this.messageService.add({ severity: 'warn', summary: 'Archivo linadime', detail: 'Tiene errores en la información.' });
                   this.datosValidosExcel = response.data;
                   this.uploadConfirmModal = true;
                 }
                 this.displayFrmUpload = false;
 
               } else {
-                this.messageService.add({ severity: 'warn', summary: 'Archivo liname', detail: response.message });
+                this.messageService.add({ severity: 'warn', summary: 'Archivo linadime', detail: response.message });
                 this.datosValidosExcel = null;
               }
             },
               error => {
-                this.messageService.add({ severity: 'error', summary: 'Archivo liname', detail: 'Error al consumir el servicio.' });
+                this.messageService.add({ severity: 'error', summary: 'Archivo linadime', detail: 'Error al consumir el servicio.' });
                 this.datosValidosExcel = null;
               });
           }
@@ -133,7 +131,7 @@ export class ListadoLinameComponent implements OnInit {
         }
       });
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Archivo liname', detail: 'Datos incorrectos.' });
+      this.messageService.add({ severity: 'error', summary: 'Archivo linadime', detail: 'Datos incorrectos.' });
       this.uploadFormValid = true;
     }
   }
@@ -141,16 +139,16 @@ export class ListadoLinameComponent implements OnInit {
     this.displayModalCargarDatos = false;
     let files = this.fubauto.files;
     for (let file of files) {
-      this.linameService.uploadLinameConsolida(file, this.uploadForm.value['comentarios']).subscribe(response => {
+      this.AdministraService.uploadLinadimeConsolida(file, this.uploadForm.value['comentarios']).subscribe(response => {
         if (response.success) {
-          this.messageService.add({ severity: 'success', summary: 'Archivo liname consolidar', detail: 'Se consolido el archivo.' });
+          this.messageService.add({ severity: 'success', summary: 'Archivo linadime consolidar', detail: 'Se consolido el archivo.' });
           this.dt.reset();
         } else {
-          this.messageService.add({ severity: 'warn', summary: 'Archivo liname consolidar', detail: response.message });
+          this.messageService.add({ severity: 'warn', summary: 'Archivo linadime consolidar', detail: response.message });
         }
       },
         error => {
-          this.messageService.add({ severity: 'error', summary: 'Archivo liname consolidar', detail: 'Error al consumir el servicio.' });
+          this.messageService.add({ severity: 'error', summary: 'Archivo linadime consolidar', detail: 'Error al consumir el servicio.' });
           this.datosValidosExcel = null;
         });
     }
@@ -172,16 +170,16 @@ export class ListadoLinameComponent implements OnInit {
         accept: () => {
           //confirm action
           let data={activo:tipo,uuid:id}
-          this.linameService.setActivaInactiva(data).subscribe(response => {
+          this.AdministraService.setActivaInactivaLinadime(data).subscribe(response => {
             if (response.success) {
-              this.messageService.add({ severity: 'success', summary: 'Archivo liname consolidar', detail: 'Se consolido el archivo.' });
+              this.messageService.add({ severity: 'success', summary: 'Archivo linadime consolidar', detail: 'Se consolido el archivo.' });
               this.dt.reset();
             } else {
-              this.messageService.add({ severity: 'warn', summary: 'Archivo liname consolidar', detail: response.message });
+              this.messageService.add({ severity: 'warn', summary: 'Archivo linadime consolidar', detail: response.message });
             }
           },
             error => {
-              this.messageService.add({ severity: 'error', summary: 'Archivo liname consolidar', detail: 'Error al consumir el servicio.' });
+              this.messageService.add({ severity: 'error', summary: 'Archivo linadime consolidar', detail: 'Error al consumir el servicio.' });
               this.datosValidosExcel = null;
             });
         },
@@ -192,17 +190,17 @@ export class ListadoLinameComponent implements OnInit {
     }, 250);
 
   }
-  descargarLiname(id:string){
-    this.linameService.descargaLiname(id).subscribe(response => {
-      this.messageService.add({ severity: 'info', summary: 'Archivo liname', detail: 'Se incia la descarga de documentos.' });
+  descargarLinadime(id:string){
+    this.AdministraService.descargaLinadime(id).subscribe(response => {
+      this.messageService.add({ severity: 'info', summary: 'Archivo linadime', detail: 'Se incia la descarga de documentos.' });
       let blob: any = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const url = window.URL.createObjectURL(blob);
       window.open(url);
-      this.messageService.add({ severity: 'success', summary: 'Archivo liname', detail: 'Se terina la descarga de documentos.' });
+      this.messageService.add({ severity: 'success', summary: 'Archivo linadime', detail: 'Se terina la descarga de documentos.' });
     },
       error => {
         console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Archivo liname', detail: error.message  });
+        this.messageService.add({ severity: 'error', summary: 'Archivo linadime', detail: error.message  });
         console.log(error.status);
       });
   }

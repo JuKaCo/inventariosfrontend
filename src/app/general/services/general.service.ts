@@ -17,6 +17,14 @@ export class GeneralService {
       catchError(this.handleError)
     );
   }
+
+  getParam(codigo:string,filtro:string): Observable<any> {
+    let url = environment.CEASSBACKEND;
+    return this.http.get(url + 'api/v1/param/gen/'+codigo+'?filtro='+filtro).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
   handleError(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

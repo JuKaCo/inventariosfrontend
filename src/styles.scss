@@ -166,8 +166,20 @@ body {
 .dialog-responsive-50{
     width: 50vw !important;
 }
+.dialog-responsive-60{
+    width: 60vw !important;
+}
+.dialog-responsive-70{
+    width: 70vw !important;
+}
+.dialog-responsive-80{
+    width: 80vw !important;
+}
+.dialog-responsive-90{
+    width: 90vw !important;
+}
 @media screen and (max-width: 960px) {
-    .dialog-responsive-50{
+    .dialog-responsive-50,dialog-responsive-60,dialog-responsive-70,dialog-responsive-80,dialog-responsive-90{
         width: 90vw !important;
     }
 }

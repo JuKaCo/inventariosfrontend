@@ -6,12 +6,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GeneralModuleRoutingModule } from './general-module-routing.module';
 import { MesajeFormErrorComponent } from './mesaje-form-error/mesaje-form-error.component';
 import { ControlAccesoDirective } from './directivas/control-acceso/control-acceso.directive';
+import { NotificacionComponent } from './notificacion/notificacion.component';
 
 
 @NgModule({
   declarations: [
     MesajeFormErrorComponent,
-    ControlAccesoDirective
+    ControlAccesoDirective,
+    NotificacionComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { ControlAccesoDirective } from './directivas/control-acceso/control-acce
   ],
   exports: [
     MesajeFormErrorComponent,
-    ControlAccesoDirective
+    ControlAccesoDirective,
+    NotificacionComponent
   ]
 })
 export class GeneralModuleModule { }

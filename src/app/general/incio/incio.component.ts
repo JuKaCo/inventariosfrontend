@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MenuItem, MessageService } from 'primeng/api';
+import { FocusTrap } from 'primeng/focustrap';
 import { BreadcrumbGeneralComponent } from '../breadcrumb-general/breadcrumb-general.component';
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 import { Auth } from '../services/Auth.service';
@@ -18,6 +19,11 @@ export class IncioComponent implements OnInit {
   itemsUsuario: MenuItem[] = [];
   itemsMenuDisplay: boolean = true;
   datosUsuario: any;
+  notificaciones: any;
+  nroNotificacionesPendient: any;
+  nroNotificaciones: any;
+  mostrarLetras: boolean = false;
+  validaNotificacion: any = [];
   @ViewChild('breadcrumbGeneral') breadcrumbGeneral: BreadcrumbGeneralComponent | undefined;
 
   constructor(
@@ -33,8 +39,9 @@ export class IncioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.getDatosUsuario();
+    this.getListaNotificacion();
     this.itemsUsuario = [
       {
         label: 'Usuario',
@@ -90,5 +97,63 @@ export class IncioComponent implements OnInit {
     localStorage.clear();
     sessionStorage.clear();
     this._router.navigate(['']);
+  }
+
+  getListaNotificacion() {
+    this.generalService.getListaNotificacion()
+      .subscribe(response => {
+        if (response.success) {
+          this.notificaciones = response.data;
+          let notificacionesRencientes = 0;
+          for (let i = 0; i < response.data.length; i++) {
+            if (response.data[i]['confirmacion'] == '0') {
+              notificacionesRencientes ++;
+            }
+          }
+          this.nroNotificacionesPendient = notificacionesRencientes;
+          this.nroNotificaciones = response.data.length;
+        }
+      },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+      });
+  }
+
+  getIndexNotifi(i:any) {
+
+  }
+
+  eliminaNotificacion(id: number){
+    this.generalService.inactivaNotificacion(id)
+      .subscribe(response => {
+        if (response.success) {
+          this.getListaNotificacion();
+        }
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+      });
+  }
+
+  mostrar(id_notifi: number, i: number) {
+    this.generalService.confirmaNotificacion(id_notifi)
+      .subscribe(response => {
+        if (response.success) {
+          this.getListaNotificacion();
+          this.validaNotificacion[i] = !this.validaNotificacion[i];
+        }
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+      });
+  }
+  validNotificacion(i:number) : boolean{
+    if (this.validaNotificacion[i] != null) {
+      return this.validaNotificacion[i];
+    } else{
+      return this.validaNotificacion[i] = false;;
+    }
+  }
+
+  verNotificaciones() {
+    this._router.navigate(['notificacion']);
   }
 }

@@ -26,4 +26,27 @@ export class GeneralService {
     }
     return throwError(error);
   }
+
+  /*  ********* Notifiaciones ************ */
+
+  getListaNotificacion(): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/notificacion/listar';
+    return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  inactivaNotificacion(id: number ): Observable<any> {
+    let url = `${environment.CEASSBACKEND}api/v1/notificacion/cambia_estado/${id}`;
+    return this.http.delete(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  confirmaNotificacion(id: number ): Observable<any> {
+    let url = `${environment.CEASSBACKEND}api/v1/notificacion/confirma/${id}`;
+    return this.http.patch(url, {}).pipe(
+      catchError(this.handleError)
+    );
+  }
 }

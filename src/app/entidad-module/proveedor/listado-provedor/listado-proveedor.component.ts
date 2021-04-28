@@ -57,7 +57,7 @@ export class ListadoProveedorComponent implements OnInit {
     this.loading = true;
     this.listaTabla = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.entidadService.getLista(dataTable).subscribe(response => {
+    this.entidadService.getListaProveedor(dataTable).subscribe(response => {
       if (response.success) {
         this.listaTabla = response.data.resultados;
         this.totalRecords = response.data.total;

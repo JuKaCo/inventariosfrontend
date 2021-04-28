@@ -155,7 +155,7 @@ export class FormularioProveedorComponent implements OnInit {
           direccion: data.direccion,
           comentarios: data.comentarios
           };
-    this.entidadService.setProveedorEditar(valores,data.id).subscribe(response => {
+    this.entidadService.setEditaProveedor(valores,data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({tipo:this.tipo,success:true,message:response.message});
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
@@ -188,7 +188,7 @@ export class FormularioProveedorComponent implements OnInit {
     this.resetFormValidUpload();
     this.displayHeader='Formulario '+this.header;
     //this.formulario.get('codigo')?.disable();
-    this.entidadService.getRegistro(id).subscribe(response => {
+    this.entidadService.getRegistroProveedor(id).subscribe(response => {
       if (response.success) {
         let data=response.data;
         let valores={
@@ -249,7 +249,7 @@ export class FormularioProveedorComponent implements OnInit {
     this.displayHeader='Datos '+this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
-    this.entidadService.getRegistro(id).subscribe(response => {
+    this.entidadService.getRegistroProveedor(id).subscribe(response => {
       if (response.success) {
         this.datos=response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });

@@ -8,11 +8,11 @@ import { GeneralService } from '../services/general.service';
 import { LoaderService } from '../services/loader.service';
 
 @Component({
-  selector: 'app-incio',
-  templateUrl: './incio.component.html',
-  styleUrls: ['./incio.component.scss']
+  selector: 'app-inicio',
+  templateUrl: './inicio.component.html',
+  styleUrls: ['./inicio.component.scss']
 })
-export class IncioComponent implements OnInit {
+export class inicioComponent implements OnInit {
   itemsMenu: MenuItem[] = [];
   itemsUsuario: MenuItem[] = [];
   itemsMenuDisplay: boolean = true;

@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
 })
 export class BreadcrumbGeneralComponent implements OnInit {
   items: any[] = [];
-  home: MenuItem = { icon: 'pi pi-home', routerLink: '/incio' };
+  home: MenuItem = { icon: 'pi pi-home', routerLink: '/inicio' };
   titulo!:string;
   constructor(private router: Router) {
     this.items = this.cargar(this.router.url);

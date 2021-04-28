@@ -165,10 +165,11 @@ export class ValidacionService {
   static emailValidator(control:any) {
     // RFC 2822 compliant regex
     if (
-      control.value != undefined &&
+      (control.value != undefined &&
       control.value.match(
         /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
       )
+      ) ||control.value==''||control.value==null
     ) {
       return null;
     } else {

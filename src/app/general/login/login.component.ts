@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MessageService } from 'primeng/api';
-import { environment } from 'src/environments/environment';
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 import { LoaderService } from '../services/loader.service';
 
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
     //this.oauthService.setStorage(localStorage);
     this.oauthService.loadDiscoveryDocument();
     if(this.oauthService.hasValidAccessToken()){
-      this._router.navigate(['incio']);
+      this._router.navigate(['inicio']);
     }
   }
 
@@ -61,7 +60,7 @@ export class LoginComponent implements OnInit {
           let data: any = sessionStorage.getItem(entry);
           localStorage.setItem(entry, data);
         }*/
-        this._router.navigate(['incio']);
+        this._router.navigate(['inicio']);
       })
       .catch(err => {
         console.error('error logging in', err);

@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './general/config-auth-config/auth.guard';
-import { IncioComponent } from './general/incio/incio.component';
+import { inicioComponent } from './general/inicio/inicio.component';
 import { LoginComponent } from './general/login/login.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, },
+  { path: '', component: LoginComponent,},
+  { path: 'login', component: LoginComponent, },
   { 
-    path: 'incio', 
-    component: IncioComponent, 
+    path: 'inicio', 
+    component: inicioComponent, 
     canActivate: [AuthGuard],
     children:[
       {
@@ -19,7 +20,7 @@ const routes: Routes = [
   },
   { 
     path: 'rrhh', 
-    component: IncioComponent, 
+    component: inicioComponent, 
     canActivate: [AuthGuard],
     children:[
       {
@@ -30,7 +31,7 @@ const routes: Routes = [
   },
   { 
     path: 'administra', 
-    component: IncioComponent, 
+    component: inicioComponent, 
     canActivate: [AuthGuard],
     children:[
       {
@@ -41,7 +42,7 @@ const routes: Routes = [
   },
   { 
     path: 'entidad', 
-    component: IncioComponent, 
+    component: inicioComponent, 
     canActivate: [AuthGuard],
     children:[
       {

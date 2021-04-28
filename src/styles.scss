@@ -201,3 +201,51 @@ body {
     margin-bottom: .5em;
     font-weight: bolder;
 }
+//scroll
+.p-scrollpanel {
+    p {
+        padding: .5rem;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    &.custombar-bar {
+        .p-scrollpanel-wrapper {
+            border-right: 9px solid var(--layer-1);
+        }
+
+        .p-scrollpanel-bar {
+            background-color: var(--primary-color);
+            opacity: 1;
+            transition: background-color .2s;
+
+            &:hover {
+                background-color: #007ad9;
+            }
+        }
+    }
+
+    &.custombar-sin-barra {
+        .p-scrollpanel-wrapper {
+            border-right: 9px solid var(--layer-1);
+            border-bottom: 9px solid var(--layer-1);
+        }
+
+        .p-scrollpanel-bar {
+            background-color: var(--layer-2);
+            border-radius: 0;
+            opacity: 1;
+            transition: background-color .2s;
+        }
+    }
+}    
+.dialog-responsive-scroll{
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 770px) {
+    .dialog-responsive-scroll{
+        height: 60vw !important;
+    }
+}

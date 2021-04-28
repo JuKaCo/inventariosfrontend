@@ -24,6 +24,7 @@ import {MessageModule} from 'primeng/message';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 
 
+
 //importar componente general
 import { GeneralModuleModule } from '../general-module/general-module.module';
 

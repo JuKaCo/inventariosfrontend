@@ -30,7 +30,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DividerModule } from "primeng/divider";
 
 //componentes
-import { IncioComponent } from './general/incio/incio.component';
+import { inicioComponent } from './general/inicio/inicio.component';
 import { LoginComponent } from './general/login/login.component';
 import { LoaderComponent } from './general/loader/loader.component';
 import { environment } from 'src/environments/environment';
@@ -41,7 +41,7 @@ import { GeneralModuleModule } from './general-module/general-module.module';
 @NgModule({
   declarations: [
     AppComponent,
-    IncioComponent,
+    inicioComponent,
     LoginComponent,
     LoaderComponent,
   ],

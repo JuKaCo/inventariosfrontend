@@ -19,7 +19,7 @@ export class EntidadService {
       catchError(this.handleError)
     );
   }
-  setProveedorEditar(data: any,id:string): Observable<any> {
+  setEditaProveedor(data: any,id:string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/proveedor/editar/'+id;
     return this.http.put(url, data).pipe(
       catchError(this.handleError)
@@ -31,19 +31,50 @@ export class EntidadService {
       catchError(this.handleError)
     );
   }
-  getLista(data: any): Observable<any> {
+  getListaProveedor(data: any): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/proveedor/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
   }
-
-  getRegistro(uuid: string): Observable<any> {
+  getRegistroProveedor(uuid: string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/proveedor/obtener/' + uuid;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
   }
+  //cliente
+  setCliente(data: any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/cliente/crear';
+    return this.http.post(url, data).pipe(
+      catchError(this.handleError)
+    );
+  }
+  setEditaCliente(data: any,id:string): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/cliente/editar/'+id;
+    return this.http.put(url, data).pipe(
+      catchError(this.handleError)
+    );
+  }
+  setEliminaCliente(id: string): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/cliente/cambiarestado/'+id;
+    return this.http.delete(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getListaCliente(data: any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/cliente/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
+    return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getRegistroCliente(uuid: string): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/cliente/obtener/' + uuid;
+    return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   handleError(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

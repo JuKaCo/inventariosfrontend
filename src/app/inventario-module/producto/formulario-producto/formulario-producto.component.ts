@@ -4,18 +4,17 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
-import { EntidadClienteService } from '../../service/entidad-cliente.service';
-
+import { InventarioProductoService } from '../../service/inventario-producto.service';
 @Component({
-  selector: 'app-formulario-cliente',
-  templateUrl: './formulario-cliente.component.html',
-  styleUrls: ['./formulario-cliente.component.scss']
+  selector: 'app-formulario-producto',
+  templateUrl: './formulario-producto.component.html',
+  styleUrls: ['./formulario-producto.component.scss']
 })
-export class FormularioClienteComponent implements OnInit {
+export class FormularioProductoComponent implements OnInit {
   //generales
   displayHeader = "";
-  header: string = "cliente";
-  modulo: string = "Cliente";
+  header: string = "producto";
+  modulo: string = "Producto";
   //dialog
   tipo: string = "";
   displayFrm: boolean = false;
@@ -39,9 +38,9 @@ export class FormularioClienteComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private loaderService: LoaderService,
     private generalService: GeneralService,
-    private service: EntidadClienteService,
+    private service: InventarioProductoService,
   ) {
-   
+
   }
 
   ngOnInit(): void {
@@ -77,8 +76,8 @@ export class FormularioClienteComponent implements OnInit {
     this.generalService.getParam(tipo, filtro).subscribe(response => {
       if (response.success) {
         this.param[tipo] = response.data;
-      } else{
-        this.param[tipo]=[];
+      } else {
+        this.param[tipo] = [];
         this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
       }
     },
@@ -111,7 +110,7 @@ export class FormularioClienteComponent implements OnInit {
 
   guardarDatos(): void {
     let data = this.formulario.value;
-    data=JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+    data = JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
     this.service.set(data).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });

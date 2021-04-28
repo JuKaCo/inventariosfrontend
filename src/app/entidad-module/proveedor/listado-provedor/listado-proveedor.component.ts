@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormularioProveedorComponent } from '../formulario-proveedor/formulario-proveedor.component';
 import { MessageService } from 'primeng/api';
-import { EntidadService } from '../../service/entidad.service';
 import { Table } from 'primeng/table/table';
+import { EntidadProveedorService } from '../../service/entidad-proveedor.service';
 
 @Component({
   selector: 'app-listado-proveedor',
@@ -28,7 +28,7 @@ export class ListadoProveedorComponent implements OnInit {
   @ViewChild('frm') frm!: FormularioProveedorComponent;
   constructor(
     private messageService: MessageService,
-    private entidadService: EntidadService,
+    private service: EntidadProveedorService,
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class ListadoProveedorComponent implements OnInit {
     this.loading = true;
     this.listaTabla = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.entidadService.getListaProveedor(dataTable).subscribe(response => {
+    this.service.getLista(dataTable).subscribe(response => {
       if (response.success) {
         this.listaTabla = response.data.resultados;
         this.totalRecords = response.data.total;

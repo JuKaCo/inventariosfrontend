@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { MessageService } from 'primeng/api';
-import { EntidadService } from '../../service/entidad.service';
 import { Table } from 'primeng/table/table';
 import { FormularioClienteComponent } from '../formulario-cliente/formulario-cliente.component';
+import { EntidadClienteService } from '../../service/entidad-cliente.service';
 
 @Component({
   selector: 'app-listado-cliente',
@@ -29,7 +29,7 @@ export class ListadoClienteComponent implements OnInit {
   @ViewChild('frm') frm!: FormularioClienteComponent;
   constructor(
     private messageService: MessageService,
-    private entidadService: EntidadService,
+    private entidadService: EntidadClienteService,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class ListadoClienteComponent implements OnInit {
     this.loading = true;
     this.listaTabla = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.entidadService.getListaCliente(dataTable).subscribe(response => {
+    this.entidadService.getLista(dataTable).subscribe(response => {
       if (response.success) {
         this.listaTabla = response.data.resultados;
         this.totalRecords = response.data.total;

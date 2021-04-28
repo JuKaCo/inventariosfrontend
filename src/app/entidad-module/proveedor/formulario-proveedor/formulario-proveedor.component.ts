@@ -4,7 +4,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
-import { EntidadService } from '../../service/entidad.service';
+import { EntidadProveedorService } from '../../service/entidad-proveedor.service';
 
 @Component({
   selector: 'app-formulario-proveedor',
@@ -39,7 +39,7 @@ export class FormularioProveedorComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private loaderService: LoaderService,
     private generalService: GeneralService,
-    private entidadService: EntidadService,
+    private service: EntidadProveedorService,
   ) { }
 
   ngOnInit(): void {
@@ -102,7 +102,7 @@ export class FormularioProveedorComponent implements OnInit {
   guardarDatos(): void {
     let data = this.formulario.value;
  
-    this.entidadService.setProveedor(data).subscribe(response => {
+    this.service.set(data).subscribe(response => {
       if (response.success) {
         this.respform.emit({tipo:this.tipo,success:true,message:response.message});
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
@@ -155,7 +155,7 @@ export class FormularioProveedorComponent implements OnInit {
           direccion: data.direccion,
           comentarios: data.comentarios
           };
-    this.entidadService.setEditaProveedor(valores,data.id).subscribe(response => {
+    this.service.setEdita(valores,data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({tipo:this.tipo,success:true,message:response.message});
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
@@ -188,7 +188,7 @@ export class FormularioProveedorComponent implements OnInit {
     this.resetFormValidUpload();
     this.displayHeader='Formulario '+this.header;
     //this.formulario.get('codigo')?.disable();
-    this.entidadService.getRegistroProveedor(id).subscribe(response => {
+    this.service.getRegistro(id).subscribe(response => {
       if (response.success) {
         let data=response.data;
         let valores={
@@ -223,7 +223,7 @@ export class FormularioProveedorComponent implements OnInit {
          icon: 'pi pi-exclamation-triangle',
          accept: () => {
            //confirm action
-           this.entidadService.setEliminaProveedor(id).subscribe(response => {
+           this.service.setElimina(id).subscribe(response => {
              if (response.success) {
               this.respform.emit({tipo:this.tipo,success:true,message:response.message});
                this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se consolido el archivo.' });
@@ -249,7 +249,7 @@ export class FormularioProveedorComponent implements OnInit {
     this.displayHeader='Datos '+this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
-    this.entidadService.getRegistroProveedor(id).subscribe(response => {
+    this.service.getRegistro(id).subscribe(response => {
       if (response.success) {
         this.datos=response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });

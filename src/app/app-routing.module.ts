@@ -51,6 +51,17 @@ const routes: Routes = [
       },
     ]
   },
+  { 
+    path: 'inventario', 
+    component: inicioComponent, 
+    canActivate: [AuthGuard],
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('./inventario-module/inventario-module.module').then(m => m.InventarioModuleModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({

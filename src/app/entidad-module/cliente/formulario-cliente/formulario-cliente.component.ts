@@ -41,7 +41,7 @@ export class FormularioClienteComponent implements OnInit {
     private generalService: GeneralService,
     private service: EntidadClienteService,
   ) {
-   
+
   }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class FormularioClienteComponent implements OnInit {
     this.formulario.addControl('nombre', new FormControl({ value: '', disabled: false }, [Validators.required]));
     this.formulario.addControl('correo', new FormControl({ value: '', disabled: false }, [ValidacionService.emailValidator]));
     this.formulario.addControl('telefono', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator]));
-    this.formulario.addControl('nit', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator]));
+    this.formulario.addControl('nit', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator,Validators.required]));
     this.formulario.addControl('dependencia', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('nivel', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('departamento', new FormControl({ value: '', disabled: false }, []));
@@ -77,8 +77,8 @@ export class FormularioClienteComponent implements OnInit {
     this.generalService.getParam(tipo, filtro).subscribe(response => {
       if (response.success) {
         this.param[tipo] = response.data;
-      } else{
-        this.param[tipo]=[];
+      } else {
+        this.param[tipo] = [];
         this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
       }
     },
@@ -111,7 +111,9 @@ export class FormularioClienteComponent implements OnInit {
 
   guardarDatos(): void {
     let data = this.formulario.value;
+    data=this.modComboNull(data,['dependencia','nivel','departamento','provincia','municipio','subsector','tipo']);
     data=JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+
     this.service.set(data).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
@@ -129,6 +131,15 @@ export class FormularioClienteComponent implements OnInit {
         this.displayFrm = false;
 
       });
+  }
+
+  modComboNull(data: any, datos: any):any {
+    for (let dato of datos) {
+      if (data[dato] == null) {
+        data[dato] = {};
+      }
+    }
+    return data;
   }
 
   confirmarEditar(event: any): void {
@@ -159,12 +170,24 @@ export class FormularioClienteComponent implements OnInit {
     //this.formulario.get('codigo')?.disable();
 
     let valores = {
-      codigo: data.codigo,
       nombre: data.nombre,
-      pais: data.pais,
-      direccion: data.direccion,
-      comentarios: data.comentarios
+      telefono: data.telefono,
+      correo: data.correo,
+      nit: data.nit,
+      dependencia: data.dependencia,
+      nivel:data.nivel,
+      departamento:data.departamento,
+      provincia:data.provincia,
+      municipio:data.municipio,
+      ciudad:data.ciudad,
+      direccion:data.direccion,
+      subsector:data.subsector,
+      tipo:data.tipo,
     };
+    
+    data=this.modComboNull(data,['dependencia','nivel','departamento','provincia','municipio','subsector','tipo']);
+    data=JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+    
     this.service.setEdita(valores, data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
@@ -194,7 +217,7 @@ export class FormularioClienteComponent implements OnInit {
   }
 
   editar(id: string): void {
-    this.tipo = 'editar';
+    //this.tipo = 'editar';
     this.resetFormValidUpload();
     this.displayHeader = 'Formulario ' + this.header;
     //this.formulario.get('codigo')?.disable();
@@ -203,15 +226,24 @@ export class FormularioClienteComponent implements OnInit {
         let data = response.data;
         let valores = {
           id: data.id,
-          codigo: data.codigo,
           nombre: data.nombre,
-          pais: data.pais,
-          direccion: data.direccion,
-          comentarios: data.comentarios
+          telefono: data.telefono,
+          correo: data.correo,
+          nit: data.nit,
+          dependencia: data.dependencia,
+          nivel:data.nivel,
+          departamento:data.departamento,
+          provincia:data.provincia,
+          municipio:data.municipio,
+          ciudad:data.ciudad,
+          direccion:data.direccion,
+          subsector:data.subsector,
+          tipo:data.tipo,
         }
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
+        this.tipo = 'editar';
 
       } else {
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
@@ -255,7 +287,6 @@ export class FormularioClienteComponent implements OnInit {
   }
   ver(id: string): void {
     this.datos = null;
-    this.tipo = 'ver';
     this.displayHeader = 'Datos ' + this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
@@ -264,7 +295,7 @@ export class FormularioClienteComponent implements OnInit {
         this.datos = response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
-
+        this.tipo = 'ver';
       } else {
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
         this.displayFrm = false;

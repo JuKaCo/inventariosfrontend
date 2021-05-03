@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { MenuItem, MessageService } from 'primeng/api';
+import { NotificacionService } from 'src/app/principal/service/notificacion.service';
 import { authCodeFlowConfig } from '../config-auth-config/authCodeFlowConfig';
 import { Auth } from '../services/Auth.service';
 import { GeneralService } from '../services/general.service';
@@ -29,6 +30,7 @@ export class inicioComponent implements OnInit {
     private messageService: MessageService,
     private generalService: GeneralService,
     private loaderService: LoaderService,
+    private notificacionService: NotificacionService,
   ) {
 
     
@@ -99,9 +101,9 @@ export class inicioComponent implements OnInit {
   }
 
   getListaNotificacion() {
-    this.generalService.getListaNotificacion()
+    this.notificacionService.getListaNotificacionSimple()
       .subscribe(response => {
-        if (response.success) {
+        if (response.success && response.data.length > 0) {
           this.notificaciones = response.data;
           let notificacionesRencientes = 0;
           for (let i = 0; i < response.data.length; i++) {
@@ -111,6 +113,8 @@ export class inicioComponent implements OnInit {
           }
           this.nroNotificacionesPendient = notificacionesRencientes;
           this.nroNotificaciones = response.data.length;
+        }else {
+          this.nroNotificaciones = 0;
         }
       },
       error => {
@@ -123,7 +127,7 @@ export class inicioComponent implements OnInit {
   }
 
   eliminaNotificacion(id: number){
-    this.generalService.inactivaNotificacion(id)
+    this.notificacionService.inactivaNotificacion(id)
       .subscribe(response => {
         if (response.success) {
           this.getListaNotificacion();
@@ -134,7 +138,7 @@ export class inicioComponent implements OnInit {
   }
 
   mostrar(id_notifi: number, i: number) {
-    this.generalService.confirmaNotificacion(id_notifi)
+    this.notificacionService.confirmaNotificacion(id_notifi)
       .subscribe(response => {
         if (response.success) {
           this.getListaNotificacion();
@@ -153,6 +157,6 @@ export class inicioComponent implements OnInit {
   }
 
   verNotificaciones() {
-    this._router.navigate(['notificacion']);
+    this._router.navigate(['/inicio/notificacion']);
   }
 }

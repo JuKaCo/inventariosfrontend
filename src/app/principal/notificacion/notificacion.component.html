@@ -1,3 +1,56 @@
-<p>
-    NOTIFICACION! 
-</p>
+
+<h2>Lista de Notificaciones</h2>
+<!-- [lazy]="true" (onLazyLoad)="loadData($event)" -->
+<p-card>
+    <p-table #dt [value]="listaTabla" [lazy]="true" (onLazyLoad)="loadData($event)" [rows]="10" [paginator]="true"
+    [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
+    styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[5, 10,25,50]"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+   
+
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Buscar...." />
+                </span>
+            </div>
+        </ng-template>
+
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Mensaje</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Visto</th>
+                <th style="width:8em">Acción</th>
+            </tr>
+        </ng-template>
+
+
+        <ng-template pTemplate="body" let-notificacion>
+            <tr>
+                <td>
+                    {{notificacion.mensaje}}
+                </td>
+                <td>
+                    {{notificacion.f_crea | date :'dd/MM/YYYY'}}
+                </td>
+                <td>
+                    <p-tag *ngIf="notificacion.activo==1"  styleClass="p-mr-2" icon="pi pi-check" severity="success" value="Activo"></p-tag>
+                    <p-tag *ngIf="notificacion.activo==0"  styleClass="p-mr-2" icon="pi pi-info-circle" severity="info" value="Inactivo"></p-tag>
+                </td>
+                <td>
+                    <p-tag *ngIf="notificacion.confirmacion==0" styleClass="p-mr-2" severity="info" value="NO"></p-tag>
+                    <p-tag *ngIf="notificacion.confirmacion==1" styleClass="p-mr-2" severity="success" value="SI"></p-tag>
+                </td>
+                <td>
+                    <span class="p-column-title">Accion</span>
+
+                </td>
+            </tr>
+        </ng-template>
+        
+    </p-table>
+</p-card>

@@ -48,6 +48,11 @@
                 <td>
                     <span class="p-column-title">Accion</span>
 
+                    <span  class="icon-table"><i  class="pi pi-check-circle" (click)="eliminaNotificacion(notificacion.id)" pTooltip="Inactivar" tooltipPosition="top" placeholder="Top"></i></span>
+
+                    <span  class="icon-table"><i  class="pi pi-eye" (click)="cambiarConfirmacion(notificacion.id)" pTooltip="Marcar como Visto" tooltipPosition="top"  placeholder="Top"></i></span>
+                        
+
                 </td>
             </tr>
         </ng-template>

@@ -12,6 +12,7 @@ import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {InputTextModule} from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 
@@ -25,7 +26,8 @@ import { TagModule } from 'primeng/tag';
     ButtonModule,
     TabViewModule,
     InputTextModule,
-    TagModule
+    TagModule,
+    TooltipModule
   ]
 })
 export class PrincipalModule { }

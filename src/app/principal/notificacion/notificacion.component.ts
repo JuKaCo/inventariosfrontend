@@ -26,7 +26,9 @@ export class NotificacionComponent implements OnInit {
   ) { }
   ngOnInit(): void {
   }
-
+  resetTable() {
+    this.dt.reset();
+  }
   loadData(event: any) {
     let indice = event.first;
     let limite = event.rows;
@@ -50,5 +52,29 @@ export class NotificacionComponent implements OnInit {
         });
   }
 
+
+  eliminaNotificacion(id: number){
+    this.notificacionService.inactivaNotificacion(id)
+      .subscribe(response => {
+        if (response.success) {
+          this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se realizo con exito' });
+          this.resetTable();
+        }
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+      });
+  }
+
+  cambiarConfirmacion(id: number) {
+    this.notificacionService.confirmaNotificacion(id)
+      .subscribe(response => {
+        if (response.success) {
+          this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se realizo con exito' });
+          this.resetTable();
+        }
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+      });
+  }
 
 }

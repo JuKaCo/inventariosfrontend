@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { MessageService } from 'primeng/api';
-import { EntidadService } from '../../service/entidad.service';
 import { Table } from 'primeng/table/table';
 import { FormularioClienteComponent } from '../formulario-cliente/formulario-cliente.component';
+import { EntidadClienteService } from '../../service/entidad-cliente.service';
 
 @Component({
   selector: 'app-listado-cliente',
@@ -12,7 +12,7 @@ import { FormularioClienteComponent } from '../formulario-cliente/formulario-cli
 })
 export class ListadoClienteComponent implements OnInit {
   //titulo
-  modulo: string = "Proveedor";
+  modulo: string = "Cliente";
 
   //formularios
 
@@ -29,7 +29,7 @@ export class ListadoClienteComponent implements OnInit {
   @ViewChild('frm') frm!: FormularioClienteComponent;
   constructor(
     private messageService: MessageService,
-    private entidadService: EntidadService,
+    private entidadService: EntidadClienteService,
   ) {}
 
   ngOnInit(): void {

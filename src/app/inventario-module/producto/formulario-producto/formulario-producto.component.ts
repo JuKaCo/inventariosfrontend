@@ -4,56 +4,65 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
-import { EntidadProveedorService } from '../../service/entidad-proveedor.service';
-
+import { InventarioProductoService } from '../../service/inventario-producto.service';
 @Component({
-  selector: 'app-formulario-proveedor',
-  templateUrl: './formulario-proveedor.component.html',
-  styleUrls: ['./formulario-proveedor.component.scss']
+  selector: 'app-formulario-producto',
+  templateUrl: './formulario-producto.component.html',
+  styleUrls: ['./formulario-producto.component.scss']
 })
-export class FormularioProveedorComponent implements OnInit {
+export class FormularioProductoComponent implements OnInit {
   //generales
-  displayHeader="";
-  header: string = "proveedor";
-  modulo: string = "Proveedor";
+  displayHeader = "";
+  header: string = "producto";
+  modulo: string = "Producto";
   //dialog
-  tipo: string="";
+  tipo: string = "";
   displayFrm: boolean = false;
   //formulario
   formulario!: FormGroup;
   formularioValid: boolean = false;
-  param: any = { pais: [] };
+  param: any = [];
   //confirm
-  textCrea:string= "¿Esta seguro de guardar los datos?.";
-  textEditar:string="¿Esta seguro de modificar los datos?.";
-  textEliminar:string="¿Esta seguro de eliminar el registro?.";
+  textCrea: string = "¿Esta seguro de guardar los datos?.";
+  textEditar: string = "¿Esta seguro de modificar los datos?.";
+  textEliminar: string = "¿Esta seguro de eliminar el registro?.";
   //tiempo animacion pop out confirm
-  timeConfirm=250;
+  timeConfirm = 250;
   //ver
-  datos!:any;
+  datos!: any;
   //emitir datos
-  @Output() respform=new EventEmitter();
+  @Output() respform = new EventEmitter();
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private loaderService: LoaderService,
     private generalService: GeneralService,
-    private service: EntidadProveedorService,
-  ) { }
+    private service: InventarioProductoService,
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.initForm();
   }
-  
+
   initForm(): void {
     this.formulario = this.formBuilder.group({});
     this.formulario.addControl('id', new FormControl({ value: '0', disabled: false }, []));
-    this.formulario.addControl('codigo', new FormControl({ value: '', disabled: false }, [Validators.required]));
     this.formulario.addControl('nombre', new FormControl({ value: '', disabled: false }, [Validators.required]));
-    this.formulario.addControl('pais', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
-    this.formulario.addControl('direccion', new FormControl({ value: '', disabled: false }, [Validators.required]));
-    this.formulario.addControl('comentarios', new FormControl({ value: '', disabled: false }, [Validators.required]));
+    this.formulario.addControl('correo', new FormControl({ value: '', disabled: false }, [ValidacionService.emailValidator]));
+    this.formulario.addControl('telefono', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator]));
+    this.formulario.addControl('nit', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator]));
+    this.formulario.addControl('dependencia', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('nivel', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('departamento', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('provincia', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('municipio', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('ciudad', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('direccion', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('subsector', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('tipo', new FormControl({ value: '', disabled: false }, []));
     this.formularioValid = false;
   }
 
@@ -66,19 +75,19 @@ export class FormularioProveedorComponent implements OnInit {
     let filtro = event.query
     this.generalService.getParam(tipo, filtro).subscribe(response => {
       if (response.success) {
-        this.param.pais = response.data;
+        this.param[tipo] = response.data;
       } else {
-        this.param.pais = [];
+        this.param[tipo] = [];
+        this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
       }
     },
       error => {
-
         this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
       });
   }
 
   confirmarGuardar(event: any): void {
-    let texto =this.textCrea;
+    let texto = this.textCrea;
     if (this.formulario.valid) {
       this.confirmationService.confirm({
         target: event.target,
@@ -101,20 +110,20 @@ export class FormularioProveedorComponent implements OnInit {
 
   guardarDatos(): void {
     let data = this.formulario.value;
- 
+    data = JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
     this.service.set(data).subscribe(response => {
       if (response.success) {
-        this.respform.emit({tipo:this.tipo,success:true,message:response.message});
+        this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = false;
 
       } else {
-        this.respform.emit({tipo:this.tipo,success:false,message:response.message});
+        this.respform.emit({ tipo: this.tipo, success: false, message: response.message });
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
       }
     },
       error => {
-        this.respform.emit({tipo:this.tipo,success:false,message:error.message});
+        this.respform.emit({ tipo: this.tipo, success: false, message: error.message });
         this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
         this.displayFrm = false;
 
@@ -122,7 +131,7 @@ export class FormularioProveedorComponent implements OnInit {
   }
 
   confirmarEditar(event: any): void {
-    let texto =this.textEditar;
+    let texto = this.textEditar;
     if (this.formulario.valid) {
       this.confirmationService.confirm({
         target: event.target,
@@ -148,26 +157,26 @@ export class FormularioProveedorComponent implements OnInit {
     let data = this.formulario.value;
     //this.formulario.get('codigo')?.disable();
 
-        let valores={
-          codigo: data.codigo,
-          nombre: data.nombre,
-          pais:data.pais,
-          direccion: data.direccion,
-          comentarios: data.comentarios
-          };
-    this.service.setEdita(valores,data.id).subscribe(response => {
+    let valores = {
+      codigo: data.codigo,
+      nombre: data.nombre,
+      pais: data.pais,
+      direccion: data.direccion,
+      comentarios: data.comentarios
+    };
+    this.service.setEdita(valores, data.id).subscribe(response => {
       if (response.success) {
-        this.respform.emit({tipo:this.tipo,success:true,message:response.message});
+        this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = false;
 
       } else {
-        this.respform.emit({tipo:this.tipo,success:false,message:response.message});
+        this.respform.emit({ tipo: this.tipo, success: false, message: response.message });
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
       }
     },
       error => {
-        this.respform.emit({tipo:this.tipo,success:false,message:error.message});
+        this.respform.emit({ tipo: this.tipo, success: false, message: error.message });
         this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
         this.displayFrm = false;
 
@@ -175,30 +184,30 @@ export class FormularioProveedorComponent implements OnInit {
   }
 
   crear(): void {
-    this.tipo='crear';
+    this.tipo = 'crear';
     this.resetFormValidUpload();
     this.displayFrm = true;
-    this.displayHeader='Formulario '+this.header;
+    this.displayHeader = 'Formulario ' + this.header;
     //this.formulario.get('codigo')?.setValue('Por asignar');
-   // this.formulario.get('codigo')?.enable();
+    // this.formulario.get('codigo')?.enable();
   }
 
-  editar(id:string): void {
-    this.tipo='editar';
+  editar(id: string): void {
+    this.tipo = 'editar';
     this.resetFormValidUpload();
-    this.displayHeader='Formulario '+this.header;
+    this.displayHeader = 'Formulario ' + this.header;
     //this.formulario.get('codigo')?.disable();
     this.service.getRegistro(id).subscribe(response => {
       if (response.success) {
-        let data=response.data;
-        let valores={
-          id:data.id,
+        let data = response.data;
+        let valores = {
+          id: data.id,
           codigo: data.codigo,
           nombre: data.nombre,
-          pais:data.pais,
+          pais: data.pais,
           direccion: data.direccion,
           comentarios: data.comentarios
-          }
+        }
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
@@ -213,45 +222,45 @@ export class FormularioProveedorComponent implements OnInit {
         this.displayFrm = false;
       });
   }
-  eliminar(event:any,id:string){
-     this.confirmationService.close();
-     this.tipo="eliminar";
-     setTimeout(() => {
-       this.confirmationService.confirm({
-         target: event.target,
-         message: this.textEliminar,
-         icon: 'pi pi-exclamation-triangle',
-         accept: () => {
-           //confirm action
-           this.service.setElimina(id).subscribe(response => {
-             if (response.success) {
-              this.respform.emit({tipo:this.tipo,success:true,message:response.message});
-               this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se consolido el archivo.' });
-             } else {
-              this.respform.emit({tipo:this.tipo,success:false,message:response.message});
-               this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
-             }
-           },
-             error => {
-              this.respform.emit({tipo:this.tipo,success:false,message:error.message});
-               this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
-             });
-         },
-         reject: () => {
-           //reject action
-         }
-       })
-     }, this.timeConfirm);
+  eliminar(event: any, id: string) {
+    this.confirmationService.close();
+    this.tipo = "eliminar";
+    setTimeout(() => {
+      this.confirmationService.confirm({
+        target: event.target,
+        message: this.textEliminar,
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          //confirm action
+          this.service.setElimina(id).subscribe(response => {
+            if (response.success) {
+              this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
+              this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se consolido el archivo.' });
+            } else {
+              this.respform.emit({ tipo: this.tipo, success: false, message: response.message });
+              this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
+            }
+          },
+            error => {
+              this.respform.emit({ tipo: this.tipo, success: false, message: error.message });
+              this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
+            });
+        },
+        reject: () => {
+          //reject action
+        }
+      })
+    }, this.timeConfirm);
   }
-  ver(id:string): void {
-    this.datos=null;
-    this.tipo='ver';
-    this.displayHeader='Datos '+this.header;
+  ver(id: string): void {
+    this.datos = null;
+    this.tipo = 'ver';
+    this.displayHeader = 'Datos ' + this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
     this.service.getRegistro(id).subscribe(response => {
       if (response.success) {
-        this.datos=response.data;
+        this.datos = response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
 
@@ -266,3 +275,4 @@ export class FormularioProveedorComponent implements OnInit {
       });
   }
 }
+

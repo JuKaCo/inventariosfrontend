@@ -7,25 +7,23 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class EntidadService {
+export class EntidadProveedorService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
   //proveedor
-  setProveedor(data: any): Observable<any> {
+  set(data: any): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/proveedor/crear';
     return this.http.post(url, data).pipe(
       catchError(this.handleError)
     );
   }
-  setProveedorEditar(data: any,id:string): Observable<any> {
+  setEdita(data: any,id:string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/proveedor/editar/'+id;
     return this.http.put(url, data).pipe(
       catchError(this.handleError)
     );
   }
-  setEliminaProveedor(id: string): Observable<any> {
+  setElimina(id: string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/proveedor/cambiarestado/'+id;
     return this.http.delete(url).pipe(
       catchError(this.handleError)
@@ -37,7 +35,6 @@ export class EntidadService {
       catchError(this.handleError)
     );
   }
-
   getRegistro(uuid: string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/proveedor/obtener/' + uuid;
     return this.http.get(url).pipe(

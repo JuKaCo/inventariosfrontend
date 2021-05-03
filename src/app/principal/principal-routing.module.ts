@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VistaInicioComponent } from './vista-inicio/vista-inicio.component';
+import { NotificacionComponent } from './notificacion/notificacion.component';
 
 const routes: Routes = [{
   path: '',
@@ -11,6 +12,10 @@ const routes: Routes = [{
     {
       path: '',
       component: VistaInicioComponent,
+    },
+    {
+      path: 'notificacion',
+      component: NotificacionComponent,
     },
   ]
 }];

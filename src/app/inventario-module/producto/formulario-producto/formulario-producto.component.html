@@ -1,7 +1,7 @@
 <p-dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-80"
     [contentStyle]="{'overflow':'visible'}" [position]="'top'">
-    <p-scrollPanel styleClass="custombar-bar dialog-responsive-scroll" *ngIf="tipo!='ver'">
-        <form [formGroup]="formulario">
+    <p-scrollPanel  styleClass="custombar-bar dialog-responsive-scroll">
+        <form [formGroup]="formulario" *ngIf="tipo!='ver'">
             <input id="id" type="hidden" pInputText>
             <div class="p-fluid p-grid">
                 <div class="p-field p-col-12 p-md-12">
@@ -161,64 +161,31 @@
             </div>
         </form>
     </p-scrollPanel>
-    <p-scrollPanel styleClass="custombar-bar dialog-responsive-scroll" *ngIf="tipo=='ver'">
-        <div >
-            <div class="p-fluid p-grid">
-                <div class="p-field p-col-12 p-md-12">
-                    <span class="ver-datos">C1. Nombre</span>
-                    {{datos.nombre}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C2. Telefono</span>
-                    {{datos.telefono}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C3. Correo</span>
-                    {{datos.correo}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C4. Nit</span>
-                    {{datos.nit}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C5. Dependencia</span>
-                    {{datos.dependencia?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C6. Nivel</span>
-                    {{datos.nivel.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C7. Departamento</span>
-                    {{datos.departamento?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C8. Provincia</span>
-                    {{datos.provincia?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C9. Municipio</span>
-                    {{datos.municipio?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C10. Ciudad</span>
-                    {{datos.ciudad}}
-                </div>
-                <div class="p-field p-col-12 p-md-12">
-                    <span class="ver-datos">C11. Direccion</span>
-                    {{datos.direccion}}
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                    <span class="ver-datos">C12. Subsector</span>
-                    {{datos.subsector?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                    <span class="ver-datos">C13. Tipo</span>
-                    {{datos.tipo.valor}}
-                </div>
+    <div *ngIf="tipo=='ver'">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P1. Código</span>
+                {{datos.codigo}}
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P2. País</span>
+                {{datos.pais.valor}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P3. Nombre</span>
+                {{datos.nombre}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P4. Dirección</span>
+                {{datos.direccion}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P5. Comentarios</span>
+                {{datos.comentarios}}
             </div>
         </div>
-    </p-scrollPanel>
+    </div>
+
     <ng-template pTemplate="footer">
         <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
             styleClass="p-button-raised p-button-text"></p-button>

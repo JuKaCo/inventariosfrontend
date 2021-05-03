@@ -23,28 +23,19 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 
-
-
-//importar componente general
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
-
-import { EntidadModuleRoutingModule } from './entidad-module-routing.module';
-import { ListadoProveedorComponent } from './proveedor/listado-provedor/listado-proveedor.component';
-import { FormularioProveedorComponent } from './proveedor/formulario-proveedor/formulario-proveedor.component';
-import { ListadoClienteComponent } from './cliente/listado-cliente/listado-cliente.component';
-import { FormularioClienteComponent } from './cliente/formulario-cliente/formulario-cliente.component';
+import { InventarioModuleRoutingModule } from './inventario-module-routing.module';
+import { ListadoProductoComponent } from './producto/listado-producto/listado-producto.component';
+import { FormularioProductoComponent } from './producto/formulario-producto/formulario-producto.component';
 
 
 @NgModule({
   declarations: [
-    ListadoProveedorComponent,
-    FormularioProveedorComponent,
-    ListadoClienteComponent,
-    FormularioClienteComponent
+    ListadoProductoComponent,
+    FormularioProductoComponent
   ],
   imports: [
-    EntidadModuleRoutingModule,
     CommonModule,
     GeneralModuleModule,
     FormsModule,
@@ -64,7 +55,8 @@ import { FormularioClienteComponent } from './cliente/formulario-cliente/formula
     TagModule,
     MessagesModule,
     MessageModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    InventarioModuleRoutingModule
   ]
 })
-export class EntidadModuleModule { }
+export class InventarioModuleModule { }

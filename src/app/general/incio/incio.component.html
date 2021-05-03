@@ -14,7 +14,8 @@
 
         <p-overlayPanel #prueba [showCloseIcon]="false" [style]="{width: '300px'}" class="panel">
           <ng-template pTemplate>
-            <p class="titulo">NOTIFICACIONES</p>
+            <p class="titulo" *ngIf="nroNotificaciones > 0">NOTIFICACIONES</p>
+            <p class="titulo" *ngIf="nroNotificaciones == 0">SIN NOTIFICACIONES</p>
             <p-divider></p-divider>
 
             <div class="card">

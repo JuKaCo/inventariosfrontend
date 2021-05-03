@@ -22,7 +22,7 @@ export class FormularioRegionalComponent implements OnInit {
  //formulario
  formulario!: FormGroup;
  formularioValid: boolean = false;
- param: any = { pais: [] };
+ param: any = {};
  //confirm
  textCrea:string= "¿Esta seguro de guardar los datos?.";
  textEditar:string="¿Esta seguro de modificar los datos?.";
@@ -66,9 +66,9 @@ export class FormularioRegionalComponent implements OnInit {
    let filtro = event.query
    this.generalService.getParam(tipo, filtro).subscribe(response => {
      if (response.success) {
-       this.param.pais = response.data;
+       this.param[tipo] = response.data;
      } else {
-       this.param.pais = [];
+       this.param[tipo] = [];
      }
    },
      error => {

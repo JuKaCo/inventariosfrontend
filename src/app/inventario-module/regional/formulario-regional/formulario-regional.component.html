@@ -21,7 +21,7 @@
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
-                    <p-autoComplete formControlName="departamento" inputId="inp_pais" [suggestions]="param.departamento"
+                    <p-autoComplete formControlName="departamento" inputId="inp_pais" [suggestions]="param.param_departamentos_bol"
                         (completeMethod)="getFilter($event,'param_departamentos_bol')" field="valor" [minLength]="1"
                         [dropdown]="true">
                         <ng-template let-data pTemplate="item">
@@ -45,7 +45,7 @@
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <input formControlName="telefono" type="text" id="inp_telefono" pInputText>
-                    <label for="inp_telefono">R5. Telefono <span class="text-danger">*</span></label>
+                    <label for="inp_telefono">R5. Telefono </label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['telefono']" [valid]="formularioValid">
                 </app-mesaje-form-error>

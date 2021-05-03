@@ -18,6 +18,7 @@ export class FormularioProductoComponent implements OnInit {
   //dialog
   tipo: string = "";
   displayFrm: boolean = false;
+  displayDialog: boolean = false;
   //formulario
   formulario!: FormGroup;
   formularioValid: boolean = false;
@@ -50,19 +51,24 @@ export class FormularioProductoComponent implements OnInit {
   initForm(): void {
     this.formulario = this.formBuilder.group({});
     this.formulario.addControl('id', new FormControl({ value: '0', disabled: false }, []));
-    this.formulario.addControl('nombre', new FormControl({ value: '', disabled: false }, [Validators.required]));
-    this.formulario.addControl('correo', new FormControl({ value: '', disabled: false }, [ValidacionService.emailValidator]));
-    this.formulario.addControl('telefono', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator]));
-    this.formulario.addControl('nit', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator]));
-    this.formulario.addControl('dependencia', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('nivel', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('departamento', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('provincia', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('municipio', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('ciudad', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('direccion', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('subsector', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('tipo', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('codigo', new FormControl({ value: '', disabled: false }, [Validators.required]));
+    this.formulario.addControl('nombre_comercial', new FormControl({ value: '', disabled: false }, [ValidacionService.required]));
+    this.formulario.addControl('codigo_liname', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('codigo_linadime', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('reg_san', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('referencia', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('medicamento', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('form_farm', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('concen', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('atq', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('precio_ref', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('aclara_parti', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('dispositivo', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('especificacion_tec', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('presentacion', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('nivel_uso_i', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('nivel_uso_ii', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('nivel_uso_iii', new FormControl({ value: '', disabled: false }, []));
     this.formularioValid = false;
   }
 
@@ -73,17 +79,69 @@ export class FormularioProductoComponent implements OnInit {
 
   getFilter(event: any, tipo: string) {
     let filtro = event.query
-    this.generalService.getParam(tipo, filtro).subscribe(response => {
-      if (response.success) {
-        this.param[tipo] = response.data;
-      } else {
-        this.param[tipo] = [];
-        this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
+    if (tipo == 'param_liname') {
+      let valor = this.formulario.get('codigo_liname')?.value;
+      if (typeof valor !== "object") {
+        this.limpiarLiname();
       }
-    },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
-      });
+      this.service.getLiname(filtro).subscribe(response => {
+        if (response.success) {
+          this.param[tipo] = response.data;
+        } else {
+          this.param[tipo] = [];
+          this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
+        }
+      },
+        error => {
+          this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
+        });
+    } else {
+      if (tipo == 'param_linadime') {
+        let valor = this.formulario.get('codigo_linadime')?.value;
+        if (typeof valor !== "object") {
+          this.limpiarLinadime();
+        }
+        this.service.getLinadime(filtro).subscribe(response => {
+          if (response.success) {
+            this.param[tipo] = response.data;
+          } else {
+            this.param[tipo] = [];
+            this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
+          }
+        },
+          error => {
+            this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
+          });
+      } else {
+        this.generalService.getParam(tipo, filtro).subscribe(response => {
+          if (response.success) {
+            this.param[tipo] = response.data;
+          } else {
+            this.param[tipo] = [];
+            this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
+          }
+        },
+          error => {
+            this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
+          });
+      }
+    }
+  }
+  limpiarLiname() {
+    this.formulario.get('medicamento')?.setValue('');
+    this.formulario.get('form_farm')?.setValue('');
+    this.formulario.get('concen')?.setValue('');
+    this.formulario.get('atq')?.setValue('');
+    this.formulario.get('precio_ref')?.setValue('');
+    this.formulario.get('aclara_parti')?.setValue('');
+  }
+  limpiarLinadime() {
+    this.formulario.get('dispositivo')?.setValue('');
+    this.formulario.get('especificacion_tec')?.setValue('');
+    this.formulario.get('presentacion')?.setValue('');
+    this.formulario.get('nivel_uso_i')?.setValue('');
+    this.formulario.get('nivel_uso_ii')?.setValue('');
+    this.formulario.get('nivel_uso_iii')?.setValue('');
   }
 
   confirmarGuardar(event: any): void {
@@ -110,7 +168,9 @@ export class FormularioProductoComponent implements OnInit {
 
   guardarDatos(): void {
     let data = this.formulario.value;
+    data = this.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
     data = JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+
     this.service.set(data).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
@@ -128,6 +188,15 @@ export class FormularioProductoComponent implements OnInit {
         this.displayFrm = false;
 
       });
+  }
+
+  modComboNull(data: any, datos: any): any {
+    for (let dato of datos) {
+      if (data[dato] == null) {
+        data[dato] = {};
+      }
+    }
+    return data;
   }
 
   confirmarEditar(event: any): void {
@@ -158,12 +227,24 @@ export class FormularioProductoComponent implements OnInit {
     //this.formulario.get('codigo')?.disable();
 
     let valores = {
-      codigo: data.codigo,
       nombre: data.nombre,
-      pais: data.pais,
+      telefono: data.telefono,
+      correo: data.correo,
+      nit: data.nit,
+      dependencia: data.dependencia,
+      nivel: data.nivel,
+      departamento: data.departamento,
+      provincia: data.provincia,
+      municipio: data.municipio,
+      ciudad: data.ciudad,
       direccion: data.direccion,
-      comentarios: data.comentarios
+      subsector: data.subsector,
+      tipo: data.tipo,
     };
+
+    data = this.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
+    data = JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+
     this.service.setEdita(valores, data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
@@ -188,12 +269,10 @@ export class FormularioProductoComponent implements OnInit {
     this.resetFormValidUpload();
     this.displayFrm = true;
     this.displayHeader = 'Formulario ' + this.header;
-    //this.formulario.get('codigo')?.setValue('Por asignar');
-    // this.formulario.get('codigo')?.enable();
   }
 
   editar(id: string): void {
-    this.tipo = 'editar';
+    //this.tipo = 'editar';
     this.resetFormValidUpload();
     this.displayHeader = 'Formulario ' + this.header;
     //this.formulario.get('codigo')?.disable();
@@ -202,15 +281,24 @@ export class FormularioProductoComponent implements OnInit {
         let data = response.data;
         let valores = {
           id: data.id,
-          codigo: data.codigo,
           nombre: data.nombre,
-          pais: data.pais,
+          telefono: data.telefono,
+          correo: data.correo,
+          nit: data.nit,
+          dependencia: data.dependencia,
+          nivel: data.nivel,
+          departamento: data.departamento,
+          provincia: data.provincia,
+          municipio: data.municipio,
+          ciudad: data.ciudad,
           direccion: data.direccion,
-          comentarios: data.comentarios
+          subsector: data.subsector,
+          tipo: data.tipo,
         }
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
+        this.tipo = 'editar';
 
       } else {
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
@@ -254,7 +342,6 @@ export class FormularioProductoComponent implements OnInit {
   }
   ver(id: string): void {
     this.datos = null;
-    this.tipo = 'ver';
     this.displayHeader = 'Datos ' + this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
@@ -263,7 +350,7 @@ export class FormularioProductoComponent implements OnInit {
         this.datos = response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
-
+        this.tipo = 'ver';
       } else {
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
         this.displayFrm = false;
@@ -273,6 +360,29 @@ export class FormularioProductoComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
         this.displayFrm = false;
       });
+  }
+  selectLiname(event: any) {
+    this.formulario.get('medicamento')?.setValue(event.medicamento);
+    this.formulario.get('form_farm')?.setValue(event.form_farm);
+    this.formulario.get('concen')?.setValue(event.concen);
+    this.formulario.get('atq')?.setValue(event.class_atq);
+    this.formulario.get('precio_ref')?.setValue(event.pre_ref);
+    this.formulario.get('aclara_parti')?.setValue(event.aclara_parti);
+    this.limpiarLinadime();
+  }
+  selectLinadime(event:any){
+    this.formulario.get('dispositivo')?.setValue(event.dispositivo);
+    this.formulario.get('especificacion_tec')?.setValue(event.esp_tec);
+    this.formulario.get('presentacion')?.setValue(event.presen);
+    this.formulario.get('nivel_uso_i')?.setValue(event.niv_uso_I);
+    this.formulario.get('nivel_uso_ii')?.setValue(event.niv_uso_II);
+    this.formulario.get('nivel_uso_iii')?.setValue(event.niv_uso_III);
+    this.limpiarLiname();
+  }
+  cerrarForm(){
+    this.displayFrm=false;
+    this.respform.emit({ tipo: 'cerrar', success: true});
+
   }
 }
 

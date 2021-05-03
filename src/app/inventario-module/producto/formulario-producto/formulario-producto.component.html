@@ -1,197 +1,274 @@
-<p-dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-80"
-    [contentStyle]="{'overflow':'visible'}" [position]="'top'">
-    <p-scrollPanel  styleClass="custombar-bar dialog-responsive-scroll">
-        <form [formGroup]="formulario" *ngIf="tipo!='ver'">
-            <input id="id" type="hidden" pInputText>
-            <div class="p-fluid p-grid">
-                <div class="p-field p-col-12 p-md-12">
-                    <span class="p-float-label">
-                        <input formControlName="nombre" type="text" id="inp_nombre" pInputText>
-                        <label for="inp_nombre">C1. Nombre<span class="text-danger">*</span></label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['nombre']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <input formControlName="telefono" type="text" id="inp_telefono" pInputText>
-                        <label for="inp_telefono">C2. Telefono</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['telefono']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <input formControlName="correo" type="text" id="inp_correo" pInputText>
-                        <label for="inp_correo">C3. Correo</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['correo']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <input formControlName="nit" type="text" id="inp_nit" pInputText>
-                        <label for="inp_nit">C4. NIT</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['nit']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <p-autoComplete formControlName="dependencia" inputId="inp_dependencia"
-                            [suggestions]="param['param_dependencia']"
-                            (completeMethod)="getFilter($event,'param_dependencia')" field="valor" [minLength]="1"
-                            [dropdown]="true">
-                            <ng-template let-adata pTemplate="item">
-                                <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
-                            </ng-template>
-                        </p-autoComplete>
-                        <label for="inp_dependencia">C5. Dependencia</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['dependencia']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <p-autoComplete formControlName="nivel" inputId="inp_nivel"
-                            [suggestions]="param['param_nivel_hosp']"
-                            (completeMethod)="getFilter($event,'param_nivel_hosp')" field="valor" [minLength]="1"
-                            [dropdown]="true">
-                            <ng-template let-adata pTemplate="item">
-                                <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
-                            </ng-template>
-                        </p-autoComplete>
-                        <label for="inp_nivel">C6. Nivel</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['nivel']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <p-autoComplete formControlName="departamento" inputId="inp_departamento"
-                            [suggestions]="param['param_departamento']"
-                            (completeMethod)="getFilter($event,'param_departamento')" field="valor" [minLength]="1"
-                            [dropdown]="true">
-                            <ng-template let-adata pTemplate="item">
-                                <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
-                            </ng-template>
-                        </p-autoComplete>
-                        <label for="inp_departamento">C7. Departamento</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['departamento']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <p-autoComplete formControlName="provincia" inputId="inp_provincia"
-                            [suggestions]="param['param_provincia']"
-                            (completeMethod)="getFilter($event,'param_provincia')" field="valor" [minLength]="1"
-                            [dropdown]="true">
-                            <ng-template let-adata pTemplate="item">
-                                <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
-                            </ng-template>
-                        </p-autoComplete>
-                        <label for="inp_provincia">C8. Provincia</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <p-autoComplete formControlName="municipio" inputId="inp_municipio"
-                            [suggestions]="param['param_municipio']"
-                            (completeMethod)="getFilter($event,'param_municipio')" field="valor" [minLength]="1"
-                            [dropdown]="true">
-                            <ng-template let-adata pTemplate="item">
-                                <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
-                            </ng-template>
-                        </p-autoComplete>
-                        <label for="inp_municipio">C9. Municipio</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['municipio']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="p-float-label">
-                        <input formControlName="ciudad" type="text" id="inp_ciudad" pInputText>
-                        <label for="inp_ciudad">C10. Ciudad</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['ciudad']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-12">
-                    <span class="p-float-label">
-                        <textarea formControlName="direccion" id="inp_direccion" rows="3" cols="30"
-                            pInputTextarea></textarea>
-                        <label for="inp_direccion">C11. Direccion</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['direccion']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                    <span class="p-float-label">
-                        <p-autoComplete formControlName="subsector" inputId="inp_subsector"
-                            [suggestions]="param['param_subsec_hosp']"
-                            (completeMethod)="getFilter($event,'param_subsec_hosp')" field="valor" [minLength]="1"
-                            [dropdown]="true">
-                            <ng-template let-adata pTemplate="item">
-                                <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
-                            </ng-template>
-                        </p-autoComplete>
-                        <label for="inp_subsector">C12. Subsector</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['subsector']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                    <span class="p-float-label">
-                        <p-autoComplete formControlName="tipo" inputId="inp_tipo"
-                            [suggestions]="param['param_tipo_hosp']"
-                            (completeMethod)="getFilter($event,'param_tipo_hosp')" field="valor" [minLength]="1"
-                            [dropdown]="true">
-                            <ng-template let-adata pTemplate="item">
-                                <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
-                            </ng-template>
-                        </p-autoComplete>
-                        <label for="inp_tipo">C13. Tipo</label>
-                    </span>
-                    <app-mesaje-form-error [control]="formulario.controls['tipo']" [valid]="formularioValid">
-                    </app-mesaje-form-error>
-                </div>
-            </div>
-        </form>
-    </p-scrollPanel>
-    <div *ngIf="tipo=='ver'">
+<br>
+<p-card [header]="displayHeader" *ngIf="displayFrm">
+    <ng-template pTemplate="header">
+    </ng-template>
+    <form [formGroup]="formulario" >
+        <input id="id" type="hidden" pInputText>
         <div class="p-fluid p-grid">
-            <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">P1. Código</span>
-                {{datos.codigo}}
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
+                    <label for="inp_codigo">P1. Codigo<span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
+                </app-mesaje-form-error>
             </div>
-            <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">P2. País</span>
-                {{datos.pais.valor}}
+            <div class="p-field p-col-12 p-md-8">
+                <span class="p-float-label">
+                    <input formControlName="nombre_comercial" type="text" id="inp_nombre_comercial" pInputText>
+                    <label for="inp_nombre_comercial">P2. Nombre</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['nombre_comercial']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="codigo_liname" inputId="inp_liname"
+                        [suggestions]="param['param_liname']" (completeMethod)="getFilter($event,'param_liname')"
+                        field="codigo" [minLength]="1" [dropdown]="true" (onSelect)="selectLiname($event)">
+                        <ng-template let-adata pTemplate="item">
+                            <div>
+                                <b>({{adata.codigo}})</b> {{adata.medicamento}} <b>ATQ: </b>{{adata.class_atq}} <br>
+                                <b>Concentracion: </b>{{adata.concen}}<b>For. farma: </b>{{adata.for_farma}}<br>
+                                <b>Pre. refe.: </b>{{adata.pre_ref}}<b>Acla. parti: </b>{{adata.aclara_parti}}
+                            </div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_dependencia">P3. Codigo LINAME</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['dependencia']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="codigo_linadime" inputId="inp_codigo_linadime"
+                        [suggestions]="param['param_linadime']" (completeMethod)="getFilter($event,'param_linadime')"
+                        field="codigo" [minLength]="1" [dropdown]="true" (onSelect)="selectLinadime($event)">
+                        <ng-template let-adata pTemplate="item">
+                            <div>
+                                <b>({{adata.codigo}})</b> {{adata.dispositivo}}<br>
+                                <b>Esp. tec.: </b>{{adata.esp_tec}}<b>Presentacion: </b>{{adata.presen}}<br>
+                                <b>I: </b>{{adata.niv_uso_I}}<b>II: </b>{{adata.niv_uso_II}}<b>III: </b>{{adata.niv_uso_III}}
+                            </div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_codigo_linadime">P4. Codigo LINADIME</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['codigo_linadime']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="reg_san" type="text" id="inp_reg_san" pInputText>
+                    <label for="inp_reg_san">P5. Registro sanitario</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['reg_san']" [valid]="formularioValid">
+                </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">P3. Nombre</span>
-                {{datos.nombre}}
-            </div>
-            <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">P4. Dirección</span>
-                {{datos.direccion}}
-            </div>
-            <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">P5. Comentarios</span>
-                {{datos.comentarios}}
+                <span class="p-float-label">
+                    <textarea formControlName="referencia" id="inp_referencia" rows="2" cols="30"
+                        pInputTextarea></textarea>
+                    <label for="inp_referencia">P6. Referencia</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['referencia']" [valid]="formularioValid">
+                </app-mesaje-form-error>
             </div>
         </div>
-    </div>
+        <p-divider align="left">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-tags p-mr-2"></i>
+                <b>Datos medicamento</b>
+            </div>
+        </p-divider>
+        <br>
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input formControlName="medicamento" type="text" id="inp_medicamento" pInputText>
+                    <label for="inp_medicamento">P7. Medicamento</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['medicamento']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input formControlName="form_farm" type="text" id="inp_form_farm" pInputText>
+                    <label for="inp_form_farm">P8. Forma farmaceutica</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['form_farm']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input formControlName="concen" type="text" id="inp_concen" pInputText>
+                    <label for="inp_concen">P9. Concentración</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['concen']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="atq" type="text" id="inp_atq" pInputText>
+                    <label for="inp_atq">P10. ATQ</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['atq']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="precio_ref" type="text" id="imp_precio_ref" pInputText>
+                    <label for="imp_precio_ref">P11. Precio referencial</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['precio_ref']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="aclara_parti" type="text" id="imp_aclara_parti" pInputText>
+                    <label for="imp_aclara_parti">P12. Aclaracion de particula</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['aclara_parti']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+        </div>
+        <p-divider align="left">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-tags p-mr-2"></i>
+                <b>Datos dispositivo</b>
+            </div>
+        </p-divider>
 
+        <br>
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input formControlName="dispositivo" type="text" id="imp_dispositivo" pInputText>
+                    <label for="imp_dispositivo">P13. Dispositivo</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['dispositivo']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input formControlName="especificacion_tec" type="text" id="imp_especificacion_tec" pInputText>
+                    <label for="imp_especificacion_tec">P14. Especificacion tecnica</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['especificacion_tec']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <input formControlName="presentacion" type="text" id="imp_presentacion" pInputText>
+                    <label for="imp_presentacion">P15. Presentación</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['presentacion']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="nivel_uso_i" type="text" id="imp_nivel_uso_i" pInputText>
+                    <label for="imp_nivel_uso_i">P16. Nivel de uso I</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['nivel_uso_i']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="nivel_uso_ii" type="text" id="imp_nivel_uso_ii" pInputText>
+                    <label for="imp_nivel_uso_ii">P17. Nivel de uso II</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['nivel_uso_ii']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="nivel_uso_iii" type="text" id="imp_nivel_uso_iii" pInputText>
+                    <label for="imp_nivel_uso_iii">P18. Nivel de uso III</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['nivel_uso_iii']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+        </div>
+        <div class="p-grid p-jc-end">
+ 
+            <div class="p-col-12 p-md-2">
+                <p-button (click)="cerrarForm();" icon="pi pi-times" label="Cerrar"
+                    styleClass="p-button-raised p-button-text"></p-button>
+            </div>
+            <div styleClass="p-col-12 p-md-2 cont-menu-responsive">
+                <p-button (click)="confirmarEditar($event)"  label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+                </p-button>
+                <p-button (click)="confirmarGuardar($event)"  label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'">
+                </p-button>
+            </div>
+        </div>
+    </form>
+</p-card>
+
+<p-dialog [header]="displayHeader" [(visible)]="displayDialog" [modal]="true" styleClass="dialog-responsive-80"
+    [contentStyle]="{'overflow':'visible'}" [position]="'top'">
+    <p-scrollPanel styleClass="custombar-bar dialog-responsive-scroll" *ngIf="tipo=='ver'">
+        <div>
+            <div class="p-fluid p-grid">
+                <div class="p-field p-col-12 p-md-12">
+                    <span class="ver-datos">C1. Nombre</span>
+                    {{datos.nombre}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C2. Telefono</span>
+                    {{datos.telefono}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C3. Correo</span>
+                    {{datos.correo}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C4. Nit</span>
+                    {{datos.nit}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C5. Dependencia</span>
+                    {{datos.dependencia?.valor}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C6. Nivel</span>
+                    {{datos.nivel.valor}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C7. Departamento</span>
+                    {{datos.departamento?.valor}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C8. Provincia</span>
+                    {{datos.provincia?.valor}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C9. Municipio</span>
+                    {{datos.municipio?.valor}}
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="ver-datos">C10. Ciudad</span>
+                    {{datos.ciudad}}
+                </div>
+                <div class="p-field p-col-12 p-md-12">
+                    <span class="ver-datos">C11. Direccion</span>
+                    {{datos.direccion}}
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                    <span class="ver-datos">C12. Subsector</span>
+                    {{datos.subsector?.valor}}
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                    <span class="ver-datos">C13. Tipo</span>
+                    {{datos.tipo.valor}}
+                </div>
+            </div>
+        </div>
+    </p-scrollPanel>
     <ng-template pTemplate="footer">
-        <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
+        <p-button (click)="displayDialog=false;" icon="pi pi-times" label="Cerrar"
             styleClass="p-button-raised p-button-text"></p-button>
-        <p-button (click)="confirmarGuardar($event)" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'"></p-button>
 
-        <p-button (click)="confirmarEditar($event)" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
-        </p-button>
     </ng-template>
 </p-dialog>

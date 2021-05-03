@@ -1,64 +1,113 @@
 <app-breadcrumb-general></app-breadcrumb-general>
-<p-card>
+<p-card *ngIf="viewTable">
     <div class="p-grid">
         <!-- <div class="p-col-12 p-md-1" pTooltip="Regargar contenido de tabla" tooltipPosition="top">
            <p-button type="button" icon="pi pi-refresh" (click)="resetTable()" styleClass="p-button-text"></p-button>
         </div>-->
         <div [controlAcceso]="'crear'" class="p-col-12 p-md-12 p-text-right">
-            <button  pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
+            <button pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
                 (click)="crear()"></button>
         </div>
     </div>
 
-    <p-table [controlAcceso]="'ver'"  #dt [value]="listaTabla" [lazy]="true" (onLazyLoad)="loadData($event)" [paginator]="true" [rows]="rows"
-        [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
+    <p-table [controlAcceso]="'ver'" #dt [value]="listaTabla" [lazy]="true" (onLazyLoad)="loadData($event)"
+        [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
         styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[10,25,50]"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="p-d-flex">
                 <!--<button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clearTable(dt)"></button>-->
                 <span class="p-input-icon-left p-ml-auto">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')" placeholder="Buscar...." />
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')"
+                        placeholder="Buscar...." />
                 </span>
             </div>
         </ng-template>
 
         <ng-template pTemplate="header">
             <tr>
-                <th>Código</th>
-                <th>País</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th style="width:7em">Acción</th>
+                <th>Codigo</th>
+                <th>Nombre comercial</th>
+                <!--<th>LINAME o LINADIME</th>-->
+
+                <th>Referencia</th>
+
+                <th>Medicamento</th>
+                <!--
+                    <th>Forma farmaceutica</th>
+                    <th>Concentración</th>
+                    <th>ATQ</th>
+                    <th>Aclaracion de particularidades</th>
+                -->
+                <th>Precio referencial</th>
+
+                <th>Dispositivo</th>
+                <!--<th>Especificacion tecnica</th>
+                <th>Presentación</th>
+                <th>Nivel de uso</th>-->
+                <th style="width:8em">Acción</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-dato>
             <tr>
                 <td>
-                    <span class="p-column-title">Código</span>
-                    {{dato.codigo}}
+                    <span class="p-column-title">Codigo</span>
+                    {{dato?.codigo}}
                 </td>
                 <td>
-                    <span class="p-column-title">Fecha</span>
-                    {{dato.pais.valor}}
+                    <span class="p-column-title">Nombre comercial</span>
+                    {{dato?.nombre_comercial}}<br>
+                    <div *ngIf="dato?.reg_san!=null"><small><b>Registro sanitario:</b></small><br> {{dato?.reg_san}}<br></div>
+                    <div *ngIf="dato?.codigo_liname.cod_liname!=null"><small><b>LINAME:</b></small> {{dato?.codigo_liname?.cod_liname}}<br></div>
+                    <div *ngIf="dato?.codigo_linadime.cod_linadime!=null"><small><b>LINADIME:</b></small> {{dato?.codigo_linadime?.cod_linadime}}</div>
+                </td>
+               <!-- <td>
+                    <span class="p-column-title">LINAME o LINADIME</span>
+                    <div *ngIf="dato?.codigo_liname.cod_liname!=null"><small><b>LINAME:</b></small> {{dato?.codigo_liname?.cod_liname}}<br></div>
+                    <div *ngIf="dato?.codigo_linadime.cod_linadime!=null"><small><b>LINADIME:</b></small> {{dato?.codigo_linadime?.cod_linadime}}</div>
+                </td>-->
+                <td>
+                    <span class="p-column-title">Referencia</span>
+                    {{dato?.referencia}}
                 </td>
                 <td>
-                    <span class="p-column-title">Nombre</span>
-                    {{dato.nombre}}
+                    <span class="p-column-title">Medicamento</span>
+                    <div>
+                        {{dato?.medicamento}}<br>
+                        <small><i><b>For. farma.: </b></i></small>{{dato?.form_farm}}<br>
+                        <small><i><b>Concen.: </b></i></small>{{dato?.concen}}<br>
+                        <small><i><b>ATQ: </b></i></small>{{dato?.atq}}<br>
+                        <small><i><b>Aclaración de particularidades: </b></i></small><br>{{dato?.aclara_parti}}
+                    </div>
                 </td>
                 <td>
-                    <span class="p-column-title">Dirección</span>
-                    {{dato.direccion}}
+                    <span class="p-column-title">Precio referencial</span>
+                    {{dato?.precio_ref}}
+                </td>
+                <td>
+                    <span class="p-column-title">Dispositivo</span>
+                    {{dato?.dispositivo}}<br>
+                    <div>
+                        <small><i><b>Esp. tec.: </b></i></small>{{dato?.especificacion_tec}}<br>
+                        <small><i><b>Presen.: </b></i></small>{{dato?.presentacion}}<br>
+                        <small><i><b>Nivel de uso I: </b></i></small>{{dato?.nivel_uso_i}}<br>
+                        <small><i><b>Nivel de uso II: </b></i></small>{{dato?.nivel_uso_ii}}<br>
+                        <small><i><b>Nivel de uso III: </b></i></small>{{dato?.nivel_uso_iii}}<br>
+                    </div>
                 </td>
                 <td>
                     <span class="p-column-title">Accion</span>
-                    
-                    <span [controlAcceso]="'ver'" class="icon-table"><i (click)="ver(dato)" class="pi pi-eye" pTooltip="Ver" tooltipPosition="top" placeholder="Top"></i></span>
 
-                    <span [controlAcceso]="'editar'" class="icon-table"><i (click)="editar(dato)" class="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" placeholder="Top"></i></span>
+                    <span [controlAcceso]="'ver'" class="icon-table"><i (click)="ver(dato)" class="pi pi-eye"
+                            pTooltip="Ver" tooltipPosition="top" placeholder="Top"></i></span>
 
-                    <span [controlAcceso]="'eliminar'" class="icon-table"><i  (click)="eliminar($event,dato)"  class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top"  placeholder="Top"></i></span>
+                    <span [controlAcceso]="'editar'" class="icon-table"><i (click)="editar(dato)" class="pi pi-pencil"
+                            pTooltip="Editar" tooltipPosition="top" placeholder="Top"></i></span>
+
+                    <span [controlAcceso]="'eliminar'" class="icon-table"><i (click)="eliminar($event,dato)"
+                            class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top" placeholder="Top"></i></span>
                 </td>
             </tr>
         </ng-template>

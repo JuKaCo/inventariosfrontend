@@ -22,6 +22,7 @@ import { TagModule } from 'primeng/tag';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {DividerModule} from 'primeng/divider';
 
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
@@ -56,7 +57,8 @@ import { FormularioProductoComponent } from './producto/formulario-producto/form
     MessagesModule,
     MessageModule,
     AutoCompleteModule,
-    InventarioModuleRoutingModule
+    InventarioModuleRoutingModule,
+    DividerModule
   ]
 })
 export class InventarioModuleModule { }

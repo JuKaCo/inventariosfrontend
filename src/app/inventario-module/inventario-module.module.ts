@@ -29,12 +29,16 @@ import { GeneralModuleModule } from '../general-module/general-module.module';
 import { InventarioModuleRoutingModule } from './inventario-module-routing.module';
 import { ListadoProductoComponent } from './producto/listado-producto/listado-producto.component';
 import { FormularioProductoComponent } from './producto/formulario-producto/formulario-producto.component';
+import { FormularioRegionalComponent } from './regional/formulario-regional/formulario-regional.component';
+import { ListadoRegionalComponent } from './regional/listado-regional/listado-regional.component';
 
 
 @NgModule({
   declarations: [
     ListadoProductoComponent,
-    FormularioProductoComponent
+    FormularioProductoComponent,
+    FormularioRegionalComponent,
+    ListadoRegionalComponent
   ],
   imports: [
     CommonModule,

@@ -3,77 +3,76 @@
     <form [formGroup]="formulario"  *ngIf="tipo!='ver'">
         <input id="id" type="hidden" pInputText>
         <div class="p-fluid p-grid">
-            <div class="p-field p-col-12 p-md-6">
+            <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
-                    <label for="inp_codigo">PV1. Código<span class="text-danger">*</span></label>
+                    <label for="inp_codigo">R1. Código<span class="text-danger">*</span></label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
-                </app-mesaje-form-error>
-            </div>
-            <div class="p-field p-col-12 p-md-6">
-                <span class="p-float-label">
-                    <p-autoComplete formControlName="pais" inputId="inp_pais" [suggestions]="param.pais"
-                        (completeMethod)="getFilter($event,'param_paises')" field="valor" [minLength]="1"
-                        [dropdown]="true">
-                        <ng-template let-data pTemplate="item">
-                            <div><b>({{data.codigo}})</b> {{data.valor}}</div>
-                        </ng-template>
-                    </p-autoComplete>
-                    <label for="inp_pais">PV2. País <span class="text-danger">*</span></label>
-                </span>
-                <app-mesaje-form-error [control]="formulario.controls['pais']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <input formControlName="nombre" type="text" id="inp_nombre" pInputText>
-                    <label for="inp_nombre">PV3. Nombre <span class="text-danger">*</span></label>
+                    <label for="inp_nombre">R2. Nombre <span class="text-danger">*</span></label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['nombre']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
+                    <p-autoComplete formControlName="departamento" inputId="inp_pais" [suggestions]="param.departamento"
+                        (completeMethod)="getFilter($event,'param_departamentos_bol')" field="valor" [minLength]="1"
+                        [dropdown]="true">
+                        <ng-template let-data pTemplate="item">
+                            <div><b>({{data.codigo}})</b> {{data.valor}}</div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_departamento">R3. Departamento <span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['departamento']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
                     <textarea formControlName="direccion" inputId="inp_direccion" rows="2" cols="30"
                         pInputTextarea></textarea>
-                    <label for="inp_direccion">PV4. Dirección <span class="text-danger">*</span></label>
+                    <label for="inp_direccion">R4. Dirección</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['direccion']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
-                    <textarea formControlName="comentarios" inputId="inp_comentarios" rows="2" cols="30"
-                        pInputTextarea></textarea>
-                    <label for="inp_comentarios">PV5. Comentarios <span class="text-danger">*</span></label>
+                    <input formControlName="telefono" type="text" id="inp_telefono" pInputText>
+                    <label for="inp_telefono">R5. Telefono <span class="text-danger">*</span></label>
                 </span>
-                <app-mesaje-form-error [control]="formulario.controls['comentarios']" [valid]="formularioValid">
+                <app-mesaje-form-error [control]="formulario.controls['telefono']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
         </div>
     </form>
     <div *ngIf="tipo=='ver'">
         <div class="p-fluid p-grid">
-            <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">PV1. Código</span>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">R1. Código</span>
                 {{datos.codigo}}
             </div>
-            <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">PV2. País</span>
-                {{datos.pais.valor}}
-            </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">PV3. Nombre</span>
+                <span class="ver-datos">R2. Nombre</span>
                 {{datos.nombre}}
             </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">PV4. Dirección</span>
+                <span class="ver-datos">R3. Departamento</span>
+                {{datos.departamento.valor}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">R4. Dirección</span>
                 {{datos.direccion}}
             </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">PV5. Comentarios</span>
-                {{datos.comentarios}}
+                <span class="ver-datos">R5. Telefono</span>
+                {{datos.telefono}}
             </div>
         </div>
     </div>

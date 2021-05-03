@@ -1,8 +1,7 @@
 <br>
 <p-card [header]="displayHeader" *ngIf="displayFrm">
-    <ng-template pTemplate="header">
-    </ng-template>
-    <form [formGroup]="formulario" >
+
+    <form [formGroup]="formulario">
         <input id="id" type="hidden" pInputText>
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-4">
@@ -48,7 +47,8 @@
                             <div>
                                 <b>({{adata.cod_linadime}})</b> {{adata.dispositivo}}<br>
                                 <b>Esp. tec.: </b>{{adata.esp_tec}}<b>Presentacion: </b>{{adata.presen}}<br>
-                                <b>I: </b>{{adata.niv_uso_I}}<b>II: </b>{{adata.niv_uso_II}}<b>III: </b>{{adata.niv_uso_III}}
+                                <b>I: </b>{{adata.niv_uso_I}}<b>II: </b>{{adata.niv_uso_II}}<b>III:
+                                </b>{{adata.niv_uso_III}}
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -81,7 +81,6 @@
                 <b>Datos medicamento</b>
             </div>
         </p-divider>
-        <br>
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
@@ -139,7 +138,6 @@
             </div>
         </p-divider>
 
-        <br>
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
@@ -191,15 +189,17 @@
             </div>
         </div>
         <div class="p-grid p-jc-end ">
- 
+
             <div class="p-col-12 p-md-3 p-lg-3">
                 <p-button (click)="cerrarForm();" icon="pi pi-times" label="Cerrar"
                     styleClass="p-button-raised p-button-text cont-menu-responsive"></p-button>
             </div>
             <div class="p-col-12 p-md-3 p-lg-3">
-                <p-button (click)="confirmarEditar($event)" styleClass="cont-menu-responsive" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+                <p-button (click)="confirmarEditar($event)" styleClass="cont-menu-responsive" label="Modificar"
+                    icon="pi pi-save" *ngIf="tipo=='editar'">
                 </p-button>
-                <p-button (click)="confirmarGuardar($event)" styleClass="cont-menu-responsive" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'">
+                <p-button (click)="confirmarGuardar($event)" styleClass="cont-menu-responsive" label="Guardar"
+                    icon="pi pi-save" *ngIf="tipo=='crear'">
                 </p-button>
             </div>
         </div>
@@ -208,61 +208,101 @@
 
 <p-dialog [header]="displayHeader" [(visible)]="displayDialog" [modal]="true" styleClass="dialog-responsive-80"
     [contentStyle]="{'overflow':'visible'}" [position]="'top'">
-    <p-scrollPanel styleClass="custombar-bar dialog-responsive-scroll" *ngIf="tipo=='ver'">
-        <div>
-            <div class="p-fluid p-grid">
-                <div class="p-field p-col-12 p-md-12">
-                    <span class="ver-datos">C1. Nombre</span>
-                    {{datos.nombre}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C2. Telefono</span>
-                    {{datos.telefono}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C3. Correo</span>
-                    {{datos.correo}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C4. Nit</span>
-                    {{datos.nit}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C5. Dependencia</span>
-                    {{datos.dependencia?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C6. Nivel</span>
-                    {{datos.nivel.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C7. Departamento</span>
-                    {{datos.departamento?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C8. Provincia</span>
-                    {{datos.provincia?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C9. Municipio</span>
-                    {{datos.municipio?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-4">
-                    <span class="ver-datos">C10. Ciudad</span>
-                    {{datos.ciudad}}
-                </div>
-                <div class="p-field p-col-12 p-md-12">
-                    <span class="ver-datos">C11. Direccion</span>
-                    {{datos.direccion}}
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                    <span class="ver-datos">C12. Subsector</span>
-                    {{datos.subsector?.valor}}
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                    <span class="ver-datos">C13. Tipo</span>
-                    {{datos.tipo.valor}}
-                </div>
+    <p-scrollPanel styleClass="custombar-bar dialog-responsive-scroll" [style]="{ height: '400px'}" *ngIf="tipo=='ver'">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P1. Codigo</span>
+                {{datos.codigo}}
+            </div>
+            <div class="p-field p-col-12 p-md-8">
+                <span class="ver-datos">P2. Nombre</span>
+                {{datos.nombre_comercial}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P3. Codigo LINAME</span>
+                {{datos.codigo_liname.cod_liname}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P4. Codigo LINADIME</span>
+                {{datos.codigo_linadime.cod_linadime}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P5. Registro sanitario</span>
+                {{datos.reg_san}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P6. Referencia</span>
+                {{datos.referencia}}
+            </div>
+        </div>
+        <p-divider align="left">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-tags p-mr-2"></i>
+                <b>Datos medicamento</b>
+            </div>
+        </p-divider>
+        <br>
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P7. Medicamento</span>
+                {{datos.medicamento}}
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P8. Forma farmaceutica</span>
+                {{datos.form_farm}}
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P9. Concentración</span>
+                {{datos.concen}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P10. ATQ</span>
+                {{datos.atq}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P11. Precio referencial</span>
+                {{datos.precio_ref}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P12. Aclaracion de particula</span>
+                {{datos.aclara_parti}}
+            </div>
+        </div>
+        <p-divider align="left">
+            <div class="p-d-inline-flex p-ai-center">
+                <i class="pi pi-tags p-mr-2"></i>
+                <b>Datos dispositivo</b>
+            </div>
+        </p-divider>
+
+        <br>
+
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">P13. Dispositivo</span>
+                {{datos.dispositivo}}
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P14. Especificacion tecnica</span>
+                {{datos.especificacion_tec}}
+            </div>
+        </div>
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-6">
+                <span class="ver-datos">P15. Presentación</span>
+                {{datos.presentacion}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P16. Nivel de uso I</span>
+                {{datos.nivel_uso_i}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P17. Nivel de uso II</span>
+                {{datos.nivel_uso_ii}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P18. Nivel de uso III</span>
+                {{datos.nivel_uso_iii}}
             </div>
         </div>
     </p-scrollPanel>

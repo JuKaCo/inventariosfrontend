@@ -371,16 +371,16 @@ export class FormularioProductoComponent implements OnInit {
       if (response.success) {
         this.datos = response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
-        this.displayFrm = true;
+        this.displayDialog = true;
         this.tipo = 'ver';
       } else {
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
-        this.displayFrm = false;
+        this.displayDialog = false;
       }
     },
       error => {
         this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
-        this.displayFrm = false;
+        this.displayDialog = false;
       });
   }
   selectLiname(event: any) {

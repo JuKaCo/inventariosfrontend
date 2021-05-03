@@ -1,0 +1,58 @@
+<p-dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-50"
+    [contentStyle]="{'overflow':'visible'}">
+    <form [formGroup]="formulario"  *ngIf="tipo!='ver'">
+        <input id="id" type="hidden" pInputText>
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
+                    <label for="inp_codigo">PR1. Código<span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <input formControlName="nombre" type="text" id="inp_nombre" pInputText>
+                    <label for="inp_nombre">PR2. Nombre <span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['nombre']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <textarea formControlName="referencia" inputId="inp_referencia" rows="2" cols="30"
+                        pInputTextarea></textarea>
+                    <label for="inp_referencia">PR2. Referencia</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['referencia']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="tipo=='ver'">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">PR1. Código</span>
+                {{datos.codigo}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">PR2. Nombre</span>
+                {{datos.nombre}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">PR3. Referencia</span>
+                {{datos.referencia}}
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmarGuardar($event)" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'"></p-button>
+
+        <p-button (click)="confirmarEditar($event)" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+        </p-button>
+    </ng-template>
+</p-dialog>

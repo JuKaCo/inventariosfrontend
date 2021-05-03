@@ -31,6 +31,11 @@ import { ListadoProductoComponent } from './producto/listado-producto/listado-pr
 import { FormularioProductoComponent } from './producto/formulario-producto/formulario-producto.component';
 import { FormularioRegionalComponent } from './regional/formulario-regional/formulario-regional.component';
 import { ListadoRegionalComponent } from './regional/listado-regional/listado-regional.component';
+import { ListadoProgramaComponent } from './programa/listado-programa/listado-programa.component';
+import { FormularioProgramaComponent } from './programa/formulario-programa/formulario-programa.component';
+import { ListadoAlmacenComponent } from './almacen/listado-almacen/listado-almacen.component';
+import { FormularioAlmacenComponent } from './almacen/formulario-almacen/formulario-almacen.component';
+import { ListadoEntradaComponent } from './entrada/listado-entrada/listado-entrada.component';
 
 
 @NgModule({
@@ -38,7 +43,12 @@ import { ListadoRegionalComponent } from './regional/listado-regional/listado-re
     ListadoProductoComponent,
     FormularioProductoComponent,
     FormularioRegionalComponent,
-    ListadoRegionalComponent
+    ListadoRegionalComponent,
+    ListadoProgramaComponent,
+    FormularioProgramaComponent,
+    ListadoAlmacenComponent,
+    FormularioAlmacenComponent,
+    ListadoEntradaComponent
   ],
   imports: [
     CommonModule,

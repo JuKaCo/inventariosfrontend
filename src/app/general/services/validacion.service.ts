@@ -90,7 +90,7 @@ export class ValidacionService {
     };
   }
   static required(control:any) {
-    console.log('-->',control.value?.codigo);
+    //console.log('-->',control.value?.codigo);
     if (
       control.value != undefined &&
       control.value != null &&

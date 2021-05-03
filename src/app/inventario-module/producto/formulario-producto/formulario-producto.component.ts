@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
+import { UtilService } from 'src/app/general/services/util.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
 import { InventarioProductoService } from '../../service/inventario-producto.service';
 @Component({
@@ -24,7 +25,7 @@ export class FormularioProductoComponent implements OnInit {
   formularioValid: boolean = false;
   param: any = [];
   //confirm
-  textCrea: string = "¿Esta seguro de guardar los datos?.";
+  textCrea: string = "¿Esta seguro de guardar los datos?. Verifique antes de confirmar.";
   textEditar: string = "¿Esta seguro de modificar los datos?.";
   textEliminar: string = "¿Esta seguro de eliminar el registro?.";
   //tiempo animacion pop out confirm
@@ -146,6 +147,14 @@ export class FormularioProductoComponent implements OnInit {
 
   confirmarGuardar(event: any): void {
     let texto = this.textCrea;
+    let valor1 = this.formulario.get('codigo_liname')?.value;
+    if (typeof valor1 !== "object" || valor1 == null) {
+      this.limpiarLiname();
+    }
+    let valor2 = this.formulario.get('codigo_linadime')?.value;
+    if (typeof valor2 !== "object" || valor2 == null) {
+      this.limpiarLinadime();
+    }
     if (this.formulario.valid) {
       this.confirmationService.confirm({
         target: event.target,
@@ -168,8 +177,9 @@ export class FormularioProductoComponent implements OnInit {
 
   guardarDatos(): void {
     let data = this.formulario.value;
-    data = this.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
-    data = JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+    data=UtilService.modComboNull(data, ['codigo_liname', 'codigo_linadime']);
+
+    data = UtilService.modNullEspacio(data);
 
     this.service.set(data).subscribe(response => {
       if (response.success) {
@@ -190,17 +200,16 @@ export class FormularioProductoComponent implements OnInit {
       });
   }
 
-  modComboNull(data: any, datos: any): any {
-    for (let dato of datos) {
-      if (data[dato] == null) {
-        data[dato] = {};
-      }
-    }
-    return data;
-  }
-
   confirmarEditar(event: any): void {
     let texto = this.textEditar;
+    let valor1 = this.formulario.get('codigo_liname')?.value;
+    if (typeof valor1 !== "object" || valor1 == null) {
+      this.limpiarLiname();
+    }
+    let valor2 = this.formulario.get('codigo_linadime')?.value;
+    if (typeof valor2 !== "object" || valor2 == null) {
+      this.limpiarLinadime();
+    }
     if (this.formulario.valid) {
       this.confirmationService.confirm({
         target: event.target,
@@ -227,23 +236,29 @@ export class FormularioProductoComponent implements OnInit {
     //this.formulario.get('codigo')?.disable();
 
     let valores = {
-      nombre: data.nombre,
-      telefono: data.telefono,
-      correo: data.correo,
-      nit: data.nit,
-      dependencia: data.dependencia,
-      nivel: data.nivel,
-      departamento: data.departamento,
-      provincia: data.provincia,
-      municipio: data.municipio,
-      ciudad: data.ciudad,
-      direccion: data.direccion,
-      subsector: data.subsector,
-      tipo: data.tipo,
+  
+      codigo: data.codigo,
+      nombre_comercial: data.nombre_comercial,
+      codigo_liname: data.codigo_liname,
+      codigo_linadime:data.codigo_linadime,
+      reg_san: data.reg_san,
+      referencia: data.referencia,
+      medicamento: data.medicamento,
+      concen: data.concen,
+      atq: data.atq,
+      precio_ref: data.precio_ref,
+      aclara_parti: data.aclara_parti,
+      form_farm:data.form_farm,
+      dispositivo: data.dispositivo,
+      especificacion_tec: data.especificacion_tec,
+      presentacion: data.presentacion,
+      nivel_uso_i: data.nivel_uso_i,
+      nivel_uso_ii: data.nivel_uso_ii,
+      nivel_uso_iii: data.nivel_uso_ii
     };
 
-    data = this.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
-    data = JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+    data = UtilService.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
+    data = UtilService.modNullEspacio(data);
 
     this.service.setEdita(valores, data.id).subscribe(response => {
       if (response.success) {
@@ -280,21 +295,28 @@ export class FormularioProductoComponent implements OnInit {
       if (response.success) {
         let data = response.data;
         let valores = {
+
           id: data.id,
-          nombre: data.nombre,
-          telefono: data.telefono,
-          correo: data.correo,
-          nit: data.nit,
-          dependencia: data.dependencia,
-          nivel: data.nivel,
-          departamento: data.departamento,
-          provincia: data.provincia,
-          municipio: data.municipio,
-          ciudad: data.ciudad,
-          direccion: data.direccion,
-          subsector: data.subsector,
-          tipo: data.tipo,
+          codigo: data.codigo,
+          nombre_comercial: data.nombre_comercial,
+          codigo_liname: data.codigo_liname,
+          codigo_linadime:data.codigo_linadime,
+          reg_san: data.reg_san,
+          referencia: data.referencia,
+          medicamento: data.medicamento,
+          concen: data.concen,
+          atq: data.atq,
+          precio_ref: data.precio_ref,
+          aclara_parti: data.aclara_parti,
+          form_farm:data.form_farm,
+          dispositivo: data.dispositivo,
+          especificacion_tec: data.especificacion_tec,
+          presentacion: data.presentacion,
+          nivel_uso_i: data.nivel_uso_i,
+          nivel_uso_ii: data.nivel_uso_ii,
+          nivel_uso_iii: data.nivel_uso_ii
         }
+        
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
@@ -370,7 +392,7 @@ export class FormularioProductoComponent implements OnInit {
     this.formulario.get('aclara_parti')?.setValue(event.aclara_parti);
     this.limpiarLinadime();
   }
-  selectLinadime(event:any){
+  selectLinadime(event: any) {
     this.formulario.get('dispositivo')?.setValue(event.dispositivo);
     this.formulario.get('especificacion_tec')?.setValue(event.esp_tec);
     this.formulario.get('presentacion')?.setValue(event.presen);
@@ -379,9 +401,9 @@ export class FormularioProductoComponent implements OnInit {
     this.formulario.get('nivel_uso_iii')?.setValue(event.niv_uso_III);
     this.limpiarLiname();
   }
-  cerrarForm(){
-    this.displayFrm=false;
-    this.respform.emit({ tipo: 'cerrar', success: true});
+  cerrarForm() {
+    this.displayFrm = false;
+    this.respform.emit({ tipo: 'cerrar', success: true });
 
   }
 }

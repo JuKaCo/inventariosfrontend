@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
+import { UtilService } from 'src/app/general/services/util.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
 import { EntidadClienteService } from '../../service/entidad-cliente.service';
 
@@ -54,7 +55,7 @@ export class FormularioClienteComponent implements OnInit {
     this.formulario.addControl('nombre', new FormControl({ value: '', disabled: false }, [Validators.required]));
     this.formulario.addControl('correo', new FormControl({ value: '', disabled: false }, [ValidacionService.emailValidator]));
     this.formulario.addControl('telefono', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator]));
-    this.formulario.addControl('nit', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator,Validators.required]));
+    this.formulario.addControl('nit', new FormControl({ value: '', disabled: false }, [ValidacionService.numberValidator, Validators.required]));
     this.formulario.addControl('dependencia', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('nivel', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('departamento', new FormControl({ value: '', disabled: false }, []));
@@ -111,8 +112,9 @@ export class FormularioClienteComponent implements OnInit {
 
   guardarDatos(): void {
     let data = this.formulario.value;
-    data=this.modComboNull(data,['dependencia','nivel','departamento','provincia','municipio','subsector','tipo']);
-    data=JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
+
+    data = UtilService.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
+    data = UtilService.modNullEspacio(data);
 
     this.service.set(data).subscribe(response => {
       if (response.success) {
@@ -131,15 +133,6 @@ export class FormularioClienteComponent implements OnInit {
         this.displayFrm = false;
 
       });
-  }
-
-  modComboNull(data: any, datos: any):any {
-    for (let dato of datos) {
-      if (data[dato] == null) {
-        data[dato] = {};
-      }
-    }
-    return data;
   }
 
   confirmarEditar(event: any): void {
@@ -175,19 +168,19 @@ export class FormularioClienteComponent implements OnInit {
       correo: data.correo,
       nit: data.nit,
       dependencia: data.dependencia,
-      nivel:data.nivel,
-      departamento:data.departamento,
-      provincia:data.provincia,
-      municipio:data.municipio,
-      ciudad:data.ciudad,
-      direccion:data.direccion,
-      subsector:data.subsector,
-      tipo:data.tipo,
+      nivel: data.nivel,
+      departamento: data.departamento,
+      provincia: data.provincia,
+      municipio: data.municipio,
+      ciudad: data.ciudad,
+      direccion: data.direccion,
+      subsector: data.subsector,
+      tipo: data.tipo,
     };
-    
-    data=this.modComboNull(data,['dependencia','nivel','departamento','provincia','municipio','subsector','tipo']);
-    data=JSON.parse(JSON.stringify(data).replace(/null/g, '""'));
-    
+
+    data = UtilService.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
+    data = UtilService.modNullEspacio(data);
+
     this.service.setEdita(valores, data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
@@ -231,14 +224,14 @@ export class FormularioClienteComponent implements OnInit {
           correo: data.correo,
           nit: data.nit,
           dependencia: data.dependencia,
-          nivel:data.nivel,
-          departamento:data.departamento,
-          provincia:data.provincia,
-          municipio:data.municipio,
-          ciudad:data.ciudad,
-          direccion:data.direccion,
-          subsector:data.subsector,
-          tipo:data.tipo,
+          nivel: data.nivel,
+          departamento: data.departamento,
+          provincia: data.provincia,
+          municipio: data.municipio,
+          ciudad: data.ciudad,
+          direccion: data.direccion,
+          subsector: data.subsector,
+          tipo: data.tipo,
         }
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });

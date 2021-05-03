@@ -41,6 +41,7 @@ export class ListadoProductoComponent implements OnInit {
     this.frm.crear();
   }
   editar(data: any) {
+    this.viewTable = false;
     this.frm.editar(data.id);
   }
   eliminar(event: Event, data: any) {
@@ -79,11 +80,13 @@ export class ListadoProductoComponent implements OnInit {
   respform(event: any) {
     if (event.tipo == 'crear') {
       if (event.success) {
+        this.viewTable=true;
         this.resetTable();
       }
     }
     if (event.tipo == 'editar') {
       if (event.success) {
+        this.viewTable=true;
         this.resetTable();
       }
     }

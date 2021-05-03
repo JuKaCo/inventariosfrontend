@@ -25,10 +25,10 @@
                 <span class="p-float-label">
                     <p-autoComplete formControlName="codigo_liname" inputId="inp_liname"
                         [suggestions]="param['param_liname']" (completeMethod)="getFilter($event,'param_liname')"
-                        field="codigo" [minLength]="1" [dropdown]="true" (onSelect)="selectLiname($event)">
+                        field="cod_liname" [minLength]="1" [dropdown]="true" (onSelect)="selectLiname($event)">
                         <ng-template let-adata pTemplate="item">
                             <div>
-                                <b>({{adata.codigo}})</b> {{adata.medicamento}} <b>ATQ: </b>{{adata.class_atq}} <br>
+                                <b>({{adata.cod_liname}})</b> {{adata.medicamento}} <b>ATQ: </b>{{adata.class_atq}} <br>
                                 <b>Concentracion: </b>{{adata.concen}}<b>For. farma: </b>{{adata.for_farma}}<br>
                                 <b>Pre. refe.: </b>{{adata.pre_ref}}<b>Acla. parti: </b>{{adata.aclara_parti}}
                             </div>
@@ -43,10 +43,10 @@
                 <span class="p-float-label">
                     <p-autoComplete formControlName="codigo_linadime" inputId="inp_codigo_linadime"
                         [suggestions]="param['param_linadime']" (completeMethod)="getFilter($event,'param_linadime')"
-                        field="codigo" [minLength]="1" [dropdown]="true" (onSelect)="selectLinadime($event)">
+                        field="cod_linadime" [minLength]="1" [dropdown]="true" (onSelect)="selectLinadime($event)">
                         <ng-template let-adata pTemplate="item">
                             <div>
-                                <b>({{adata.codigo}})</b> {{adata.dispositivo}}<br>
+                                <b>({{adata.cod_linadime}})</b> {{adata.dispositivo}}<br>
                                 <b>Esp. tec.: </b>{{adata.esp_tec}}<b>Presentacion: </b>{{adata.presen}}<br>
                                 <b>I: </b>{{adata.niv_uso_I}}<b>II: </b>{{adata.niv_uso_II}}<b>III: </b>{{adata.niv_uso_III}}
                             </div>
@@ -190,16 +190,16 @@
                 </app-mesaje-form-error>
             </div>
         </div>
-        <div class="p-grid p-jc-end">
+        <div class="p-grid p-jc-end ">
  
-            <div class="p-col-12 p-md-2">
+            <div class="p-col-12 p-md-3 p-lg-3">
                 <p-button (click)="cerrarForm();" icon="pi pi-times" label="Cerrar"
-                    styleClass="p-button-raised p-button-text"></p-button>
+                    styleClass="p-button-raised p-button-text cont-menu-responsive"></p-button>
             </div>
-            <div styleClass="p-col-12 p-md-2 cont-menu-responsive">
-                <p-button (click)="confirmarEditar($event)"  label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+            <div class="p-col-12 p-md-3 p-lg-3">
+                <p-button (click)="confirmarEditar($event)" styleClass="cont-menu-responsive" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
                 </p-button>
-                <p-button (click)="confirmarGuardar($event)"  label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'">
+                <p-button (click)="confirmarGuardar($event)" styleClass="cont-menu-responsive" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'">
                 </p-button>
             </div>
         </div>

@@ -29,7 +29,7 @@ export class ListadoClienteComponent implements OnInit {
   @ViewChild('frm') frm!: FormularioClienteComponent;
   constructor(
     private messageService: MessageService,
-    private entidadService: EntidadClienteService,
+    private service: EntidadClienteService,
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class ListadoClienteComponent implements OnInit {
     this.loading = true;
     this.listaTabla = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.entidadService.getLista(dataTable).subscribe(response => {
+    this.service.getLista(dataTable).subscribe(response => {
       if (response.success) {
         this.listaTabla = response.data.resultados;
         this.totalRecords = response.data.total;

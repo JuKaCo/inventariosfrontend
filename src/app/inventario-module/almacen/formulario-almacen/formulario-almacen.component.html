@@ -20,7 +20,7 @@
                             <div><b>({{data.codigo}})</b> {{data.nombre}}</div>
                         </ng-template>
                     </p-autoComplete>
-                    <label for="inp_regional">AL2. Regional <span class="text-danger">*</span></label>
+                    <label for="inp_regional">R2. Regional <span class="text-danger">*</span></label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['regional']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -34,7 +34,7 @@
                             <div><b>({{data.codigo}})</b> {{data.nombre}}</div>
                         </ng-template>
                     </p-autoComplete>
-                    <label for="inp_programa">AL3. Programa <span class="text-danger">*</span></label>
+                    <label for="inp_programa">PR3. Programa <span class="text-danger">*</span></label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['programa']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -73,11 +73,11 @@
                 {{datos.codigo}}
             </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">AL2. Regional</span>
+                <span class="ver-datos">R2. Regional</span>
                 {{datos.regional.nombre}}
             </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">AL3. Programa</span>
+                <span class="ver-datos">PR3. Programa</span>
                 {{datos.programa.nombre}}
             </div>
             <div class="p-field p-col-12 p-md-12">

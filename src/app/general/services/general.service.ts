@@ -24,6 +24,13 @@ export class GeneralService {
       catchError(this.handleError)
     );
   }
+
+  getParamUrl(dir:string,filtro:string): Observable<any> {
+    let url = environment.CEASSBACKEND;
+    return this.http.get(url + 'api/v1/param/'+dir+'?filtro='+filtro).pipe(
+      catchError(this.handleError)
+    );
+  }
   
   handleError(error: any) {
     let errorMessage = '';

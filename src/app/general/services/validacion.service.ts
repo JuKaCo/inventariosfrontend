@@ -6,18 +6,18 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
 //  providedIn: 'root'
 //})
 export class ValidacionService {
-  constructor() {}
+  constructor() { }
   static dato1: String = "";
   static dato2: String = "";
   //static Buffer = require('buffer/').Buffer
-  
+
 
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
     let requiredLength: string = "";
     if (validatorValue && validatorValue.requiredLength != undefined) {
       let requiredLength = String(validatorValue.requiredLength);
     }
-    let config:any = {
+    let config: any = {
       required: "Este campo es requerido.",
       requiredAutoComplete: "Este campo es requerido.",
       invalidEmailAddress: "Correo electrónico inválido",
@@ -46,7 +46,7 @@ export class ValidacionService {
 
   static dinamico(listvalid: any): ValidatorFn {
     return (control: AbstractControl): any => {
-      if(!Array.isArray(listvalid)){ return null}
+      if (!Array.isArray(listvalid)) { return null }
       for (let valor of listvalid) {
         if (valor.name == "required") {
           let res = this.required(control);
@@ -89,7 +89,7 @@ export class ValidacionService {
       return null;
     };
   }
-  static required(control:any) {
+  static required(control: any) {
     //console.log('-->',control.value?.codigo);
     if (
       control.value != undefined &&
@@ -102,16 +102,18 @@ export class ValidacionService {
     }
   }
 
-  static requiredAutoComplete(control:any) {
-    if (
-      control.value?.codigo !=undefined 
-    ) {
-      return null;
+  static requiredAutoComplete(control: any) {
+    if (control.value != undefined) {
+      if (typeof control.value !== "object") {
+        return { requiredAutoComplete: true };
+      } else {
+        return null;
+      }
     } else {
       return { requiredAutoComplete: true };
     }
   }
-  
+
 
   /*static minkbSize(control:any, valor:any) {
     var str = new String(control.value);
@@ -140,7 +142,7 @@ export class ValidacionService {
     }
   }*/
 
-  static minlength(control:any, valor:any) {
+  static minlength(control: any, valor: any) {
     var str = new String(control.value);
     var len = str.length;
     if (len >= valor) {
@@ -151,7 +153,7 @@ export class ValidacionService {
     }
   }
 
-  static maxlength(control:any, valor:any) {
+  static maxlength(control: any, valor: any) {
     var str = new String(control.value);
     var len = str.length;
     if (len <= valor) {
@@ -162,21 +164,21 @@ export class ValidacionService {
     }
   }
 
-  static emailValidator(control:any) {
+  static emailValidator(control: any) {
     // RFC 2822 compliant regex
     if (
       (control.value != undefined &&
-      control.value.match(
-        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-      )
-      ) ||control.value==''||control.value==null
+        control.value.match(
+          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+        )
+      ) || control.value == '' || control.value == null
     ) {
       return null;
     } else {
       return { emailValidator: true };
     }
   }
-  static numberValidator(control:any) {
+  static numberValidator(control: any) {
     if (
       control.value != null &&
       control.value != undefined &&
@@ -190,7 +192,7 @@ export class ValidacionService {
     }
     return null;
   }
-  static alphanumericValidator(control:any) {
+  static alphanumericValidator(control: any) {
     if ((control.value != undefined) != null && control.value != undefined) {
       if (String(control.value).match(/^[-\w\s]+$/)) {
         return null;
@@ -200,7 +202,7 @@ export class ValidacionService {
     }
     return null;
   }
-  static decimalValidator(control:any) {
+  static decimalValidator(control: any) {
     if (control.value != null && control.value != undefined) {
       if (String(control.value).match(/^(?!\.?$)\d{0,6}(\.\d{0,2})?$/)) {
         return null;
@@ -210,7 +212,7 @@ export class ValidacionService {
     }
     return null;
   }
-  static fieldParamValidatorNotRequired(control:any) {
+  static fieldParamValidatorNotRequired(control: any) {
     let obj2 = {};
     if (
       control.value != undefined &&
@@ -227,7 +229,7 @@ export class ValidacionService {
     }
   }
 
-  static isValidDate(control:any) {
+  static isValidDate(control: any) {
     if (control.value) {
       if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(control.value)) {
         return { validateDate: true };
@@ -252,7 +254,7 @@ export class ValidacionService {
     }
     return null;
   }
-  static greaterZero(control:any) {
+  static greaterZero(control: any) {
     if (control.value != undefined) {
       if (Number(control.value) > 0) {
         return null;
@@ -262,7 +264,7 @@ export class ValidacionService {
     }
     return null;
   }
-  static alfanumericoMayValidator(control:any) {
+  static alfanumericoMayValidator(control: any) {
     if (control.value != null && control.value != undefined) {
       let cadena = control.value;
       var regexp = new RegExp("^[0-9A-Z\\s]+$");
@@ -274,7 +276,7 @@ export class ValidacionService {
     }
     return null;
   }
-  static espaciosValidator(control:any) {
+  static espaciosValidator(control: any) {
     if (control.value != null && control.value != undefined) {
       let cadena = control.value;
       if (cadena.indexOf(" ") > -1) {
@@ -285,7 +287,7 @@ export class ValidacionService {
     }
     return null;
   }
-  static numeroPositivo(control:any) {
+  static numeroPositivo(control: any) {
     if (control.value != undefined) {
       if (Number(control.value) >= 0) {
         return null;

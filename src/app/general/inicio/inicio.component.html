@@ -1,13 +1,17 @@
 <div class="p-grid p-d-none p-d-md-inline-flex pheader" style=" position: fixed; top: 0; width:100vw; z-index: 2;">
   <div class="p-col-12 p-md-12 p-lg-12 p-mb-0 p-pb-0">
     <div class="p-grid " style="height: 60px; ">
-      <div class="p-col-12 p-md-2 p-lg-2">
+
+      <div class="p-col-12 p-md-1 p-lg-1">
         <a href="http://localhost:4200/inicio"><img src="assets/img/logo.jpg" alt="" height="55px" width="100px"></a>
       </div>
-      <div class="p-col-12 p-md-1 p-lg-1 p-text-center iconMenu">
+
+      <div class="p-col-12 p-md-1 p-lg-1 p-text-center iconMenu p-text-right">
         <i class="pi pi-bars enlace" style="font-size: 1.5em" (click)="verMenu()"></i>
       </div>
-      <div class="p-col-12 p-md-6 p-lg-6" style="align-self: center">
+      <div class="p-col-12 p-md-7 p-lg-7" style="align-self: center;">
+      </div>
+      <div class="p-col-12 p-md-1 p-lg-1 notify" style="align-self: center; ">
         <!-- INICIO NOTIFICACIONES -->
         <i class="pi pi-bell p-mr-4 p-text-primary enlace" severity="danger" pBadge style="font-size: 1.5rem"
           [value]="nroNotificacionesPendient ? nroNotificacionesPendient: '0'" (click)="prueba.toggle($event)"></i>
@@ -23,12 +27,14 @@
                 <div class="p-grid" *ngIf="i < 4">
                   <i class="p-col-2 p-md-2 p-lg-2 pi pi-info-circle icono2"></i>
 
-                  <div *ngIf="notificacion.confirmacion == 0" class="p-col-8 p-md-8 p-lg-8 mensaje" [ngStyle]="validNotificacion(i) ? {'white-space': 'normal'}:{}" >
+                  <div *ngIf="notificacion.confirmacion == 0" class="p-col-8 p-md-8 p-lg-8 mensaje"
+                    [ngStyle]="validNotificacion(i) ? {'white-space': 'normal'}:{}">
                     {{ notificacion.mensaje }}
                     <p class="fecha"> {{ notificacion.f_crea}}</p>
                   </div>
 
-                  <div *ngIf="notificacion.confirmacion == 1" class="p-col-8 p-md-8 p-lg-8 mensaje1" [ngStyle]="validNotificacion(i) ? {'white-space': 'normal'}:{}" >
+                  <div *ngIf="notificacion.confirmacion == 1" class="p-col-8 p-md-8 p-lg-8 mensaje1"
+                    [ngStyle]="validNotificacion(i) ? {'white-space': 'normal'}:{}">
                     {{ notificacion.mensaje }}
                     <p class="fecha"> {{ notificacion.f_crea}}</p>
                   </div>
@@ -36,19 +42,19 @@
                   <div class="p-col-2 p-md-2 p-lg-2">
                     <i class="pi pi-times-circle enlace icono" (click)="eliminaNotificacion(notificacion.id)"></i>
                     <br>
-                    <i class="pi pi-eye enlace icono " (click)="mostrar(notificacion.id, i)" ></i>
+                    <i class="pi pi-eye enlace icono " (click)="mostrar(notificacion.id, i)"></i>
                   </div>
                 </div>
                 <p-divider *ngIf="i < 4"></p-divider>
               </div>
-              <p class="vermas enlace" *ngIf="nroNotificaciones > 4" (click)="verNotificaciones()" >Ver mas..</p>
+              <p class="vermas enlace" *ngIf="nroNotificaciones > 4" (click)="verNotificaciones()">Ver mas..</p>
             </div>
-
           </ng-template>
         </p-overlayPanel>
         <!-- FIN NOTIFICACIONES -->
       </div>
-      <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate" (click)="menu.toggle($event)">
+
+      <div class="p-col-12 p-md-2 p-lg-2 enlace p-text-nowrap p-text-truncate user" (click)="menu.toggle($event)">
         {{datosUsuario?.name}}<br>
         <small>{{datosUsuario?.cargo_usuario}}</small>
       </div>
@@ -56,6 +62,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="p-grid p-d-md-none pheader">
   <div class="p-col-12 p-md-12 p-lg-12">
@@ -80,11 +87,11 @@
 
 <div class="p-grid p-button-success p-d-none p-d-md-inline-flex" style="padding-top: 54px;"></div>
 <div class="p-grid">
-    <div class="p-col-12 p-md-2 p-lg-2 p-m-0 p-p-0" *ngIf="itemsMenuDisplay" style="background: #f8f9fa;">
-        <p-panelMenu [model]="itemsMenu" (click)="activeMenu($event)"></p-panelMenu>
-    </div>
-    <div  [className]="itemsMenuDisplay ? 'p-col-12 p-md-10 p-lg-10' : 'p-col-12 p-md-12 p-lg-12'" style="height: calc(100vh - 3.8em);">
-        <router-outlet></router-outlet>
-    </div>
+  <div class="p-col-12 p-md-2 p-lg-2 p-m-0 p-p-0" *ngIf="itemsMenuDisplay" style="background: #f8f9fa;">
+    <p-panelMenu [model]="itemsMenu" (click)="activeMenu($event)"></p-panelMenu>
+  </div>
+  <div [className]="itemsMenuDisplay ? 'p-col-12 p-md-10 p-lg-10' : 'p-col-12 p-md-12 p-lg-12'"
+    style="height: calc(100vh - 3.8em);">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-

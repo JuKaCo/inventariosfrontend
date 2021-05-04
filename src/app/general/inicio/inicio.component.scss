@@ -1,6 +1,7 @@
 .pheader{
     background-color: #4484CE !important;
     color: #FFF;
+
 }
 .enlace{
     cursor: pointer;
@@ -8,8 +9,14 @@
 .iconMenu {
     align-self: center;
     padding: 0;
+    text-align: right !important;
 }
-
+.notify {
+    text-align: right !important;
+}
+.user {
+    align-self: center;
+}
 /*  para notificaciones*/
 .fecha {
     font-size: 10px;

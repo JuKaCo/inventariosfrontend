@@ -23,6 +23,8 @@ export class inicioComponent implements OnInit {
   nroNotificaciones: any;
   mostrarLetras: boolean = false;
   validaNotificacion: any = [];
+  visibleSidebar1:any;
+  isMobil: boolean = false;
  
   constructor(
     private oAuthService: OAuthService,
@@ -40,7 +42,7 @@ export class inicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.verificaDispositivo();
     this.getDatosUsuario();
     this.getListaNotificacion();
     this.itemsUsuario = [
@@ -158,5 +160,16 @@ export class inicioComponent implements OnInit {
 
   verNotificaciones() {
     this._router.navigate(['/inicio/notificacion']);
+  }
+
+  verificaDispositivo(){
+    const ua = navigator.userAgent;
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)){
+      this.isMobil = true;
+      this.itemsMenuDisplay =false;
+    } else {
+      this.isMobil = false;
+      this.itemsMenuDisplay =true;
+    }
   }
 }

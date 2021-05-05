@@ -27,6 +27,7 @@ import { BadgeModule } from "primeng/badge";
 import { TimelineModule } from "primeng/timeline";
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { DividerModule } from "primeng/divider";
+import {SidebarModule} from 'primeng/sidebar';
 
 //componentes
 import { inicioComponent } from './general/inicio/inicio.component';
@@ -72,6 +73,7 @@ import { GeneralModuleModule } from './general-module/general-module.module';
     TimelineModule,
     OverlayPanelModule,
     DividerModule,
+    SidebarModule,
   ],
   exports: [
   ],

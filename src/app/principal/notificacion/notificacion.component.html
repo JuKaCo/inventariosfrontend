@@ -32,16 +32,20 @@
         <ng-template pTemplate="body" let-notificacion>
             <tr>
                 <td>
+                    <span class="p-column-title">Mensaje</span>
                     {{notificacion.mensaje}}
                 </td>
                 <td>
+                    <span class="p-column-title">Fecha</span>
                     {{notificacion.f_crea | date :'dd/MM/YYYY'}}
                 </td>
                 <td>
+                    <span class="p-column-title">Estado</span>
                     <p-tag *ngIf="notificacion.activo==1"  styleClass="p-mr-2" icon="pi pi-check" severity="success" value="Activo"></p-tag>
                     <p-tag *ngIf="notificacion.activo==0"  styleClass="p-mr-2" icon="pi pi-info-circle" severity="info" value="Inactivo"></p-tag>
                 </td>
                 <td>
+                    <span class="p-column-title">Visto</span>
                     <p-tag *ngIf="notificacion.confirmacion==0" styleClass="p-mr-2" severity="info" value="NO"></p-tag>
                     <p-tag *ngIf="notificacion.confirmacion==1" styleClass="p-mr-2" severity="success" value="SI"></p-tag>
                 </td>

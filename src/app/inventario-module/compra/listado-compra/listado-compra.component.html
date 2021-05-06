@@ -1,0 +1,80 @@
+<app-breadcrumb-general></app-breadcrumb-general>
+<p-card>
+    <div class="p-grid">
+        <!-- <div class="p-col-12 p-md-1" pTooltip="Regargar contenido de tabla" tooltipPosition="top">
+           <p-button type="button" icon="pi pi-refresh" (click)="resetTable()" styleClass="p-button-text"></p-button>
+        </div>-->
+        <div [controlAcceso]="'crear'" class="p-col-12 p-md-12 p-text-right">
+            <button  pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
+                (click)="crear()"></button>
+        </div>
+    </div>
+
+    <p-table [controlAcceso]="'ver'"  #dt [value]="listaTabla" [lazy]="true" (onLazyLoad)="loadData($event)" [paginator]="true" [rows]="rows"
+        [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
+        styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[10,25,50]"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <!--<button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clearTable(dt)"></button>-->
+                <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')" placeholder="Buscar...." />
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Gestion</th>
+                <th>Estado</th>
+                <th>Descripcion</th>
+                <th style="width:9em">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dato>
+            <tr>
+                <td>
+                    <span class="p-column-title">Código</span>
+                    {{dato.codigo}}
+                </td>
+                <td>
+                    <span class="p-column-title">Nombre</span>
+                    {{dato.nombre}}
+                </td>
+                <td>
+                    <span class="p-column-title">Gestion</span>
+                    {{dato.gestion}}
+                </td>
+                <td>
+                    <span class="p-column-title">Estado</span>
+                    <p-tag *ngIf="dato.estado=='PENDIENTE'"  styleClass="p-mr-2" icon="pi pi-clock" severity="secondary" value="PENDIENTE"></p-tag>
+                    <p-tag *ngIf="dato.estado=='VERIFICADO'"  styleClass="p-mr-2" icon="pi pi-circle-off" severity="info" value="VERIFICADO"></p-tag>
+                    <p-tag *ngIf="dato.estado=='FINALIZADO'"  styleClass="p-mr-2" icon="pi pi-check-circle" severity="success" value="FINALIZADO"></p-tag>
+                </td>
+                
+                <td>
+                    <span class="p-column-title">Descripcion</span>
+                    {{dato.descripcion}}
+                </td>
+                <td>
+                    <span class="p-column-title">Accion</span>
+                    
+                    <span [controlAcceso]="'ver'" class="icon-table"><i (click)="ver(dato)" class="pi pi-eye" pTooltip="Ver" tooltipPosition="top" placeholder="Top"></i></span>
+
+                    <span *ngIf="dato.estado=='PENDIENTE'"  [controlAcceso]="'editar'" class="icon-table"><i (click)="editar(dato)" class="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" placeholder="Top"></i></span>
+
+                    <span *ngIf="dato.estado=='PENDIENTE'"  [controlAcceso]="'eliminar'" class="icon-table"><i  (click)="eliminar($event,dato)"  class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top"  placeholder="Top"></i></span>
+
+                    <span  *ngIf="dato.estado=='PENDIENTE'" class="icon-table"><i  (click)="cambiarEstado($event,dato,'VERIFICADO')"  class="pi pi-circle-off" pTooltip="Verificar" tooltipPosition="top"  placeholder="Top"></i></span>
+
+                    <span  *ngIf="dato.estado=='VERIFICADO'" class="icon-table"><i  (click)="cambiarEstado($event,dato,'FINALIZADO')"  class="pi pi-check-circle" pTooltip="Finalizar" tooltipPosition="top"  placeholder="Top"></i></span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+
+<app-formulario-compra #frm (respform)="respform($event)" ></app-formulario-compra>

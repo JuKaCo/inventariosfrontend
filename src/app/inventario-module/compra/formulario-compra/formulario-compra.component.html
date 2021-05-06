@@ -6,7 +6,7 @@
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
-                    <label for="inp_codigo">PR1. Código<span class="text-danger">*</span></label>
+                    <label for="inp_codigo">C1. Código<span class="text-danger">*</span></label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -14,18 +14,26 @@
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <input formControlName="nombre" type="text" id="inp_nombre" pInputText>
-                    <label for="inp_nombre">PR2. Nombre <span class="text-danger">*</span></label>
+                    <label for="inp_nombre">C2. Nombre <span class="text-danger">*</span></label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['nombre']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
-                    <textarea formControlName="referencia" inputId="inp_referencia" rows="2" cols="30"
-                        pInputTextarea></textarea>
-                    <label for="inp_referencia">PR2. Referencia</label>
+                    <input formControlName="gestion" type="text" id="inp_gestion" pInputText>
+                    <label for="inp_gestion">C3. Gestion </label>
                 </span>
-                <app-mesaje-form-error [control]="formulario.controls['referencia']" [valid]="formularioValid">
+                <app-mesaje-form-error [control]="formulario.controls['gestion']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <textarea formControlName="descripcion" inputId="inp_descripcion" rows="2" cols="30"
+                        pInputTextarea></textarea>
+                    <label for="inp_descripcion">C4. Descripcion</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['descripcion']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
         </div>
@@ -33,16 +41,20 @@
     <div *ngIf="tipo=='ver'">
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">PR1. Código</span>
+                <span class="ver-datos">C1. Código</span>
                 {{datos.codigo}}
             </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">PR2. Nombre</span>
+                <span class="ver-datos">C2. Nombre</span>
                 {{datos.nombre}}
             </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">PR3. Referencia</span>
-                {{datos.referencia}}
+                <span class="ver-datos">C3. Gestion</span>
+                {{datos.gestion}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">C4. Descripción</span>
+                {{datos.descripcion}}
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@ import { InventarioProductoService } from '../../service/inventario-producto.ser
 })
 export class ListadoProductoComponent implements OnInit {
   //titulo
-  modulo: string = "Cliente";
+  modulo: string = "Producto";
 
   //formularios
 

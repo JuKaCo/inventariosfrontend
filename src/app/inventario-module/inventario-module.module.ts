@@ -23,6 +23,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {DividerModule} from 'primeng/divider';
+import {StepsModule} from 'primeng/steps';
 
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
@@ -36,6 +37,13 @@ import { FormularioProgramaComponent } from './programa/formulario-programa/form
 import { ListadoAlmacenComponent } from './almacen/listado-almacen/listado-almacen.component';
 import { FormularioAlmacenComponent } from './almacen/formulario-almacen/formulario-almacen.component';
 import { ListadoEntradaComponent } from './entrada/listado-entrada/listado-entrada.component';
+import { FormularioEntradaComponent } from './entrada/formulario-entrada/formulario-entrada.component';
+import { DatosGeneralesEntradaComponent } from './entrada/formulario-entrada/datos-generales-entrada/datos-generales-entrada.component';
+import { DatosItemEntradaComponent } from './entrada/formulario-entrada/datos-item-entrada/datos-item-entrada.component';
+import { DocumentosEntradaComponent } from './entrada/formulario-entrada/documentos-entrada/documentos-entrada.component';
+import { TerminarEntradaComponent } from './entrada/formulario-entrada/terminar-entrada/terminar-entrada.component';
+import { ListadoCompraComponent } from './compra/listado-compra/listado-compra.component';
+import { FormularioCompraComponent } from './compra/formulario-compra/formulario-compra.component';
 
 
 @NgModule({
@@ -48,7 +56,14 @@ import { ListadoEntradaComponent } from './entrada/listado-entrada/listado-entra
     FormularioProgramaComponent,
     ListadoAlmacenComponent,
     FormularioAlmacenComponent,
-    ListadoEntradaComponent
+    ListadoEntradaComponent,
+    FormularioEntradaComponent,
+    DatosGeneralesEntradaComponent,
+    DatosItemEntradaComponent,
+    DocumentosEntradaComponent,
+    TerminarEntradaComponent,
+    ListadoCompraComponent,
+    FormularioCompraComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +87,8 @@ import { ListadoEntradaComponent } from './entrada/listado-entrada/listado-entra
     MessageModule,
     AutoCompleteModule,
     InventarioModuleRoutingModule,
-    DividerModule
+    DividerModule,
+    StepsModule
   ]
 })
 export class InventarioModuleModule { }

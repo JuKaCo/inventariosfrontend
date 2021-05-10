@@ -20,7 +20,7 @@
                 <app-mesaje-form-error [control]="formulario.controls['nombre_comercial']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="p-field p-col-12 p-md-6">
                 <span class="p-float-label">
                     <p-autoComplete formControlName="codigo_liname" inputId="inp_liname"
                         [suggestions]="param['param_liname']" (completeMethod)="getFilter($event,'param_liname')"
@@ -38,7 +38,7 @@
                 <app-mesaje-form-error [control]="formulario.controls['dependencia']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="p-field p-col-12 p-md-6">
                 <span class="p-float-label">
                     <p-autoComplete formControlName="codigo_linadime" inputId="inp_codigo_linadime"
                         [suggestions]="param['param_linadime']" (completeMethod)="getFilter($event,'param_linadime')"
@@ -57,14 +57,14 @@
                 <app-mesaje-form-error [control]="formulario.controls['codigo_linadime']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <!--<div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <input formControlName="reg_san" type="text" id="inp_reg_san" pInputText>
                     <label for="inp_reg_san">P5. Registro sanitario</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['reg_san']" [valid]="formularioValid">
                 </app-mesaje-form-error>
-            </div>
+            </div>-->
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <textarea formControlName="referencia" id="inp_referencia" rows="2" cols="30"
@@ -218,18 +218,18 @@
                 <span class="ver-datos">P2. Nombre</span>
                 {{datos.nombre_comercial}}
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="p-field p-col-12 p-md-6">
                 <span class="ver-datos">P3. Codigo LINAME</span>
                 {{datos.codigo_liname.cod_liname}}
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <div class="p-field p-col-12 p-md-6">
                 <span class="ver-datos">P4. Codigo LINADIME</span>
                 {{datos.codigo_linadime.cod_linadime}}
             </div>
-            <div class="p-field p-col-12 p-md-4">
+            <!--<div class="p-field p-col-12 p-md-4">
                 <span class="ver-datos">P5. Registro sanitario</span>
                 {{datos.reg_san}}
-            </div>
+            </div>-->
             <div class="p-field p-col-12 p-md-12">
                 <span class="ver-datos">P6. Referencia</span>
                 {{datos.referencia}}

@@ -56,7 +56,7 @@ export class FormularioProductoComponent implements OnInit {
     this.formulario.addControl('nombre_comercial', new FormControl({ value: '', disabled: false }, [ValidacionService.required]));
     this.formulario.addControl('codigo_liname', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('codigo_linadime', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('reg_san', new FormControl({ value: '', disabled: false }, []));
+    //this.formulario.addControl('reg_san', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('referencia', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('medicamento', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('form_farm', new FormControl({ value: '', disabled: false }, []));
@@ -241,7 +241,7 @@ export class FormularioProductoComponent implements OnInit {
       nombre_comercial: data.nombre_comercial,
       codigo_liname: data.codigo_liname,
       codigo_linadime:data.codigo_linadime,
-      reg_san: data.reg_san,
+      //reg_san: data.reg_san,
       referencia: data.referencia,
       medicamento: data.medicamento,
       concen: data.concen,
@@ -301,7 +301,7 @@ export class FormularioProductoComponent implements OnInit {
           nombre_comercial: data.nombre_comercial,
           codigo_liname: data.codigo_liname,
           codigo_linadime:data.codigo_linadime,
-          reg_san: data.reg_san,
+          //reg_san: data.reg_san,
           referencia: data.referencia,
           medicamento: data.medicamento,
           concen: data.concen,

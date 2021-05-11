@@ -24,6 +24,8 @@ import {MessageModule} from 'primeng/message';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {DividerModule} from 'primeng/divider';
 import {StepsModule} from 'primeng/steps';
+import {CalendarModule} from 'primeng/calendar';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
@@ -44,6 +46,7 @@ import { DocumentosEntradaComponent } from './entrada/formulario-entrada/documen
 import { TerminarEntradaComponent } from './entrada/formulario-entrada/terminar-entrada/terminar-entrada.component';
 import { ListadoCompraComponent } from './compra/listado-compra/listado-compra.component';
 import { FormularioCompraComponent } from './compra/formulario-compra/formulario-compra.component';
+import { FormItemEntradaComponent } from './entrada/formulario-entrada/datos-item-entrada/form-item-entrada/form-item-entrada.component';
 
 
 @NgModule({
@@ -63,7 +66,8 @@ import { FormularioCompraComponent } from './compra/formulario-compra/formulario
     DocumentosEntradaComponent,
     TerminarEntradaComponent,
     ListadoCompraComponent,
-    FormularioCompraComponent
+    FormularioCompraComponent,
+    FormItemEntradaComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +92,9 @@ import { FormularioCompraComponent } from './compra/formulario-compra/formulario
     AutoCompleteModule,
     InventarioModuleRoutingModule,
     DividerModule,
-    StepsModule
+    StepsModule,
+    CalendarModule,
+    InputNumberModule
   ]
 })
 export class InventarioModuleModule { }

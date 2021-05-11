@@ -1,1 +1,180 @@
-<p>datos-generales-entrada works!</p>
+<h2>Formulario datos generales</h2>
+<br>
+<form [formGroup]="formulario" *ngIf="tipo=='add'">
+    <!--<input formControlName="id" type="hidden" pInputText>-->
+    <div class="p-fluid p-grid">
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
+                <label for="inp_codigo">E1. Código<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_regional" inputId="inp_inp_id_regional"
+                    [suggestions]="param.regional" (completeMethod)="getFilter($event,'regional')" field="nombre"
+                    [minLength]="1" [dropdown]="true" (onSelect)="selectRegional($event)">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_id_regional">R2. Regional<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_regional']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_almacen" inputId="inp_id_almacen" [suggestions]="param.almacen"
+                    (completeMethod)="getFilter($event,'almacen')" field="nombre" [minLength]="1" [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_id_almacen">A3. Almacen<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_almacen']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="tipo_entrada" inputId="inp_tipo_entrada"
+                    [suggestions]="param.param_tipo_entrada" (completeMethod)="getFilter($event,'param_tipo_entrada')"
+                    field="valor" [minLength]="1" [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.valor}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_tipo_entrada">E4. Tipo entrada<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['tipo_entrada']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_proveedor" inputId="inp_id_proveedor"
+                    [suggestions]="param.proveedor" (completeMethod)="getFilter($event,'proveedor')" field="nombre"
+                    [minLength]="1" [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_id_proveedor">PR5. Proveedor<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_proveedor']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_compra" inputId="inp_id_compra" [suggestions]="param.compra"
+                    (completeMethod)="getFilter($event,'compra')" field="nombre" [minLength]="1" [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_id_compra">C6. Compra<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_compra']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="tipo_adquisicion" inputId="inp_tipo_adquisicion"
+                    [suggestions]="param.param_tipo_adquisicion"
+                    (completeMethod)="getFilter($event,'param_tipo_adquisicion')" field="valor" [minLength]="1"
+                    [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.valor}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_tipo_adquisicion">E7. Tipo adquisición <span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['tipo_adquisicion']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="tipo_financiamiento" inputId="inp_tipo_financiamiento"
+                    [suggestions]="param.param_tipo_financiamiento"
+                    (completeMethod)="getFilter($event,'param_tipo_financiamiento')" field="valor" [minLength]="1"
+                    [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.valor}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_tipo_financiamiento">E8. Tipo financiamiento<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['tipo_financiamiento']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <input formControlName="factura_comercial" type="text" id="inp_factura_comercial" pInputText>
+                <label for="inp_factura_comercial">E9. Factura comercial<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['factura_comercial']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-3">
+            <span class="p-float-label">
+                <input formControlName="c_31" type="text" id="inp_c_31" pInputText>
+                <label for="inp_c_31">E10. C-31<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['c_31']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="modalidad_contratacion" inputId="inp_modalidad_contratacion"
+                    [suggestions]="param.param_modalidad_contr"
+                    (completeMethod)="getFilter($event,'param_modalidad_contr')" field="valor" [minLength]="1"
+                    [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.valor}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_modalidad_contratacion">E11. Modalidad de contratación<span
+                        class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['modalidad_contratacion']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-5">
+            <span class="p-float-label">
+                <input formControlName="cite_contrato_compra" type="text" id="inp_cite_contrato_compra" pInputText>
+                <label for="inp_cite_contrato_compra">E12. Cite contratato de compra<span
+                        class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['cite_contrato_compra']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-12">
+            <span class="p-float-label">
+                <textarea formControlName="nota" id="inp_nota" rows="2" cols="30"
+                        pInputTextarea></textarea>
+                <label for="inp_nota">E13. Nota<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['nota']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-12">
+            <span class="p-float-label">
+
+                <p-autoComplete formControlName="comision" inputId="inp_comision"
+                    [suggestions]="param.usuario"
+                    (completeMethod)="getFilter($event,'usuario')" field="nombres" [minLength]="1"
+                    [dropdown]="true" [multiple]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.nombres}})</b> {{data.cargo}}</div>
+                    </ng-template>
+                </p-autoComplete>
+
+                <label for="inp_comision">E14. Comision<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['comision']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+    </div>
+</form>

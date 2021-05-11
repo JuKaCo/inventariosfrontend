@@ -1,0 +1,133 @@
+<p-dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-80"
+    [contentStyle]="{'overflow':'visible'}">
+    <form [formGroup]="formulario" *ngIf="tipo!='ver'">
+        <!--<input formControlName="id" type="hidden" pInputText>-->
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="id_producto" inputId="inp_id_producto" [suggestions]="param.producto"
+                        (completeMethod)="getFilter($event,'producto')" field="codigo" [minLength]="1"
+                        [dropdown]="true" (onSelect)="selectProducto($event)">
+                        <ng-template let-data pTemplate="item">
+                            <div><b>({{data.codigo}})</b> <br>Nombre comercial : {{data.nombre_comercial}}</div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_id_producto">P1. Producto<span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['id_producto']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-8">
+                <span><b>Nombre comercial : </b>{{nom_comer}}</span>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="registro_sanitario" type="text" id="inp_registro_sanitario" pInputText>
+                    <label for="inp_registro_sanitario">I2. Registro sanitario <span
+                            class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['registro_sanitario']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-8">
+                <span class="p-float-label">
+                    <input formControlName="lote" type="text" id="inp_lote" pInputText>
+                    <label for="inp_lote">I3. Lote</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['lote']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <p-calendar formControlName="fecha_exp" dateFormat="dd/mm/yy" [locale]="es" dataType="string" inputId="inp_fecha_exp" [showIcon]="true"></p-calendar>
+                    <label for="inp_fecha_exp">I4. Fecha de expiración</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['fecha_exp']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-6">
+                <span class="p-float-label">
+                    <!--<p-inputNumber  (onInput)="calc($event,'precio_factura')" formControlName="precio_factura"  id="inp_precio_factura"  [minFractionDigits]="1" [maxFractionDigits]="6"></p-inputNumber>-->
+                    <input formControlName="precio_factura" id="inp_precio_factura" pInputText >
+                    <label for="inp_precio_factura">I6. Precio factura</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['precio_factura']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <!--<p-inputNumber (onInput)="calc($event,'cantidad')" formControlName="cantidad" id="inp_cantidad"  mode="decimal"></p-inputNumber>-->
+                    <input formControlName="cantidad" id="inp_cantidad" pInputText >
+                    <label for="inp_cantidad">I5. Cantidad</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['cantidad']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+           
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <!--<p-inputNumber (onInput)="calc($event,'precio_unidad_fob')" formControlName="precio_unidad_fob"  id="inp_precio_unidad_fob"  [minFractionDigits]="1" [maxFractionDigits]="6"></p-inputNumber>-->
+                    <input formControlName="precio_unidad_fob" id="inp_precio_unidad_fob" pInputText >
+                    <label for="inp_precio_unidad_fob">I7. Precio unidad FOB</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['precio_unidad_fob']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="factor" inputId="inp_factor" [suggestions]="param.param_factor_precio"
+                        (completeMethod)="getFilter($event,'param_factor_precio')" field="valor" [minLength]="1"
+                        [dropdown]="true" (onSelect)="calc($event,'factor')">
+                        <ng-template let-data pTemplate="item">
+                            <div><b>({{data.codigo}})</b> {{data.valor}}</div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_factor">I8. Factor</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['factor']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <h3>Precio total</h3>
+                <span>{{calculo.total || '0'}}</span>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <h3>Costo almacen</h3>
+                <span>{{calculo.costo_almacen || '0'}}</span>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <h3>Costo neto</h3>
+                <span>{{calculo.costo_neto || '0'}}</span>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <h3>Precio venta</h3>
+                <span>{{calculo.precio_venta || '0'}}</span>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="tipo=='ver'">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">I1. Código</span>
+                {{datos.codigo}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">I2. Nombre</span>
+                {{datos.nombre}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">I3. Referencia</span>
+                {{datos.referencia}}
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmarGuardar($event)" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'"></p-button>
+
+        <p-button (click)="confirmarEditar($event)" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+        </p-button>
+    </ng-template>
+</p-dialog>

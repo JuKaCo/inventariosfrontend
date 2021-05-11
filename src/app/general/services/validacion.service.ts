@@ -20,6 +20,7 @@ export class ValidacionService {
     let config: any = {
       required: "Este campo es requerido.",
       requiredAutoComplete: "Este campo es requerido.",
+      requiredAutoCompleteMultiple: "Este campo es requerido.",
       invalidEmailAddress: "Correo electrónico inválido",
       invalidNumber: "Introduzca un número válido",
       invalidAlphanumeric: "Introduzca solo letras y numeros",
@@ -35,7 +36,7 @@ export class ValidacionService {
       numeroPositivo: "El número deve ser mayor o igual a 0",
       email: "Correo no valido",
       emailValidator: "Correo no valido",
-      numberValidator: "No es un valor numérico",
+      numberValidator: "No es un valor numérico entero",
       maxlength_int: "Máximo de caracteres: " + this.dato1,
       mixlength_int: "Mínimo de caracteres: " + this.dato1,
       maxkbSize: "Tamaño máximo: " + this.dato1 + " kB | Su tamaño actual: " + this.dato2 + " kB",
@@ -113,6 +114,22 @@ export class ValidacionService {
       return { requiredAutoComplete: true };
     }
   }
+  static requiredAutoCompleteMultiple(control: any) {
+    if (control.value != undefined) {
+      if (typeof control.value !== "object") {
+        return { requiredAutoCompleteMultiple: true };
+      } else {
+        if (control.value.lenght) {
+
+        } else {
+
+        }
+        return null;
+      }
+    } else {
+      return { requiredAutoComplete: true };
+    }
+  }
 
 
   /*static minkbSize(control:any, valor:any) {
@@ -178,6 +195,7 @@ export class ValidacionService {
       return { emailValidator: true };
     }
   }
+
   static numberValidator(control: any) {
     if (
       control.value != null &&
@@ -192,6 +210,7 @@ export class ValidacionService {
     }
     return null;
   }
+  
   static alphanumericValidator(control: any) {
     if ((control.value != undefined) != null && control.value != undefined) {
       if (String(control.value).match(/^[-\w\s]+$/)) {
@@ -264,6 +283,7 @@ export class ValidacionService {
     }
     return null;
   }
+  
   static alfanumericoMayValidator(control: any) {
     if (control.value != null && control.value != undefined) {
       let cadena = control.value;

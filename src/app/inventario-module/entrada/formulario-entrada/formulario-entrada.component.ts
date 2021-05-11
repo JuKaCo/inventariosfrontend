@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
@@ -7,6 +7,9 @@ import { UtilService } from 'src/app/general/services/util.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
 import { InventarioProductoService } from '../../service/inventario-producto.service';
 import { MenuItem } from 'primeng/api';
+import { DatosGeneralesEntradaComponent } from './datos-generales-entrada/datos-generales-entrada.component';
+import { DatosItemEntradaComponent } from './datos-item-entrada/datos-item-entrada.component';
+import { DocumentosEntradaComponent } from './documentos-entrada/documentos-entrada.component';
 
 @Component({
   selector: 'app-formulario-entrada',
@@ -21,21 +24,24 @@ export class FormularioEntradaComponent implements OnInit {
   items!: MenuItem[];
   //steap
   activeIndex: number = 0;
-  txtAnt: string = 'anterior';
-  txtSig: string = 'siguiente';
+  txtAnt: string = 'Anterior';
+  txtSig: string = 'Siguiente';
   maxIndex: number = 0;
   //ver
   displayFrm: boolean = false;
 
   //confirm
-  textCrea: string = "¿Esta seguro de guardar los datos?. Verifique antes de confirmar.";
-  textEditar: string = "¿Esta seguro de modificar los datos?.";
-  textEliminar: string = "¿Esta seguro de eliminar el registro?.";
+  textTermina: string = "¿Esta seguro de terminar el ingreso?.";
   //tiempo animacion pop out confirm
   timeConfirm = 250;
 
   //emitir datos
   @Output() respform = new EventEmitter();
+
+  @ViewChild('next1') next1!: DatosGeneralesEntradaComponent;
+  @ViewChild('next2') next2!: DatosItemEntradaComponent;
+  @ViewChild('next3') next3!: DocumentosEntradaComponent;
+
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
@@ -68,11 +74,25 @@ export class FormularioEntradaComponent implements OnInit {
   }
 
   siguiente(): void {
+    this.siguienteAccion(this.activeIndex);
+  }
+  calcSigueinte() {
     if (this.activeIndex < this.maxIndex - 1) {
       this.activeIndex++;
     } else {
       this.activeIndex = this.maxIndex - 1;
       this.termina();
+    }
+  }
+  siguienteAccion(index: any) {
+    if (index == 0) {
+      this.next1.guardar('SIG');
+    }
+    if (index == 1) {
+      this.next2.guardar('SIG');
+    }
+    if (index == 2) {
+      this.next3.guardar('SIG');
     }
   }
 
@@ -114,18 +134,34 @@ export class FormularioEntradaComponent implements OnInit {
 
   }
 
-  confirm(event: any) {
-
-    
+  respformStep(event: any) {
+    if (event.tipo == 'guardar-datos-generales') {
+      if (event.success) {
+        this.calcSigueinte();
+      }
+    }
+    if (event.tipo == 'guardar-datos-item-entrada') {
+      if (event.success) {
+        this.calcSigueinte();
+      }
+    }
+    if (event.tipo == 'guardar-documentos-entrada') {
+      if (event.success) {
+        this.calcSigueinte();
+      }
+    }
+  }
+  terminar(event: any) {
     this.confirmationService.confirm({
       target: event.target,
-      message: 'Are you sure that you want to proceed?',
+      message: this.textTermina,
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        //confirm action
+        this.messageService.add({ severity: 'info', summary: this.modulo, detail: 'Se termino '+this.modulo });
+        this.cerrarForm();
       },
       reject: () => {
-        //reject action
+        this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Cancelo la operación.' });
       }
     });
   }

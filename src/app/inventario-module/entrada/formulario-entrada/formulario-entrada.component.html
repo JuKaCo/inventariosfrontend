@@ -1,22 +1,33 @@
 <br>
-<p-card header="Registro de entrada">
+<p-card header="" *ngIf="displayFrm">
+    <div class="p-fluid p-grid">
+        <div class="p-field p-col-12 p-md-10">
+            <span style="font-size: 2em;">Registro de entrada</span>
+        </div>
+        <div class="p-field p-col-12 p-md-2">
+            <p-button label="Volver" icon="pi pi-chevron-left" (click)="cerrarForm()"></p-button>
+        </div>
+    </div>
     <p-steps [model]="items" [(activeIndex)]="activeIndex"></p-steps>
 
-    <app-datos-generales-entrada #next1 *ngIf="activeIndex==0"></app-datos-generales-entrada>
-    <app-datos-item-entrada #next2 *ngIf="activeIndex==1"></app-datos-item-entrada>
-    <app-documentos-entrada #next3 *ngIf="activeIndex==2"></app-documentos-entrada>
+    <app-datos-generales-entrada (respform)="respformStep($event)" #next1 *ngIf="activeIndex==0"></app-datos-generales-entrada>
+    <app-datos-item-entrada (respform)="respformStep($event)"  #next2 *ngIf="activeIndex==1"></app-datos-item-entrada>
+    <app-documentos-entrada (respform)="respformStep($event)" #next3 *ngIf="activeIndex==2"></app-documentos-entrada>
     <app-terminar-entrada #next4 *ngIf="activeIndex==3"></app-terminar-entrada>
 
     <div class="p-grid">
         <div class="p-col-12 p-md-2">
-            <p-button [label]="txtAnt" icon="pi pi-chevron-left" (click)="anterior();" *ngIf="activeIndex!=0"></p-button>
+            <p-button [label]="txtAnt" icon="pi pi-chevron-left" (click)="anterior();" *ngIf="activeIndex!=0">
+            </p-button>
         </div>
 
         <div class="p-d-none p-d-md-inline-flex p-col-12 p-md-8">
         </div>
-        <div class="p-col-12 p-md-2">
-            <p-button [label]="txtSig" icon="pi pi-chevron-right" iconPos="right" (click)="siguiente();" *ngIf="activeIndex < maxIndex-1"></p-button>
-            <p-button label="Terminar" icon="pi pi-chevron-right" iconPos="right" (click)="siguiente();" *ngIf="activeIndex == maxIndex-1"></p-button>
+        <div class="p-col-12 p-md-2 button-100">
+            <p-button [label]="txtSig" icon="pi pi-chevron-right" iconPos="right" (click)="siguiente();"
+                *ngIf="activeIndex < maxIndex-1"></p-button>
+            <p-button label="Terminar" icon="pi pi-chevron-right"   iconPos="right" (click)="terminar($event);"
+                *ngIf="activeIndex == maxIndex-1"></p-button>
         </div>
     </div>
 

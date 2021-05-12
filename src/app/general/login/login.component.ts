@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     this.oauthService.configure(authCodeFlowConfig);
     //this.oauthService.setStorage(localStorage);
     this.oauthService.loadDiscoveryDocument();
-    if(this.oauthService.hasValidAccessToken()){
+    if (this.oauthService.hasValidAccessToken()) {
       this._router.navigate(['inicio']);
     }
   }
@@ -53,14 +53,18 @@ export class LoginComponent implements OnInit {
         datos.pass
       )
       .then(() => {
+        this.messageService.add({ severity: 'success', summary: 'Ingresar', detail: 'Datos correctos.' });
         this.loaderService.hide();
-        //this.messageService.add({ severity: 'success', summary: 'Ingresar', detail: 'Datos correctos.' });
 
-       /* for (let entry of Object.keys(sessionStorage)) {
-          let data: any = sessionStorage.getItem(entry);
-          localStorage.setItem(entry, data);
-        }*/
-        this._router.navigate(['inicio']);
+        /* for (let entry of Object.keys(sessionStorage)) {
+           let data: any = sessionStorage.getItem(entry);
+           localStorage.setItem(entry, data);
+         }*/
+        setTimeout(() => {
+
+          this._router.navigate(['inicio']);
+        },
+          500);
       })
       .catch(err => {
         console.error('error logging in', err);

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { Observable } from 'rxjs';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
@@ -35,6 +36,8 @@ export class FormularioCompraComponent implements OnInit {
   datos!: any;
   //emitir datos
   @Output() respform = new EventEmitter();
+  //async
+  ver$!: Observable<any>;
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
@@ -248,7 +251,8 @@ export class FormularioCompraComponent implements OnInit {
     this.displayHeader = 'Datos ' + this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
-    this.service.getRegistro(id).subscribe(response => {
+    this.ver$=this.service.getRegistro(id);
+    this.ver$.subscribe(response => {
       if (response.success) {
         this.datos = response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
@@ -264,7 +268,7 @@ export class FormularioCompraComponent implements OnInit {
         this.displayFrm = false;
       });
   }
-  modificarEstado(event:any,id: any,estado:any) {
+  modificarEstado(event: any, id: any, estado: any) {
     this.confirmationService.close();
     this.tipo = "eliminar";
     setTimeout(() => {
@@ -274,8 +278,8 @@ export class FormularioCompraComponent implements OnInit {
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           //confirm action
-          let data={estado:estado};
-          this.service.setModifica(id,data).subscribe(response => {
+          let data = { estado: estado };
+          this.service.setModifica(id, data).subscribe(response => {
             if (response.success) {
               this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
               this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se consolido el archivo.' });

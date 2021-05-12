@@ -31,7 +31,7 @@
         </div>
     </form>
     <div *ngIf="tipo=='ver'">
-        <div class="p-fluid p-grid">
+        <div class="p-fluid p-grid" *ngIf="ver$ | async">
             <div class="p-field p-col-12 p-md-12">
                 <span class="ver-datos">PR1. Código</span>
                 {{datos.codigo}}

@@ -209,7 +209,7 @@
 <p-dialog [header]="displayHeader" [(visible)]="displayDialog" [modal]="true" styleClass="dialog-responsive-80"
     [contentStyle]="{'overflow':'visible'}" [position]="'top'">
     <p-scrollPanel styleClass="custombar-bar dialog-responsive-scroll" [style]="{ height: '400px'}" *ngIf="tipo=='ver'">
-        <div class="p-fluid p-grid">
+        <div class="p-fluid p-grid" *ngIf="ver$ | async">
             <div class="p-field p-col-12 p-md-4">
                 <span class="ver-datos">P1. Codigo</span>
                 {{datos.codigo}}

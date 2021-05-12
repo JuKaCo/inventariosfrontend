@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { Observable } from 'rxjs';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
@@ -33,6 +34,8 @@ export class FormularioProgramaComponent implements OnInit {
   datos!: any;
   //emitir datos
   @Output() respform = new EventEmitter();
+  //async
+  ver$!: Observable<any>;
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
@@ -243,7 +246,8 @@ export class FormularioProgramaComponent implements OnInit {
     this.displayHeader = 'Datos ' + this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
-    this.service.getRegistro(id).subscribe(response => {
+    this.ver$ = this.service.getRegistro(id);
+    this.ver$.subscribe(response => {
       if (response.success) {
         this.datos = response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });

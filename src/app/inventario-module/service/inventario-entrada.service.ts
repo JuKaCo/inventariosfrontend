@@ -48,10 +48,12 @@ export class InventarioEntradaService {
       catchError(this.handleError)
     );
   }
-  //
-  getCalItemCalcula(data:any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/item/calcular';
-    return this.http.post(url, data).pipe(
+  //REPORTE
+  getReporteNotaIngreso(id:any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/reporte/entrada/notaingreso/'+id;
+    return this.http.get(url, {
+      responseType: 'arraybuffer'
+    }).pipe(
       catchError(this.handleError)
     );
   }

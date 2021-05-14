@@ -47,6 +47,7 @@ import { TerminarEntradaComponent } from './entrada/formulario-entrada/terminar-
 import { ListadoCompraComponent } from './compra/listado-compra/listado-compra.component';
 import { FormularioCompraComponent } from './compra/formulario-compra/formulario-compra.component';
 import { FormItemEntradaComponent } from './entrada/formulario-entrada/datos-item-entrada/form-item-entrada/form-item-entrada.component';
+import { ViewEntradaItemEntradaComponent } from './entrada/view-entrada-item-entrada/view-entrada-item-entrada.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { FormItemEntradaComponent } from './entrada/formulario-entrada/datos-ite
     TerminarEntradaComponent,
     ListadoCompraComponent,
     FormularioCompraComponent,
-    FormItemEntradaComponent
+    FormItemEntradaComponent,
+    ViewEntradaItemEntradaComponent
   ],
   imports: [
     CommonModule,

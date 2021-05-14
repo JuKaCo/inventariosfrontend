@@ -1,8 +1,9 @@
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table/table';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { InventarioProductoService } from 'src/app/inventario-module/service/inventario-producto.service';
 import { FormItemEntradaComponent } from './form-item-entrada/form-item-entrada.component';
+import { LoaderService } from 'src/app/general/services/loader.service';
+import { InventarioEntradaItemService } from 'src/app/inventario-module/service/inventario-entrada-item.service';
 
 @Component({
   selector: 'app-datos-item-entrada',
@@ -14,6 +15,7 @@ export class DatosItemEntradaComponent implements OnInit {
   modulo: string = "Producto";
 
   //formularios
+  id: string = "";
 
   //tabla
   @ViewChild('dt') dt!: Table;
@@ -32,7 +34,8 @@ export class DatosItemEntradaComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
-    private entidadService: InventarioProductoService,
+    private service: InventarioEntradaItemService,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
@@ -40,10 +43,13 @@ export class DatosItemEntradaComponent implements OnInit {
 
   crear() {
     this.viewTable = false;
+    this.frm.id = this.id;
     this.frm.crear();
+
   }
   editar(data: any) {
     this.viewTable = false;
+    this.frm.id = this.id;
     this.frm.editar(data.id);
   }
   eliminar(event: Event, data: any) {
@@ -53,7 +59,7 @@ export class DatosItemEntradaComponent implements OnInit {
     this.frm.ver(data.id);
   }
 
-  loadData(event: any) {
+  loadData(event: any): any {
     let indice = event.first;
     let limite = event.rows;
     let filtro = "";
@@ -63,12 +69,18 @@ export class DatosItemEntradaComponent implements OnInit {
     this.loading = true;
     this.listaTabla = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.entidadService.getLista(dataTable).subscribe(response => {
+    console.log('¡¡¡¡',this.id);
+    if (this.id == '') {
+      this.loaderService.hide();
+      return null;
+    }
+    this.service.getLista(dataTable, this.id).subscribe(response => {
       if (response.success) {
         this.listaTabla = [];
-        //this.listaTabla = response.data.resultados;
+        this.listaTabla = response.data.resultados;
         this.totalRecords = response.data.total;
         this.loading = false;
+        this.loaderService.hide();
       }
     },
       error => {
@@ -78,6 +90,15 @@ export class DatosItemEntradaComponent implements OnInit {
 
   resetTable() {
     this.dt.reset();
+  }
+  cargarTabla(id: string) {
+    this.id = id;
+    console.log('carga',this.id);
+    this.loadData({
+      first: 0,
+      rows: 10,
+      globalFilter:{value: ''}
+    });
   }
   //emiter de formulario para ver respuesta y actulizar tabla
   respformI(event: any) {
@@ -106,6 +127,11 @@ export class DatosItemEntradaComponent implements OnInit {
   }
 
   guardar(tipo: any) {
-    this.respform.emit({ tipo: 'guardar-datos-item-entrada', success: true });
+    if (this.listaTabla.length > 0) {
+      this.respform.emit({ tipo: 'guardar-datos-item-entrada', success: true });
+    } else {
+      this.messageService.add({ severity: 'warn', summary: this.modulo, detail: 'No tiene ningun item registrado.' });
+    }
+
   }
 }

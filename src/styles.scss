@@ -257,3 +257,10 @@ body {
 .button-100 button{
     width: 100% !important;
 }
+//div min talbe
+.tabla-min >.p-datatable .p-datatable-thead > tr > th{
+    padding: .5rem .5rem !important;
+}
+.tabla-min> .p-datatable .p-datatable-tbody > tr > td{
+    padding: .5rem .5rem !important;
+}

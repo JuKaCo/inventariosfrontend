@@ -1,8 +1,9 @@
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table/table';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { InventarioProductoService } from '../../service/inventario-producto.service';
 import { FormularioEntradaComponent } from '../formulario-entrada/formulario-entrada.component';
+import { InventarioEntradaService } from '../../service/inventario-entrada.service';
+import { ViewEntradaItemEntradaComponent } from '../view-entrada-item-entrada/view-entrada-item-entrada.component';
 
 @Component({
   selector: 'app-listado-entrada',
@@ -23,13 +24,15 @@ export class ListadoEntradaComponent implements OnInit {
   first: number = 0;
   listaTabla: any = [];
   viewTable: boolean = true;
-
+  //ver
+  verDatos:boolean=false;
+  @ViewChild('ver') verD!: ViewEntradaItemEntradaComponent;
 
   //componentes
   @ViewChild('frm') frm!: FormularioEntradaComponent;
   constructor(
     private messageService: MessageService,
-    private entidadService: InventarioProductoService,
+    private service: InventarioEntradaService,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -49,7 +52,10 @@ export class ListadoEntradaComponent implements OnInit {
     this.frm.eliminar(event, data.id);
   }
   ver(data: any) {
-    this.frm.ver(data.id);
+    this.verDatos=true;
+    this.viewTable = false;
+    this.cdr.detectChanges();
+    this.verD.ver(data.id);
   }
 
   loadData(event: any) {
@@ -62,10 +68,9 @@ export class ListadoEntradaComponent implements OnInit {
     this.loading = true;
     this.listaTabla = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    this.entidadService.getLista(dataTable).subscribe(response => {
+    this.service.getLista(dataTable).subscribe(response => {
       if (response.success) {
-        this.listaTabla = [];
-        //this.listaTabla = response.data.resultados;
+        this.listaTabla = response.data.resultados;
         this.totalRecords = response.data.total;
         this.loading = false;
       }

@@ -4,7 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
-import { InventarioProgramaService } from 'src/app/inventario-module/service/inventario-programa.service';
+import { InventarioEntradaService } from 'src/app/inventario-module/service/inventario-entrada.service';
 
 @Component({
   selector: 'app-datos-generales-entrada',
@@ -12,6 +12,8 @@ import { InventarioProgramaService } from 'src/app/inventario-module/service/inv
   styleUrls: ['./datos-generales-entrada.component.scss']
 })
 export class DatosGeneralesEntradaComponent implements OnInit {
+  //datos generales
+  modulo: string = 'Datos generales';
   //formulario
   formulario!: FormGroup;
   formularioValid: boolean = false;
@@ -27,7 +29,7 @@ export class DatosGeneralesEntradaComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private loaderService: LoaderService,
     private generalService: GeneralService,
-    private service: InventarioProgramaService,
+    private service: InventarioEntradaService,
   ) { }
 
   ngOnInit(): void {
@@ -56,11 +58,131 @@ export class DatosGeneralesEntradaComponent implements OnInit {
   }
 
   crear() {
-    this.formulario.get('id_almacen')?.disable();
+    this.formulario.get('codigo')?.disable();
+    this.formulario.get('codigo')?.setValue('Por asignar');
   }
-
+  resetFormValidUpload() {
+    this.formulario.reset();
+    this.formularioValid = false;
+  }
   guardar(tipo: any) {
-    this.respform.emit({ tipo: 'guardar-datos-generales', success: true });
+    if (this.formulario.value.id == 0) {
+      this.set();
+    } else {
+      this.mod();
+    }
+
+  }
+  set() {
+    let data = this.formulario.value;
+    if (this.formulario.valid) {
+      this.service.set(data).subscribe(response => {
+        if (response.success) {
+          let data = response.data;
+          let valores = {
+            id: data.id,
+            codigo: data.codigo,
+            id_regional: data.id_regional,
+            id_almacen: data.id_almacen,
+            tipo_entrada: data.tipo_entrada,
+            id_proveedor: data.id_proveedor,
+            id_compra: data.id_compra,
+            tipo_adquisicion: data.tipo_adquisicion,
+            tipo_financiamiento: data.tipo_financiamiento,
+            factura_comercial: data.factura_comercial,
+            c_31: data.c_31,
+            modalidad_contratacion: data.modalidad_contratacion,
+            cite_contrato_compra: data.cite_contrato_compra,
+            nota: data.nota,
+            comision: data.comision
+          };
+          this.formulario.setValue(valores);
+          this.respform.emit({ tipo: 'guardar-datos-generales', success: true, data: data });
+          this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.success.message });
+        } else {
+          this.messageService.add({ severity: 'info', summary: this.modulo, detail: response.success.message });
+        }
+      },
+        error => {
+
+          this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
+        });
+    } else {
+      this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Datos incorrectos.' });
+      this.formularioValid = true;
+    }
+
+  }
+  mod() {
+    if (this.formulario.valid) {
+      let data = this.formulario.value;
+      let valores = {
+        id: data.id,
+        codigo: data.codigo,
+        id_regional: data.id_regional,
+        id_almacen: data.id_almacen,
+        tipo_entrada: data.tipo_entrada,
+        id_proveedor: data.id_proveedor,
+        id_compra: data.id_compra,
+        tipo_adquisicion: data.tipo_adquisicion,
+        tipo_financiamiento: data.tipo_financiamiento,
+        factura_comercial: data.factura_comercial,
+        c_31: data.c_31,
+        modalidad_contratacion: data.modalidad_contratacion,
+        cite_contrato_compra: data.cite_contrato_compra,
+        nota: data.nota,
+        comision: data.comision
+      }
+      this.service.setModifica(data.id, valores).subscribe(response => {
+        if (response.success) {
+          this.respform.emit({ tipo: 'guardar-datos-generales', success: true, data: data });
+          this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
+
+        } else {
+          this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
+        }
+      },
+        error => {
+          this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
+
+        });
+    } else {
+      this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Datos incorrectos.' });
+      this.formularioValid = true;
+    }
+  }
+  editar(id: any) {
+    this.resetFormValidUpload();
+    this.service.getRegistro(id).subscribe(response => {
+      if (response.success) {
+        let data = response.data;
+        let valores = {
+          id: data.id,
+          codigo: data.codigo,
+          id_regional: data.id_regional,
+          id_almacen: data.id_almacen,
+          tipo_entrada: data.tipo_entrada,
+          id_proveedor: data.id_proveedor,
+          id_compra: data.id_compra,
+          tipo_adquisicion: data.tipo_adquisicion,
+          tipo_financiamiento: data.tipo_financiamiento,
+          factura_comercial: data.factura_comercial,
+          c_31: data.c_31,
+          modalidad_contratacion: data.modalidad_contratacion,
+          cite_contrato_compra: data.cite_contrato_compra,
+          nota: data.nota,
+          comision: data.comision
+        };
+        this.formulario.setValue(valores);
+        this.loaderService.hide();
+        this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
+      } else {
+        this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
+      }
+    },
+      error => {
+        this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
+      });
   }
 
   getFilter(event: any, tipo: string) {

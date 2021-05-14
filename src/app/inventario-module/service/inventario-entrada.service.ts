@@ -13,37 +13,37 @@ export class InventarioEntradaService {
   constructor(private http: HttpClient) { }
 
   set(data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/compra/crear';
+    let url = environment.CEASSBACKEND + 'api/v1/entrada/crear';
     return this.http.post(url, data).pipe(
       catchError(this.handleError)
     );
   }
   setEdita(data: any, id: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/compra/editar/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/entrada/editar/' + id;
     return this.http.put(url, data).pipe(
       catchError(this.handleError)
     );
   }
   setElimina(id: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/compra/cambiarestado/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/entrada/cambiarestado/' + id;
     return this.http.delete(url).pipe(
       catchError(this.handleError)
     );
   }
   setModifica(id: string, data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/compra/modificar/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/entrada/modificar/' + id;
     return this.http.patch(url, data).pipe(
       catchError(this.handleError)
     );
   }
   getLista(data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/compra/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
+    let url = environment.CEASSBACKEND + 'api/v1/entrada/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
   }
   getRegistro(uuid: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/compra/obtener/' + uuid;
+    let url = environment.CEASSBACKEND + 'api/v1/entrada/obtener/' + uuid;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );

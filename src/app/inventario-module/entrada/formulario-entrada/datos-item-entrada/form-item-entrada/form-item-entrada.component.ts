@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { Observable } from 'rxjs';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
 import { InventarioEntradaItemService } from 'src/app/inventario-module/service/inventario-entrada-item.service';
-import { InventarioProgramaService } from 'src/app/inventario-module/service/inventario-programa.service';
 
 
 @Component({
@@ -39,17 +39,16 @@ export class FormItemEntradaComponent implements OnInit {
   datos!: any;
   //emitir datos
   @Output() respformI = new EventEmitter();
-
+  id: string = "";
   //observable
-  calc$: any;
+  ver$!:Observable<any>;   
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private loaderService: LoaderService,
     private generalService: GeneralService,
-    private service: InventarioProgramaService,
-    private service1: InventarioEntradaItemService
+    private service: InventarioEntradaItemService,
   ) { }
 
   ngOnInit(): void {
@@ -73,8 +72,10 @@ export class FormItemEntradaComponent implements OnInit {
     this.formulario.addControl('precio_factura', new FormControl({ value: '', disabled: false }, [ValidacionService.numeroPositivo, Validators.required]));
     this.formulario.addControl('precio_unidad_fob', new FormControl({ value: '', disabled: false }, [ValidacionService.numeroPositivo, Validators.required]));
     this.formulario.addControl('factor', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
+    this.formulario.addControl('id_entrada_salida', new FormControl({ value: '', disabled: false }, []));
+
     this.formularioValid = false;
-    this.formulario.get("cantidad")!.setValue("", { emitEvent: false });
+    //this.formulario.get("cantidad")!.setValue("", { emitEvent: false });
 
   }
 
@@ -136,7 +137,10 @@ export class FormItemEntradaComponent implements OnInit {
   }
 
   guardarDatos(): void {
+
+    this.formulario.get('id_entrada_salida')?.setValue(this.id);
     let data = this.formulario.value;
+    data['tipo_in_out'] = 'IN';
 
     this.service.set(data).subscribe(response => {
       if (response.success) {
@@ -180,16 +184,11 @@ export class FormItemEntradaComponent implements OnInit {
   }
 
   modificarDatos(): void {
-    //this.formulario.get('codigo')?.enable();
-    let data = this.formulario.value;
-    //this.formulario.get('codigo')?.disable();
 
-    let valores = {
-      //codigo: data.codigo,
-      nombre: data.nombre,
-      referencia: data.referencia,
-    };
-    this.service.setEdita(valores, data.id).subscribe(response => {
+    this.formulario.get('id_entrada_salida')?.setValue(this.id);
+    let data = this.formulario.value;
+
+    this.service.setModifica(data.id,data).subscribe(response => {
       if (response.success) {
         this.respformI.emit({ tipo: this.tipo, success: true, message: response.message });
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
@@ -227,11 +226,28 @@ export class FormItemEntradaComponent implements OnInit {
       if (response.success) {
         let data = response.data;
         let valores = {
+
           id: data.id,
-          codigo: data.codigo,
-          nombre: data.nombre,
-          referencia: data.referencia,
-        }
+          id_producto: data.id_producto,
+          registro_sanitario: data.registro_sanitario,
+          lote: data.lote,
+          fecha_exp: data.fecha_exp,
+          cantidad: data.cantidad,
+          precio_factura: data.precio_factura,
+          precio_unidad_fob: data.precio_unidad_fob,
+          factor: data.factor,
+          id_entrada_salida: data.id_entrada_salida,
+          //tipo_in_out: data.tipo_in_out
+        };
+        setTimeout(() => {
+          this.calculo = {
+            total: data.precio_total,
+            costo_almacen: data.costo_almacen,
+            costo_neto: data.costo_neto,
+            precio_venta: data.precio_venta
+          };
+        }, 600);
+        
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
@@ -282,7 +298,8 @@ export class FormItemEntradaComponent implements OnInit {
     this.displayHeader = 'Datos ' + this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
-    this.service.getRegistro(id).subscribe(response => {
+    this.ver$=this.service.getRegistro(id);
+    this.ver$.subscribe(response => {
       if (response.success) {
         this.datos = response.data;
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
@@ -314,26 +331,26 @@ export class FormItemEntradaComponent implements OnInit {
     if (tipo == 'precio_unidad_fob') {
       precio_unidad_fob = event.value;
     }
-    console.log(cantidad,precio_unidad_fob,factor);
+    //console.log(cantidad, precio_unidad_fob, factor);
     if (cantidad != null && precio_unidad_fob != null && factor != undefined) {
       if (Number(cantidad) > 0 && Number(precio_unidad_fob) >= 0 && typeof factor === "object") {
         //this.messageService.add({ severity: 'info', summary: this.modulo, detail: 'Se esta realizando los calculos' });
         //this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se esta realizo los calculos' });
-        let data=this.formulario.value;
-        this.service1.getCalItemCalcula({
+        let data = this.formulario.value;
+        this.service.getCalItemCalcula({
           "cantidad": cantidad,
           "precio_unidad_fob": precio_unidad_fob,
           "factor": data.factor.codigo
         }
         ).subscribe(response => {
           if (response.success) {
-            this.calculo=response.data;
+            this.calculo = response.data;
           } else {
-            this.calculo={}
+            this.calculo = {}
           }
         },
           error => {
-            this.calculo={}
+            this.calculo = {}
             this.messageService.add({ severity: 'error', summary: 'Calculo', detail: 'Datos incorrectos.' });
           });
 

@@ -29,25 +29,71 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>Codigo</th>
+                <!--<th>Fecha</th>-->
+                <th>Regional</th>
+                <th>Proveedor</th>
+                <th>Compra</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th style="width:9em">Accion</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-dato>
             <tr>
                 <td>
                     <span class="p-column-title">Codigo</span>
-                    {{dato?.codigo}}
+                    {{dato?.codigo}}<br>
+                    <b>Fec :</b>{{dato?.fecha}}
                 </td>
+                <!--<td>
+                    <span class="p-column-title">Fecha</span>
+                    {{dato?.codigo}}
+                </td>-->
+                <td>
+                    <span class="p-column-title">Regional</span>
+                    {{dato?.id_regional.nombre}}<br>
+                    <b>Almacen : </b> {{dato?.id_almacen.nombre}}
+                </td>
+                <td>
+                    <span class="p-column-title">Proveedor</span>
+                    {{dato?.id_proveedor.nombre}}
+                </td>
+                <td>
+                    <span class="p-column-title">Compra</span>
+                    {{dato?.id_compra.codigo}}
+                </td>
+                <td>
+                    <span class="p-column-title">Monto</span>
+                    {{dato?.total}}
+                </td>
+                <td>
+                    <span class="p-column-title">Estado</span>
+                    <p-tag styleClass="p-mr-2" severity="warning" value="Esperando stock"
+                        *ngIf="dato?.estado=='PENDIENTE'"></p-tag>
+                    <p-tag styleClass="p-mr-2" severity="success" value="Completado" *ngIf="dato?.estado=='COMPLETADO'">
+                    </p-tag>
+                </td>
+
                 <td>
                     <span class="p-column-title">Accion</span>
 
                     <span [controlAcceso]="'ver'" class="icon-table"><i (click)="ver(dato)" class="pi pi-eye"
-                            pTooltip="Ver" tooltipPosition="top" placeholder="Top"></i></span>
+                            pTooltip="Ver" tooltipPosition="top" placeholder="Top"
+                            ></i></span>
 
                     <span [controlAcceso]="'editar'" class="icon-table"><i (click)="editar(dato)" class="pi pi-pencil"
-                            pTooltip="Editar" tooltipPosition="top" placeholder="Top"></i></span>
+                            pTooltip="Editar" tooltipPosition="top" placeholder="Top"
+                            *ngIf="dato?.estado=='PENDIENTE'"></i></span>
 
                     <span [controlAcceso]="'eliminar'" class="icon-table"><i (click)="eliminar($event,dato)"
-                            class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top" placeholder="Top"></i></span>
+                            class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top" placeholder="Top"
+                            *ngIf="dato?.estado=='PENDIENTE'"></i></span>
+                    <br>
+                    <span [controlAcceso]="'ver'" class="icon-table"><i class="pi pi-file-o" pTooltip="Nota de ingreso"
+                            tooltipPosition="top" placeholder="Top"></i></span>
+                    <span [controlAcceso]="'ver'" class="icon-table"><i class="pi pi-file-pdf" pTooltip="Acta de recepcion"
+                            tooltipPosition="top" placeholder="Top"></i></span>
+
                 </td>
             </tr>
         </ng-template>
@@ -55,3 +101,14 @@
 </p-card>
 
 <app-formulario-entrada #frm (respform)="respform($event)"></app-formulario-entrada>
+<p-card *ngIf="verDatos">
+    <div class="p-fluid p-grid">
+        <div class="p-field p-col-12 p-md-10">
+            <span style="font-size: 2em;">Ver datos de entrada</span>
+        </div>
+        <div class="p-field p-col-12 p-md-2">
+            <p-button label="Volver" icon="pi pi-chevron-left" (click)="viewTable = true;verDatos=false;"></p-button>
+        </div>
+    </div>
+    <app-view-entrada-item-entrada #ver></app-view-entrada-item-entrada>
+</p-card>

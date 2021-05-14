@@ -1,13 +1,67 @@
-<h2>Registro de items</h2>
-<div class="p-grid">
-    <!-- <div class="p-col-12 p-md-1" pTooltip="Regargar contenido de tabla" tooltipPosition="top">
-       <p-button type="button" icon="pi pi-refresh" (click)="resetTable()" styleClass="p-button-text"></p-button>
-    </div>-->
-    <div [controlAcceso]="'crear'" class="p-col-12 p-md-12 p-text-right">
-        <button pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
-            (click)="crear()"></button>
+<h2>Datos Generales</h2>
+<div class="p-fluid p-grid" *ngIf="ver$ | async">
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E1. Código</h4>
+        {{entrada.codigo}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>R2. Regional</h4>
+        {{entrada.id_regional.nombre}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>A3. Almacen</h4>
+        {{entrada.id_almacen.nombre}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E4. Tipo entrada</h4>
+        {{entrada.tipo_entrada.valor}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>PR5. Proveedor</h4>
+        {{entrada.id_proveedor.nombre}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>C6. Compra</h4>
+        {{entrada.id_compra.codigo}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E7. Tipo adquisición</h4>
+        {{entrada.tipo_adquisicion.valor}}
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E8. Tipo financiamiento</h4>
+        {{entrada.tipo_financiamiento.valor}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E9. Factura comercial</h4>
+        {{entrada.factura_comercial}}
+    </div>
+    <div class="p-field p-col-12 p-md-3">
+        <h4>E10. C-31</h4>
+        {{entrada.c_31}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E11. Modalidad de contratación</h4>
+        {{entrada.modalidad_contratacion.valor}}
+    </div>
+    <div class="p-field p-col-12 p-md-5">
+        <h4>E12. Cite contratato de compra</h4>
+        {{entrada.cite_contrato_compra}}
+    </div>
+    <div class="p-field p-col-12 p-md-12">
+        <h4>E13. Nota</h4>
+        {{entrada.nota}}
+    </div>
+    <div class="p-field p-col-12 p-md-12">
+        <h4>E14. Comision</h4>
+        <p *ngFor="let item of entrada.comision">
+            {{item.nombres}} {{item.apellidos}}<br>
+            <small>{{item.cargo}}</small>
+        </p>
     </div>
 </div>
+<h2>Items</h2>
 
 <p-table [controlAcceso]="'ver'" #dt [value]="listaTabla" [lazy]="true" (onLazyLoad)="loadData($event)"
     [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
@@ -36,13 +90,12 @@
             <th style="width:6em">FOB</th>
             <th style="width:6em">Factor</th>
 
-            <!--<th>Precios</th>-->
+            <th>Precios</th>
 
             <!--<th>Pre. total</th>
             <th>Cost. almacen</th>
             <th>Cost. neto</th>
             <th>Pre.venta</th>-->
-            <th style="width:9em">Accion</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-dato>
@@ -84,13 +137,13 @@
                 {{dato?.factor.codigo}}
             </td>
 
-            <!--<td>
+            <td>
                 <span class="p-column-title">Precios</span>
                 <b>PT:</b>{{dato?.precio_total}}<br>
                 <b>CA:</b>{{dato?.costo_almacen}}<br>
                 <b>CN:</b>{{dato?.costo_neto}}<br>
                 <b>PV:</b>{{dato?.precio_venta}}
-            </td>-->
+            </td>
 
             <!--<td>
                 <span class="p-column-title">Pre. total</span>
@@ -108,20 +161,6 @@
                 <span class="p-column-title">Pre.venta</span>
                 {{dato?.precio_venta}}
             </td>-->
-
-            <td>
-                <span class="p-column-title">Accion</span>
-
-                <span [controlAcceso]="'ver'" class="icon-table"><i (click)="ver(dato)" class="pi pi-eye" pTooltip="Ver"
-                        tooltipPosition="top" placeholder="Top"></i></span>
-
-                <span [controlAcceso]="'editar'" class="icon-table"><i (click)="editar(dato)" class="pi pi-pencil"
-                        pTooltip="Editar" tooltipPosition="top" placeholder="Top"></i></span>
-
-                <span [controlAcceso]="'eliminar'" class="icon-table"><i (click)="eliminar($event,dato)"
-                        class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top" placeholder="Top"></i></span>
-            </td>
         </tr>
     </ng-template>
 </p-table>
-<app-form-item-entrada #frm (respformI)="respformI($event)"></app-form-item-entrada>

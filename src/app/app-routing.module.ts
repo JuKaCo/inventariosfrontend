@@ -62,6 +62,17 @@ const routes: Routes = [
       },
     ]
   },
+  { 
+    path: 'venta', 
+    component: inicioComponent, 
+    canActivate: [AuthGuard],
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('./venta-module/venta-module.module').then(m => m.VentaModuleModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({

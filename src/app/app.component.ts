@@ -17,10 +17,19 @@ export class AppComponent implements OnInit {
     private _oAuthService: OAuthService,
     private config: PrimeNGConfig
   ) {
-    for (let entry of Object.keys(localStorage)) {
+
+    if (router.url == '/') {
+      var element = document.getElementById("principal");
+      if (element != null) {
+        element.classList.add("conten-login");
+      }
+    }
+
+
+    /*for (let entry of Object.keys(localStorage)) {
       let data: any = localStorage.getItem(entry);
       sessionStorage.setItem(entry, data);
-    }
+    }*/
     this._oAuthService.configure(authCodeFlowConfig);
     this._oAuthService.loadDiscoveryDocument();
     this._oAuthService.setupAutomaticSilentRefresh();

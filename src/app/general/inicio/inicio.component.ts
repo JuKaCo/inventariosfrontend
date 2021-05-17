@@ -38,7 +38,20 @@ export class inicioComponent implements OnInit {
     
     this.oAuthService.configure(authCodeFlowConfig);
     this.oAuthService.loadDiscoveryDocument();
-    this.oAuthService.setupAutomaticSilentRefresh();
+    this.oAuthService.setupAutomaticSilentRefresh();  
+    this.quitarFondo();
+  }
+  quitarFondo(){
+    var element = document.getElementById("principal");
+    if (element != null) {
+      element.classList.remove("conten-login");
+    }
+  }
+  adicionarFondo(){
+    var element = document.getElementById("principal");
+    if (element != null) {
+      element.classList.add("conten-login");
+    }
   }
 
   ngOnInit(): void {
@@ -99,6 +112,7 @@ export class inicioComponent implements OnInit {
     this.oAuthService.revokeTokenAndLogout();
     localStorage.clear();
     sessionStorage.clear();
+    this.adicionarFondo();
     this._router.navigate(['']);
   }
 

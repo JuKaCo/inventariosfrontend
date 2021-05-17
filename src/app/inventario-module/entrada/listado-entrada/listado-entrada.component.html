@@ -90,7 +90,7 @@
                             *ngIf="dato?.estado=='PENDIENTE'"></i></span>
                     <br>
                     <span [controlAcceso]="'ver'" class="icon-table"><i class="pi pi-file-o" pTooltip="Nota de ingreso"
-                            tooltipPosition="top" placeholder="Top"></i></span>
+                            tooltipPosition="top" placeholder="Top" (click)="getNotaIngreso(dato.id)"></i></span>
                     <span [controlAcceso]="'ver'" class="icon-table"><i class="pi pi-file-pdf" pTooltip="Acta de recepcion"
                             tooltipPosition="top" placeholder="Top"></i></span>
 

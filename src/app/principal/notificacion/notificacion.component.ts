@@ -61,7 +61,7 @@ export class NotificacionComponent implements OnInit {
           this.resetTable();
         }
       }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+        this.messageService.add({ severity: 'error', summary: error.message, detail: 'Error al consumir el servicio.' });
       });
   }
 
@@ -73,7 +73,7 @@ export class NotificacionComponent implements OnInit {
           this.resetTable();
         }
       }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+        this.messageService.add({ severity: 'error', summary: error.message, detail: 'Error al consumir el servicio.' });
       });
   }
 

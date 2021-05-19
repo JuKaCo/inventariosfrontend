@@ -134,7 +134,7 @@ export class inicioComponent implements OnInit {
         }
       },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+        this.messageService.add({ severity: 'error', summary: error.message, detail: 'Error al consumir el servicio.' });
       });
   }
 
@@ -149,7 +149,7 @@ export class inicioComponent implements OnInit {
           this.getListaNotificacion();
         }
       }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+        this.messageService.add({ severity: 'error', summary: error.message, detail: 'Error al consumir el servicio.' });
       });
   }
 
@@ -161,7 +161,7 @@ export class inicioComponent implements OnInit {
           this.validaNotificacion[i] = !this.validaNotificacion[i];
         }
       }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+        this.messageService.add({ severity: 'error', summary: error.message, detail: 'Error al consumir el servicio.' });
       });
   }
   validNotificacion(i:number) : boolean{

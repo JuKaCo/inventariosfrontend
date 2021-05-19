@@ -32,12 +32,24 @@ import { GeneralModuleModule } from '../general-module/general-module.module';
 import { VentaModuleRoutingModule } from './venta-module-routing.module';
 import { ListadoCotizacionComponent } from './cotizacion/listado-cotizacion/listado-cotizacion.component';
 import { FormularioCotizacionComponent } from './cotizacion/formulario-cotizacion/formulario-cotizacion.component';
+import { ViewCotizacionItemCotizacionComponent } from './cotizacion/view-cotizacion-item-cotizacion/view-cotizacion-item-cotizacion.component';
+import { DatosGeneralesCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-generales-cotizacion/datos-generales-cotizacion.component';
+import { DatosItemCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/datos-item-cotizacion.component';
+import { DocumentosCotizacionComponent } from './cotizacion/formulario-cotizacion/documentos-cotizacion/documentos-cotizacion.component';
+import { TerminarCotizacionComponent } from './cotizacion/formulario-cotizacion/terminar-cotizacion/terminar-cotizacion.component';
+import { FormItemCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/form-item-cotizacion/form-item-cotizacion.component';
 
 
 @NgModule({
   declarations: [
     ListadoCotizacionComponent,
-    FormularioCotizacionComponent
+    FormularioCotizacionComponent,
+    ViewCotizacionItemCotizacionComponent,
+    DatosGeneralesCotizacionComponent,
+    DatosItemCotizacionComponent,
+    DocumentosCotizacionComponent,
+    TerminarCotizacionComponent,
+    FormItemCotizacionComponent
   ],
   imports: [
     CommonModule,

@@ -64,7 +64,7 @@ export class ListadoLinameComponent implements OnInit {
       }
     },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Listado liname', detail: 'Error al consumir el servicio.' });
+        this.messageService.add({ severity: 'error', summary: error.message, detail: 'Error al consumir el servicio.' });
       });
   }
 

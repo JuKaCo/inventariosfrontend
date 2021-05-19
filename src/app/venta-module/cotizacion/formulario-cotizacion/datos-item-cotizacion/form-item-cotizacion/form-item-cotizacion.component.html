@@ -1,0 +1,83 @@
+<p-dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-80"
+    [contentStyle]="{'overflow':'visible'}">
+    <form [formGroup]="formulario" *ngIf="tipo!='ver'">
+        <!--<input formControlName="id" type="hidden" pInputText>-->
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="id_producto" inputId="inp_id_producto" [suggestions]="param.producto"
+                        (completeMethod)="getFilter($event,'producto')" field="codigo" [minLength]="1"
+                        [dropdown]="true" (onSelect)="selectProducto($event)">
+                        <ng-template let-data pTemplate="item">
+                            <div><b>({{data.codigo}})</b> <br>Nombre comercial : {{data.nombre_comercial}}</div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_id_producto">PK1. Producto<span class="text-danger">*</span></label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['id_producto']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span><b>Nombre comercial : </b>{{nom_comer}}</span><br>
+                <span><b>Lote : </b>{{nom_comer}}</span><br>
+                <span><b>Fecha expiración : </b>{{nom_comer}}</span>
+            </div>
+            <div class="p-field p-col-4 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="lote" id="inp_lote" pInputText >
+                    <label for="inp_lote">CO2. Cantidad</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['lote']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-4 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="lote" id="inp_lote" pInputText >
+                    <label for="inp_lote">PK3. Precio de venta</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['lote']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+            <div class="p-field p-col-4 p-md-4">
+                <span class="p-float-label">
+                    <input formControlName="lote" id="inp_lote" pInputText >
+                    <label for="inp_lote">CO3. Precio total</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['lote']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="tipo=='ver'">
+        <div class="p-fluid p-grid" *ngIf="ver$ | async">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">PK1. Producto</span>
+                <b>Codigo :</b>{{datos.id_producto.medicamento}}<br>
+                <b>Nombre comercial :</b>{{datos.id_producto.medicamento}}<br>
+                <b>Lote :</b>{{datos.id_producto.medicamento}}<br>
+                <b>Fecha expiración :</b>{{datos.id_producto.medicamento}}<br>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">CO2. Cantidad</span>
+                {{datos.registro_sanitario}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">PK3. Precio de venta</span>
+                {{datos.lote}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">CO3. Precio total</span>
+                {{datos.fecha_exp}}
+            </div>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmarGuardar($event)" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'"></p-button>
+
+        <p-button (click)="confirmarEditar($event)" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+        </p-button>
+    </ng-template>
+</p-dialog>

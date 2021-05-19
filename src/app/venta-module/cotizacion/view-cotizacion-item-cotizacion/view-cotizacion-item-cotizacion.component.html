@@ -1,0 +1,150 @@
+<h2>Datos Generales</h2>
+<div class="p-fluid p-grid" *ngIf="ver$ | async">
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E1. Código</h4>
+        {{entrada.codigo}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>R2. Regional</h4>
+        {{entrada.id_regional.nombre}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>A3. Almacen</h4>
+        {{entrada.id_almacen.nombre}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E4. Tipo entrada</h4>
+        {{entrada.tipo_entrada.valor}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>PR5. Proveedor</h4>
+        {{entrada.id_proveedor.nombre}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>C6. Compra</h4>
+        {{entrada.id_compra.codigo}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E7. Tipo adquisición</h4>
+        {{entrada.tipo_adquisicion.valor}}
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E8. Tipo financiamiento</h4>
+        {{entrada.tipo_financiamiento.valor}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E9. Factura comercial</h4>
+        {{entrada.factura_comercial}}
+    </div>
+    <div class="p-field p-col-12 p-md-3">
+        <h4>E10. C-31</h4>
+        {{entrada.c_31}}
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+        <h4>E11. Modalidad de contratación</h4>
+        {{entrada.modalidad_contratacion.valor}}
+    </div>
+    <div class="p-field p-col-12 p-md-5">
+        <h4>E12. Cite contratato de compra</h4>
+        {{entrada.cite_contrato_compra}}
+    </div>
+    <div class="p-field p-col-12 p-md-12">
+        <h4>E13. Nota</h4>
+        {{entrada.nota}}
+    </div>
+    <div class="p-field p-col-12 p-md-12">
+        <h4>E14. Comision</h4>
+        <p *ngFor="let item of entrada.comision">
+            {{item.nombres}} {{item.apellidos}}<br>
+            <small>{{item.cargo}}</small>
+        </p>
+    </div>
+</div>
+<h2>Items</h2>
+
+<p-table [controlAcceso]="'ver'" #dt [value]="listaTabla" [lazy]="true" (onLazyLoad)="loadData($event)"
+    [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
+    styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[10,25,50]"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true"
+    class="tabla-min">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex">
+            <!--<button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clearTable(dt)"></button>-->
+            <span class="p-input-icon-left p-ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')"
+                    placeholder="Buscar...." />
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Producto</th>
+            <!--<th>Registro sanitario</th>-->
+            <th>Lote</th>
+            <th style="width:6em">Fecha expiración</th>
+            <th>Precio factura</th>
+            <th>Cant.</th>
+            <th style="width:6em">FOB</th>
+            <th style="width:6em">Factor</th>
+
+            <th>Precios</th>
+
+            <!--<th>Pre. total</th>
+            <th>Cost. almacen</th>
+            <th>Cost. neto</th>
+            <th>Pre.venta</th>-->
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dato>
+        <tr>
+            <td>
+                <span class="p-column-title">Producto</span>
+                <span style="word-wrap: break-word;"> 
+                    {{dato?.id_producto.nombre_comercial}}<br>
+                    <b>RS.: </b>{{dato?.registro_sanitario}}
+                </span>
+            </td>
+            <!--<td>
+                <span class="p-column-title">Registro sanitario</span>
+                {{dato?.registro_sanitario}}
+            </td>-->
+            <td>
+                <span class="p-column-title">Lote</span>
+                <span style="word-wrap: break-word; "> {{dato?.lote}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Fecha expiración</span>
+                {{dato?.fecha_exp}}
+            </td>
+            <td>
+                <span class="p-column-title">Precio factura</span>
+                {{dato?.precio_factura | number:'1.0-5'}}
+            </td>
+            <td>
+                <span class="p-column-title">Cantidad</span>
+                {{dato?.cantidad | number:'1.0-5'}}
+            </td>
+            <td>
+                <span class="p-column-title">FOB</span>
+                {{dato?.precio_unidad_fob | number:'1.0-5'}}
+            </td>
+            <td>
+                <span class="p-column-title">Factor</span>
+                <!--{{dato?.factor.cod_grupo}}<br>-->
+                {{dato?.factor.codigo}}
+            </td>
+
+            <td>
+                <span class="p-column-title">Precios</span>
+                <b>PT:</b>{{dato?.precio_total}}<br>
+                <b>CA:</b>{{dato?.costo_almacen}}<br>
+                <b>CN:</b>{{dato?.costo_neto}}<br>
+                <b>PV:</b>{{dato?.precio_venta}}
+            </td>
+
+        </tr>
+    </ng-template>
+</p-table>

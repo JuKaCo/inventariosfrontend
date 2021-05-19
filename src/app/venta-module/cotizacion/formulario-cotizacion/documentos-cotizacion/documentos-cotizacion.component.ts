@@ -4,11 +4,11 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { ThrowStmt } from '@angular/compiler';
 
 @Component({
-  selector: 'app-documentos-entrada',
-  templateUrl: './documentos-entrada.component.html',
-  styleUrls: ['./documentos-entrada.component.scss']
+  selector: 'app-documentos-cotizacion',
+  templateUrl: './documentos-cotizacion.component.html',
+  styleUrls: ['./documentos-cotizacion.component.scss']
 })
-export class DocumentosEntradaComponent implements OnInit {
+export class DocumentosCotizacionComponent implements OnInit {
   modulo:string = "Documentos";
   id:string="";
   //emitir datos

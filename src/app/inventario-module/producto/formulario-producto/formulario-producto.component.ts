@@ -59,7 +59,6 @@ export class FormularioProductoComponent implements OnInit {
     this.formulario.addControl('nombre_comercial', new FormControl({ value: '', disabled: false }, [ValidacionService.required]));
     this.formulario.addControl('codigo_liname', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('codigo_linadime', new FormControl({ value: '', disabled: false }, []));
-    //this.formulario.addControl('reg_san', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('referencia', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('medicamento', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('form_farm', new FormControl({ value: '', disabled: false }, []));
@@ -73,6 +72,9 @@ export class FormularioProductoComponent implements OnInit {
     this.formulario.addControl('nivel_uso_i', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('nivel_uso_ii', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('nivel_uso_iii', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('tipo_controlado', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('categoria_prod', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
+
     this.formularioValid = false;
   }
 
@@ -180,8 +182,8 @@ export class FormularioProductoComponent implements OnInit {
 
   guardarDatos(): void {
     let data = this.formulario.value;
-    data=UtilService.modComboNull(data, ['codigo_liname', 'codigo_linadime']);
 
+    data = UtilService.modComboNull(data, ['codigo_liname', 'codigo_linadime', 'tipo_controlado', 'categoria_prod']);
     data = UtilService.modNullEspacio(data);
 
     this.service.set(data).subscribe(response => {
@@ -260,7 +262,7 @@ export class FormularioProductoComponent implements OnInit {
       nivel_uso_iii: data.nivel_uso_ii
     };
 
-    data = UtilService.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
+    data = UtilService.modComboNull(data, ['codigo_liname', 'codigo_linadime', 'tipo_controlado', 'categoria_prod']);
     data = UtilService.modNullEspacio(data);
 
     this.service.setEdita(valores, data.id).subscribe(response => {
@@ -389,7 +391,7 @@ export class FormularioProductoComponent implements OnInit {
   }
   selectLiname(event: any) {
     this.formulario.get('medicamento')?.setValue(event.medicamento);
-    this.formulario.get('form_farm')?.setValue(event.form_farm);
+    this.formulario.get('form_farm')?.setValue(event.for_farma);
     this.formulario.get('concen')?.setValue(event.concen);
     this.formulario.get('atq')?.setValue(event.class_atq);
     this.formulario.get('precio_ref')?.setValue(event.pre_ref);

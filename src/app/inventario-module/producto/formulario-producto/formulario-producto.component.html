@@ -57,19 +57,41 @@
                 <app-mesaje-form-error [control]="formulario.controls['codigo_linadime']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
-            <!--<div class="p-field p-col-12 p-md-4">
+            <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
-                    <input formControlName="reg_san" type="text" id="inp_reg_san" pInputText>
-                    <label for="inp_reg_san">P5. Registro sanitario</label>
+                    <p-autoComplete formControlName="tipo_controlado" inputId="inp_tipo_controlado"
+                        [suggestions]="param['param_controlado']"
+                        (completeMethod)="getFilter($event,'param_controlado')" field="valor" [minLength]="1"
+                        [dropdown]="true">
+                        <ng-template let-adata pTemplate="item">
+                            <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_tipo_controlado">P5. Controlado</label>
                 </span>
-                <app-mesaje-form-error [control]="formulario.controls['reg_san']" [valid]="formularioValid">
+                <app-mesaje-form-error [control]="formulario.controls['tipo_controlado']" [valid]="formularioValid">
                 </app-mesaje-form-error>
-            </div>-->
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="p-float-label">
+                    <p-autoComplete formControlName="categoria_prod" inputId="inp_categoria_prod"
+                        [suggestions]="param['param_cat_prod']"
+                        (completeMethod)="getFilter($event,'param_cat_prod')" field="valor" [minLength]="1"
+                        [dropdown]="true">
+                        <ng-template let-adata pTemplate="item">
+                            <div><b>({{adata.codigo}})</b> {{adata.valor}}</div>
+                        </ng-template>
+                    </p-autoComplete>
+                    <label for="inp_categoria_prod">P6. Categoria</label>
+                </span>
+                <app-mesaje-form-error [control]="formulario.controls['categoria_prod']" [valid]="formularioValid">
+                </app-mesaje-form-error>
+            </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <textarea formControlName="referencia" id="inp_referencia" rows="2" cols="30"
                         pInputTextarea></textarea>
-                    <label for="inp_referencia">P6. Referencia</label>
+                    <label for="inp_referencia">P7. Referencia</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['referencia']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -85,7 +107,7 @@
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <input formControlName="medicamento" type="text" id="inp_medicamento" pInputText>
-                    <label for="inp_medicamento">P7. Nombre genérico</label>
+                    <label for="inp_medicamento">P8. Nombre genérico</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['medicamento']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -93,7 +115,7 @@
             <div class="p-field p-col-12 p-md-6">
                 <span class="p-float-label">
                     <input formControlName="form_farm" type="text" id="inp_form_farm" pInputText>
-                    <label for="inp_form_farm">P8. Forma farmaceutica</label>
+                    <label for="inp_form_farm">P9. Forma farmaceutica</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['form_farm']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -101,7 +123,7 @@
             <div class="p-field p-col-12 p-md-6">
                 <span class="p-float-label">
                     <input formControlName="concen" type="text" id="inp_concen" pInputText>
-                    <label for="inp_concen">P9. Concentración</label>
+                    <label for="inp_concen">P10. Concentración</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['concen']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -109,7 +131,7 @@
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <input formControlName="atq" type="text" id="inp_atq" pInputText>
-                    <label for="inp_atq">P10. ATQ</label>
+                    <label for="inp_atq">P11. ATQ</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['atq']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -117,7 +139,7 @@
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <input formControlName="precio_ref" type="text" id="imp_precio_ref" pInputText>
-                    <label for="imp_precio_ref">P11. Precio referencial</label>
+                    <label for="imp_precio_ref">P12. Precio referencial</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['precio_ref']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -125,7 +147,7 @@
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <input formControlName="aclara_parti" type="text" id="imp_aclara_parti" pInputText>
-                    <label for="imp_aclara_parti">P12. Aclaracion de particula</label>
+                    <label for="imp_aclara_parti">P13. Aclaracion de particula</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['aclara_parti']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -142,7 +164,7 @@
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
                     <input formControlName="dispositivo" type="text" id="imp_dispositivo" pInputText>
-                    <label for="imp_dispositivo">P13. Dispositivo</label>
+                    <label for="imp_dispositivo">P14. Dispositivo</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['dispositivo']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -150,7 +172,7 @@
             <div class="p-field p-col-12 p-md-6">
                 <span class="p-float-label">
                     <input formControlName="especificacion_tec" type="text" id="imp_especificacion_tec" pInputText>
-                    <label for="imp_especificacion_tec">P14. Especificacion tecnica</label>
+                    <label for="imp_especificacion_tec">P15. Especificacion tecnica</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['especificacion_tec']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -158,7 +180,7 @@
             <div class="p-field p-col-12 p-md-6">
                 <span class="p-float-label">
                     <input formControlName="presentacion" type="text" id="imp_presentacion" pInputText>
-                    <label for="imp_presentacion">P15. Presentación</label>
+                    <label for="imp_presentacion">P16. Presentación</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['presentacion']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -166,7 +188,7 @@
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <input formControlName="nivel_uso_i" type="text" id="imp_nivel_uso_i" pInputText>
-                    <label for="imp_nivel_uso_i">P16. Nivel de uso I</label>
+                    <label for="imp_nivel_uso_i">P17. Nivel de uso I</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['nivel_uso_i']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -174,7 +196,7 @@
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <input formControlName="nivel_uso_ii" type="text" id="imp_nivel_uso_ii" pInputText>
-                    <label for="imp_nivel_uso_ii">P17. Nivel de uso II</label>
+                    <label for="imp_nivel_uso_ii">P18. Nivel de uso II</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['nivel_uso_ii']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -182,7 +204,7 @@
             <div class="p-field p-col-12 p-md-4">
                 <span class="p-float-label">
                     <input formControlName="nivel_uso_iii" type="text" id="imp_nivel_uso_iii" pInputText>
-                    <label for="imp_nivel_uso_iii">P18. Nivel de uso III</label>
+                    <label for="imp_nivel_uso_iii">P19. Nivel de uso III</label>
                 </span>
                 <app-mesaje-form-error [control]="formulario.controls['nivel_uso_iii']" [valid]="formularioValid">
                 </app-mesaje-form-error>
@@ -226,12 +248,16 @@
                 <span class="ver-datos">P4. Codigo LINADIME</span>
                 {{datos.codigo_linadime.cod_linadime}}
             </div>
-            <!--<div class="p-field p-col-12 p-md-4">
-                <span class="ver-datos">P5. Registro sanitario</span>
-                {{datos.reg_san}}
-            </div>-->
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P5. Controlado</span>
+                {{datos.tipo_controlado.valor}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">P6. Categoria</span>
+                {{datos.categoria_prod.valor}}
+            </div>
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">P6. Referencia</span>
+                <span class="ver-datos">P7. Referencia</span>
                 {{datos.referencia}}
             </div>
         </div>
@@ -244,27 +270,27 @@
         <br>
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">P7. Nombre genérico</span>
+                <span class="ver-datos">P8. Nombre genérico</span>
                 {{datos.medicamento}}
             </div>
             <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">P8. Forma farmaceutica</span>
+                <span class="ver-datos">P9. Forma farmaceutica</span>
                 {{datos.form_farm}}
             </div>
             <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">P9. Concentración</span>
+                <span class="ver-datos">P10. Concentración</span>
                 {{datos.concen}}
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <span class="ver-datos">P10. ATQ</span>
+                <span class="ver-datos">P11. ATQ</span>
                 {{datos.atq}}
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <span class="ver-datos">P11. Precio referencial</span>
+                <span class="ver-datos">P12. Precio referencial</span>
                 {{datos.precio_ref}}
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <span class="ver-datos">P12. Aclaracion de particula</span>
+                <span class="ver-datos">P13. Aclaracion de particula</span>
                 {{datos.aclara_parti}}
             </div>
         </div>
@@ -279,29 +305,29 @@
 
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-12">
-                <span class="ver-datos">P13. Dispositivo</span>
+                <span class="ver-datos">P14. Dispositivo</span>
                 {{datos.dispositivo}}
             </div>
             <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">P14. Especificacion tecnica</span>
+                <span class="ver-datos">P15. Especificacion tecnica</span>
                 {{datos.especificacion_tec}}
             </div>
         </div>
         <div class="p-fluid p-grid">
             <div class="p-field p-col-12 p-md-6">
-                <span class="ver-datos">P15. Presentación</span>
+                <span class="ver-datos">P16. Presentación</span>
                 {{datos.presentacion}}
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <span class="ver-datos">P16. Nivel de uso I</span>
+                <span class="ver-datos">P17. Nivel de uso I</span>
                 {{datos.nivel_uso_i}}
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <span class="ver-datos">P17. Nivel de uso II</span>
+                <span class="ver-datos">P18. Nivel de uso II</span>
                 {{datos.nivel_uso_ii}}
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <span class="ver-datos">P18. Nivel de uso III</span>
+                <span class="ver-datos">P19. Nivel de uso III</span>
                 {{datos.nivel_uso_iii}}
             </div>
         </div>

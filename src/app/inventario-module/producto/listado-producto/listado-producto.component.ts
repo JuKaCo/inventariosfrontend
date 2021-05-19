@@ -3,6 +3,7 @@ import { Table } from 'primeng/table/table';
 import { FormularioProductoComponent } from '../formulario-producto/formulario-producto.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { InventarioProductoService } from '../../service/inventario-producto.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class ListadoProductoComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private entidadService: InventarioProductoService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -74,19 +76,20 @@ export class ListadoProductoComponent implements OnInit {
   }
 
   resetTable() {
+    this.cdr.detectChanges();
     this.dt.reset();
   }
   //emiter de formulario para ver respuesta y actulizar tabla
   respform(event: any) {
     if (event.tipo == 'crear') {
       if (event.success) {
-        this.viewTable=true;
+        this.viewTable = true;
         this.resetTable();
       }
     }
     if (event.tipo == 'editar') {
       if (event.success) {
-        this.viewTable=true;
+        this.viewTable = true;
         this.resetTable();
       }
     }
@@ -95,9 +98,9 @@ export class ListadoProductoComponent implements OnInit {
         this.resetTable();
       }
     }
-    if(event.tipo=='cerrar'){
+    if (event.tipo == 'cerrar') {
       if (event.success) {
-        this.viewTable=true;
+        this.viewTable = true;
       }
     }
   }

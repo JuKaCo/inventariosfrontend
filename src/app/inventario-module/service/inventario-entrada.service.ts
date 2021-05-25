@@ -57,7 +57,14 @@ export class InventarioEntradaService {
       catchError(this.handleError)
     );
   }
-
+  getReporteActaIngreso(id:any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/reporte/entrada/actarecepcion/'+id;
+    return this.http.get(url, {
+      responseType: 'arraybuffer'
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   handleError(error: any) {
     let errorMessage = '';

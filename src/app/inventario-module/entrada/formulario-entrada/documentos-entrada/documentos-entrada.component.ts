@@ -37,4 +37,16 @@ export class DocumentosEntradaComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'No se pudo generar el documento.' });
       });
   }
+  getActaRecepcion(){
+    this.messageService.add({ severity: 'info', summary: this.modulo, detail: 'Icnicia descarga de documento.' });
+    this.service.getReporteActaIngreso(this.id).subscribe(response => {
+      let blob: any = new Blob([response], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+      this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se genero correctamentente el documento.' });
+    },
+      error => {
+        this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'No se pudo generar el documento.' });
+      });
+  }
 }

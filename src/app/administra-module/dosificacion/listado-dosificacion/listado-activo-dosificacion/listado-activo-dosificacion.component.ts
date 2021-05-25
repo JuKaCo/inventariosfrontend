@@ -61,7 +61,6 @@ export class ListadoActivoDosificacionComponent implements OnInit {
   }
 
   ver(data: any) {
-    //this.frm.ver(data.id);
     this.respform.emit({ tipo: 'ver', success: true ,data:data});
   }
 

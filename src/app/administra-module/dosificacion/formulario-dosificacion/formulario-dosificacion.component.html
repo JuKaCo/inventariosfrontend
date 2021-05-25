@@ -1,0 +1,82 @@
+<p-dialog #dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-80"
+    [contentStyle]="{'overflow':'visible'}" [position]="'top'">
+    <p-scrollPanel styleClass="custombar-bar dialog-responsive-scroll" *ngIf="tipo!='ver'">
+        <form [formGroup]="formulario">
+            <!--<input formControlName="id" type="hidden" pInputText>-->
+            <div class="p-fluid p-grid">
+                <div class="p-field p-col-12 p-md-12">
+                    <span class="p-float-label">
+                        <p-autoComplete formControlName="regional" inputId="inp_regional"
+                            [suggestions]="param['param_regional']"
+                            (completeMethod)="getFilter($event,'param_regional')" field="nombre" [minLength]="1"
+                            [dropdown]="true">
+                            <ng-template let-data pTemplate="item">
+                                <div><b>({{data.codigo}})</b> {{data.nombre}}</div>
+                            </ng-template>
+                        </p-autoComplete>
+                        <label for="inp_regional">R1. Regional <span class="text-danger">*</span></label>
+                    </span>
+
+                    <app-mesaje-form-error [control]="formulario.controls['id_regional']" [valid]="formularioValid">
+                    </app-mesaje-form-error>
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <span class="p-float-label">
+                        <p-calendar formControlName="fecha_exp" dateFormat="dd/mm/yy" [locale]="es" dataType="string"
+                            inputId="inp_fecha_exp" [showIcon]="true" [appendTo]="dialog"></p-calendar>
+                        <label for="inp_fecha_exp">D2. Fecha de exporación</label>
+                    </span>
+                    <app-mesaje-form-error [control]="formulario.controls['fecha_exp']" [valid]="formularioValid">
+                    </app-mesaje-form-error>
+                </div>
+                <div class="p-field p-col-12 p-md-8">
+                    <span class="p-float-label">
+                        <input formControlName="nro_autorizacion" type="text" id="inp_nro_autorizacion" pInputText>
+                        <label for="inp_nro_autorizacion">D3. Nro. de autorización</label>
+                    </span>
+                    <app-mesaje-form-error [control]="formulario.controls['nro_autorizacion']"
+                        [valid]="formularioValid">
+                    </app-mesaje-form-error>
+                </div>
+                <div class="p-field p-col-12 p-md-12">
+                    <span class="p-float-label">
+                        <textarea formControlName="llave_dosificacion" [rows]="2" [cols]="30" pInputTextarea></textarea>
+                        <label for="inp_llave_dosificacion">D4. Llave de dosificación</label>
+                    </span>
+                    <app-mesaje-form-error [control]="formulario.controls['llave_dosificacion']"
+                        [valid]="formularioValid">
+                    </app-mesaje-form-error>
+                </div>
+            </div>
+        </form>
+    </p-scrollPanel>
+
+    <div *ngIf="tipo=='ver'">
+        <div class="p-fluid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">R1. Regional</span>
+                {{datos.regional.nombre}}
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <span class="ver-datos">D2. Fecha de exporación</span>
+                {{datos.fecha_exp}}
+            </div>
+            <div class="p-field p-col-12 p-md-8">
+                <span class="ver-datos">D3. Nro. de autorización</span>
+                {{datos.nro_autorizacion}}
+            </div>
+            <div class="p-field p-col-12 p-md-12">
+                <span class="ver-datos">D4. Llave de dosificación</span>
+                {{datos.llave_dosificacion}}
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmarGuardar($event)" label="Guardar" icon="pi pi-save" *ngIf="tipo=='crear'"></p-button>
+
+        <p-button (click)="confirmarEditar($event)" label="Modificar" icon="pi pi-save" *ngIf="tipo=='editar'">
+        </p-button>
+    </ng-template>
+</p-dialog>

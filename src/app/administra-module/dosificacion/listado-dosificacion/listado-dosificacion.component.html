@@ -1,0 +1,22 @@
+<app-breadcrumb-general></app-breadcrumb-general>
+<p-card>
+    <div class="p-grid">
+        <!-- <div class="p-col-12 p-md-1" pTooltip="Regargar contenido de tabla" tooltipPosition="top">
+           <p-button type="button" icon="pi pi-refresh" (click)="resetTable()" styleClass="p-button-text"></p-button>
+        </div>-->
+        <div [controlAcceso]="'crear'" class="p-col-12 p-md-12 p-text-right">
+            <button pButton pRipple type="button" label="Adicionar" class="p-button-raised" icon="pi pi-plus"
+                (click)="crear()"></button>
+        </div>
+    </div>
+    <p-tabView [(activeIndex)]="index" (onChange)="handleChange($event)">
+        <p-tabPanel header="Activo">
+            <app-listado-activo-dosificacion #tab1 (respform)="respform($event)"></app-listado-activo-dosificacion>
+        </p-tabPanel>
+        <p-tabPanel header="Inactivo">
+            <app-listado-inactivo-dosificacion #tab2 (respform)="respform($event)"></app-listado-inactivo-dosificacion>
+        </p-tabPanel>
+    </p-tabView>
+</p-card>
+
+<app-formulario-dosificacion #frm (respform)="respform($event)"></app-formulario-dosificacion>

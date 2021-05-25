@@ -1,0 +1,56 @@
+<h3>Listado de {{modulo}}</h3>
+<p-table [controlAcceso]="'ver'" #dt [value]="listaTabla" [lazy]="true" (onLazyLoad)="loadData($event)"
+    [paginator]="true" [rows]="rows" [(first)]="first" [totalRecords]="totalRecords" [loading]="loading"
+    styleClass="p-datatable-striped p-datatable-responsive-general" [rowsPerPageOptions]="[10,25,50]"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex">
+            <!--<button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clearTable(dt)"></button>-->
+            <span class="p-input-icon-left p-ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target , 'contains')"
+                    placeholder="Buscar...." />
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Regional</th>
+            <th>Autorizacion</th>
+            <th>Fecha expiración</th>
+            <th style="width:8em">Acción</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dato>
+        <tr>
+            <td>
+                <span class="p-column-title">Regional</span>
+                    {{dato.regional.nombre}}
+            </td>
+            <td>
+                <span class="p-column-title">Autorizacion</span>
+                <span style="word-wrap: break-word;">
+                    {{dato.nro_autorizacion}}
+                </span>
+            </td>
+            <td>
+                <span class="p-column-title">Fecha expiración</span>
+                    {{dato.fecha_exp}}
+            </td>
+
+            <td>
+                <span class="p-column-title">Accion</span>
+
+                <span [controlAcceso]="'ver'" class="icon-table"><i (click)="ver(dato)" class="pi pi-eye" pTooltip="Ver"
+                        tooltipPosition="top" placeholder="Top"></i></span>
+
+               <!-- <span [controlAcceso]="'editar'" class="icon-table"><i (click)="editar(dato)" class="pi pi-pencil"
+                        pTooltip="Editar" tooltipPosition="top" placeholder="Top"></i></span>
+
+                <span [controlAcceso]="'eliminar'" class="icon-table"><i (click)="eliminar($event,dato)"
+                        class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top" placeholder="Top"></i></span>-->
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

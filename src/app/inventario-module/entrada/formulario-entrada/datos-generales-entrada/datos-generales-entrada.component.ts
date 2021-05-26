@@ -14,6 +14,8 @@ import { InventarioEntradaService } from 'src/app/inventario-module/service/inve
 export class DatosGeneralesEntradaComponent implements OnInit {
   //datos generales
   modulo: string = 'Datos generales';
+  id_regional: any;
+  privilegio: any;
   //formulario
   formulario!: FormGroup;
   formularioValid: boolean = false;
@@ -30,7 +32,10 @@ export class DatosGeneralesEntradaComponent implements OnInit {
     private loaderService: LoaderService,
     private generalService: GeneralService,
     private service: InventarioEntradaService,
-  ) { }
+  ) {
+    this.id_regional = sessionStorage.getItem('regional');
+    this.privilegio = sessionStorage.getItem('privilegio');
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -54,12 +59,16 @@ export class DatosGeneralesEntradaComponent implements OnInit {
     this.formulario.addControl('nota', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('comision', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoCompleteMultiple]));
     this.formularioValid = false;
-    this.crear();
   }
 
   crear() {
     this.formulario.get('codigo')?.disable();
     this.formulario.get('codigo')?.setValue('Por asignar');
+    if (this.privilegio != 'total') {
+      let data = (this.param['param_regional'])[0];
+      this.formulario.get('id_regional')?.setValue(data);
+      this.formulario.get('id_regional')?.disable();
+    }
   }
   resetFormValidUpload() {
     this.formulario.reset();
@@ -74,7 +83,16 @@ export class DatosGeneralesEntradaComponent implements OnInit {
 
   }
   set() {
-    let data = this.formulario.value;
+    let data: any;
+    this.formulario.get('codigo')?.enable();
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.enable();
+      data = this.formulario.value;
+      this.formulario.get('id_regional')?.disable();
+    } else {
+      data = this.formulario.value;
+    }
+    this.formulario.get('codigo')?.disable();
     if (this.formulario.valid) {
       this.service.set(data).subscribe(response => {
         if (response.success) {
@@ -115,7 +133,16 @@ export class DatosGeneralesEntradaComponent implements OnInit {
   }
   mod() {
     if (this.formulario.valid) {
-      let data = this.formulario.value;
+      let data: any;
+      this.formulario.get('codigo')?.enable();
+      if (this.privilegio != 'total') {
+        this.formulario.get('id_regional')?.enable();
+        data = this.formulario.value;
+        this.formulario.get('id_regional')?.disable();
+      } else {
+        data = this.formulario.value;
+      }
+      this.formulario.get('codigo')?.disable();
       let valores = {
         id: data.id,
         codigo: data.codigo,
@@ -153,6 +180,10 @@ export class DatosGeneralesEntradaComponent implements OnInit {
   }
   editar(id: any) {
     this.resetFormValidUpload();
+    this.formulario.get('codigo')?.disable();
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.disable();
+    }
     this.service.getRegistro(id).subscribe(response => {
       if (response.success) {
         let data = response.data;
@@ -187,17 +218,40 @@ export class DatosGeneralesEntradaComponent implements OnInit {
 
   getFilter(event: any, tipo: string) {
     let filtro = event.query
-    if (tipo == 'regional' || tipo == 'almacen' || tipo == 'proveedor' || tipo == 'compra' || tipo == 'usuario') {
-      if (tipo == 'regional') {
-        this.formulario.get('id_almacen')?.setValue('');
-        this.formulario.get('id_almacen')?.disable();
+    if (tipo == 'param_regional' || tipo == 'param_almacen' || tipo == 'param_proveedor' || tipo == 'param_compra' || tipo == 'param_usuario') {
+      if (tipo == 'param_regional') {
+        if (this.formulario != undefined) {
+          if (this.privilegio == 'total') {
+            this.formulario.get('id_almacen')?.setValue('');
+            this.formulario.get('id_almacen')?.disable();
+          } else {
+            this.formulario.get('id_almacen')?.enable();
+          }
+        }
       }
-      if (tipo == 'almacen') {
-        filtro = filtro + '&id_regional=' + this.formulario.value.id_regional.id;
+      if (tipo == 'param_almacen') {
+        if (this.privilegio == 'total') {
+          filtro = filtro + '&id_regional=' + this.formulario.value.id_regional.id;
+        } else {
+          this.formulario.get('id_regional')?.enable();
+          filtro = filtro + '&id_regional=' + this.formulario.value.id_regional.id;
+          this.formulario.get('id_regional')?.disable();
+        }
       }
-      this.generalService.getParamUrl(tipo, filtro).subscribe(response => {
+      let tipoURL = tipo.slice(6);
+      this.generalService.getParamUrl(tipoURL, filtro).subscribe(response => {
         if (response.success) {
-          this.param[tipo] = response.data;
+          if (tipo == 'param_regional') {
+            if (this.privilegio == 'total') {
+              this.param[tipo] = response.data;
+            } else {
+              this.param[tipo] = response.data.filter((x: { id: any; }) => x.id == this.id_regional)
+              //verificar funcionamientos
+              this.crear();
+            }
+          } else {
+            this.param[tipo] = response.data;
+          }
         } else {
           this.param[tipo] = [];
         }

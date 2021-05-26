@@ -86,7 +86,6 @@ export class ValidacionService {
           }
         }
       }
-      //console.log("valido");
       return null;
     };
   }
@@ -136,7 +135,6 @@ export class ValidacionService {
     var str = new String(control.value);
     var Buffer = require('buffer/').Buffer;
     var sizekb = (Buffer.from(str).byteLength)/1024;
-    //console.log("este es el valor KB "+sizekb)
     if (sizekb >= valor) {
       return null;
     } else {

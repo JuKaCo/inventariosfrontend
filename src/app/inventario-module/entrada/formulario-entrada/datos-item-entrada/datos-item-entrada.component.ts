@@ -69,7 +69,6 @@ export class DatosItemEntradaComponent implements OnInit {
     this.loading = true;
     this.listaTabla = [];
     let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-    console.log('¡¡¡¡',this.id);
     if (this.id == '') {
       this.loaderService.hide();
       return null;
@@ -93,7 +92,6 @@ export class DatosItemEntradaComponent implements OnInit {
   }
   cargarTabla(id: string) {
     this.id = id;
-    console.log('carga',this.id);
     this.loadData({
       first: 0,
       rows: 10,

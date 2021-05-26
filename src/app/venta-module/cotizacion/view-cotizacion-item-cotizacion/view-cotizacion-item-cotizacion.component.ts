@@ -66,7 +66,6 @@ export class ViewCotizacionItemCotizacionComponent implements OnInit {
    this.loading = true;
    this.listaTabla = [];
    let dataTable = { 'indice': indice, 'limite': limite, 'filtro': filtro };
-   console.log('¡¡¡¡',this.id);
    if (this.id == '') {
      return null;
    }
@@ -85,7 +84,6 @@ export class ViewCotizacionItemCotizacionComponent implements OnInit {
 
  cargarTabla(id: string) {
    this.id = id;
-   console.log('carga',this.id);
    this.loadData({
      first: 0,
      rows: 10,

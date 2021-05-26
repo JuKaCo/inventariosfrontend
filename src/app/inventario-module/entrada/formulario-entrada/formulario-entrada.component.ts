@@ -131,7 +131,9 @@ export class FormularioEntradaComponent implements OnInit {
     this.id = "";
     this.activeIndex = 0;
     this.displayFrm = true;
-  }
+    this.cdr.detectChanges();
+    this.next1.getFilter({ query: '' }, 'param_regional');
+   }
 
   editar(id: string): void {
     this.id = "";

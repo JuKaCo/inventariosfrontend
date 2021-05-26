@@ -201,9 +201,7 @@ export class ListadoLinameComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Archivo liname', detail: 'Se terina la descarga de documentos.' });
     },
       error => {
-        console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Archivo liname', detail: error.message  });
-        console.log(error.status);
       });
   }
 

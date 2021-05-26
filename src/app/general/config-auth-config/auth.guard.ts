@@ -32,7 +32,6 @@ export class AuthGuard implements CanActivate {
   }*/
 
   canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    //console.log('---->', this.oauthService.hasValidAccessToken(), this.oauthService.hasValidIdToken());
     if (
       this.oauthService.hasValidAccessToken()
     ) {

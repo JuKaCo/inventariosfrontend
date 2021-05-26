@@ -14,7 +14,7 @@
         <div class="p-field p-col-12 p-md-4">
             <span class="p-float-label">
                 <p-autoComplete formControlName="id_regional" inputId="inp_inp_id_regional"
-                    [suggestions]="param.regional" (completeMethod)="getFilter($event,'regional')" field="nombre"
+                    [suggestions]="param.param_regional" (completeMethod)="getFilter($event,'param_regional')" field="nombre"
                     [minLength]="1" [dropdown]="true" (onSelect)="selectRegional($event)">
                     <ng-template let-data pTemplate="item">
                         <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
@@ -27,8 +27,8 @@
         </div>
         <div class="p-field p-col-12 p-md-4">
             <span class="p-float-label">
-                <p-autoComplete formControlName="id_almacen" inputId="inp_id_almacen" [suggestions]="param.almacen"
-                    (completeMethod)="getFilter($event,'almacen')" field="nombre" [minLength]="1" [dropdown]="true">
+                <p-autoComplete formControlName="id_almacen" inputId="inp_id_almacen" [suggestions]="param.param_almacen"
+                    (completeMethod)="getFilter($event,'param_almacen')" field="nombre" [minLength]="1" [dropdown]="true">
                     <ng-template let-data pTemplate="item">
                         <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
                     </ng-template>
@@ -55,7 +55,7 @@
         <div class="p-field p-col-12 p-md-4">
             <span class="p-float-label">
                 <p-autoComplete formControlName="id_proveedor" inputId="inp_id_proveedor"
-                    [suggestions]="param.proveedor" (completeMethod)="getFilter($event,'proveedor')" field="nombre"
+                    [suggestions]="param.param_proveedor" (completeMethod)="getFilter($event,'param_proveedor')" field="nombre"
                     [minLength]="1" [dropdown]="true">
                     <ng-template let-data pTemplate="item">
                         <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
@@ -68,8 +68,8 @@
         </div>
         <div class="p-field p-col-12 p-md-4">
             <span class="p-float-label">
-                <p-autoComplete formControlName="id_compra" inputId="inp_id_compra" [suggestions]="param.compra"
-                    (completeMethod)="getFilter($event,'compra')" field="nombre" [minLength]="1" [dropdown]="true">
+                <p-autoComplete formControlName="id_compra" inputId="inp_id_compra" [suggestions]="param.param_compra"
+                    (completeMethod)="getFilter($event,'param_compra')" field="nombre" [minLength]="1" [dropdown]="true">
                     <ng-template let-data pTemplate="item">
                         <div><b>({{data.codigo}})</b>
                             <!--<br> {{data.nombre}}-->
@@ -162,8 +162,8 @@
         <div class="p-field p-col-12 p-md-12">
             <span class="p-float-label">
 
-                <p-autoComplete formControlName="comision" inputId="inp_comision" [suggestions]="param.usuario"
-                    (completeMethod)="getFilter($event,'usuario')" field="nombres" [minLength]="1" [dropdown]="true"
+                <p-autoComplete formControlName="comision" inputId="inp_comision" [suggestions]="param.param_usuario"
+                    (completeMethod)="getFilter($event,'param_usuario')" field="nombres" [minLength]="1" [dropdown]="true"
                     [multiple]="true">
                     <ng-template let-data pTemplate="item">
                         <div><b>({{data.nombres}})</b> {{data.cargo}}</div>

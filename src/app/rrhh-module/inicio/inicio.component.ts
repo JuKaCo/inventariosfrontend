@@ -84,7 +84,6 @@ export class InicioComponent implements OnInit {
             window.open(url);
           },
             error => {
-              console.log(error);
               this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'No se pudo generar el reporte' });
             });
 

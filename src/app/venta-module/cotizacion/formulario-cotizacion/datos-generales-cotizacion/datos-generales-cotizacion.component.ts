@@ -43,9 +43,9 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     this.formulario.addControl('codigo', new FormControl({ value: '', disabled: false }, [Validators.required]));
     this.formulario.addControl('id_cliente', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
     this.formulario.addControl('id_regional', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
-    this.formulario.addControl('id_almacen', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('dias_validez', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('comentarios', new FormControl({ value: '', disabled: false }, []));
+    this.formulario.addControl('id_almacen', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
+    this.formulario.addControl('dias_validez', new FormControl({ value: '', disabled: false }, [Validators.required]));
+    this.formulario.addControl('comentarios', new FormControl({ value: '', disabled: false }, [Validators.required]));
     this.formularioValid = false;
     this.crear();
   }
@@ -53,6 +53,8 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
   crear() {
     this.formulario.get('codigo')?.disable();
     this.formulario.get('codigo')?.setValue('Por asignar');
+    this.formulario.get('dias_validez')?.setValue('5');
+    
   }
   resetFormValidUpload() {
     this.formulario.reset();

@@ -17,6 +17,8 @@ export class FormularioClienteComponent implements OnInit {
   displayHeader = "";
   header: string = "cliente";
   modulo: string = "Cliente";
+  id_regional: any;
+  privilegio: any;
   //dialog
   tipo: string = "";
   displayFrm: boolean = false;
@@ -42,10 +44,12 @@ export class FormularioClienteComponent implements OnInit {
     private generalService: GeneralService,
     private service: EntidadClienteService,
   ) {
-
+    this.id_regional = sessionStorage.getItem('regional');
+    this.privilegio = sessionStorage.getItem('privilegio');
   }
 
   ngOnInit(): void {
+    this.getFilter({ query: '' }, 'param_regional');
     this.initForm();
   }
 
@@ -65,6 +69,9 @@ export class FormularioClienteComponent implements OnInit {
     this.formulario.addControl('direccion', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('subsector', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('tipo', new FormControl({ value: '', disabled: false }, []));
+
+    this.formulario.addControl('id_regional', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
+
     this.formularioValid = false;
   }
 
@@ -75,17 +82,34 @@ export class FormularioClienteComponent implements OnInit {
 
   getFilter(event: any, tipo: string) {
     let filtro = event.query
-    this.generalService.getParam(tipo, filtro).subscribe(response => {
-      if (response.success) {
-        this.param[tipo] = response.data;
-      } else {
-        this.param[tipo] = [];
-        this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos no encontrados.' });
-      }
-    },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
-      });
+    if (tipo == 'param_regional') {
+      this.generalService.getParamUrl('regional', filtro).subscribe(response => {
+        if (response.success) {
+          if (this.privilegio != 'total') {
+            this.param[tipo] = response.data.filter((x: { id: any; }) => x.id == this.id_regional)
+          } else {
+            this.param[tipo] = response.data;
+          }
+        } else {
+          this.param[tipo] = [];
+        }
+      },
+        error => {
+
+          this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
+        });
+    } else
+      this.generalService.getParam(tipo, filtro).subscribe(response => {
+        if (response.success) {
+          this.param[tipo] = response.data;
+        } else {
+          this.param[tipo] = [];
+        }
+      },
+        error => {
+
+          this.messageService.add({ severity: 'error', summary: 'Parametrica', detail: 'Datos incorrectos.' });
+        });
   }
 
   confirmarGuardar(event: any): void {
@@ -111,7 +135,14 @@ export class FormularioClienteComponent implements OnInit {
   }
 
   guardarDatos(): void {
-    let data = this.formulario.value;
+    let data:any;
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.enable();
+      data = this.formulario.value;
+      this.formulario.get('id_regional')?.disable();
+    } else {
+      data = this.formulario.value;
+    }
 
     data = UtilService.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
     data = UtilService.modNullEspacio(data);
@@ -158,9 +189,14 @@ export class FormularioClienteComponent implements OnInit {
   }
 
   modificarDatos(): void {
-    //this.formulario.get('codigo')?.enable();
-    let data = this.formulario.value;
-    //this.formulario.get('codigo')?.disable();
+    let data:any; 
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.enable();
+      data = this.formulario.value;
+      this.formulario.get('id_regional')?.disable();
+    } else {
+      data = this.formulario.value;
+    }
 
     let valores = {
       nombre: data.nombre,
@@ -176,6 +212,7 @@ export class FormularioClienteComponent implements OnInit {
       direccion: data.direccion,
       subsector: data.subsector,
       tipo: data.tipo,
+      id_regional: data.id_regional
     };
 
     data = UtilService.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
@@ -207,6 +244,13 @@ export class FormularioClienteComponent implements OnInit {
     this.displayHeader = 'Formulario ' + this.header;
     //this.formulario.get('codigo')?.setValue('Por asignar');
     // this.formulario.get('codigo')?.enable();
+    if (this.privilegio != 'total') {
+      console.log((this.param['param_regional'])[0]);
+      let data = (this.param['param_regional'])[0];
+      this.formulario.get('id_regional')?.setValue(data);
+      this.formulario.get('id_regional')?.disable();
+    }
+
   }
 
   editar(id: string): void {
@@ -232,6 +276,7 @@ export class FormularioClienteComponent implements OnInit {
           direccion: data.direccion,
           subsector: data.subsector,
           tipo: data.tipo,
+          id_regional: data.id_regional
         }
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });

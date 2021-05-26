@@ -33,6 +33,7 @@
                 <th>Regional</th>
                 <th>Almacen</th>
                 <th>Dias de<br>valides</th>
+                <th>Estado</th>
                 <th style="width:9em">Accion</th>
             </tr>
         </ng-template>
@@ -44,19 +45,25 @@
                 </td>
                 <td>
                     <span class="p-column-title">Cliente</span>
-                    {{dato?.id_regional.nombre}}
+                    {{dato?.id_cliente.nombre}}
                 </td>
                 <td>
                     <span class="p-column-title">Regional</span>
-                    {{dato?.id_proveedor.nombre}}
+                    {{dato?.id_regional.nombre}}
                 </td>
                 <td>
                     <span class="p-column-title">Almacen</span>
-                    {{dato?.id_proveedor.nombre}}
+                    {{dato?.id_almacen.nombre}}
                 </td>
                 <td>
                     <span class="p-column-title">Dias de valides</span>
-                    {{dato?.id_compra.codigo}}
+                    {{dato?.dias_validez}}
+                </td>
+                <td>
+                    <span class="p-column-title">Estado</span>
+                    <p-tag *ngIf="dato.estado=='VIGENTE'"  styleClass="p-mr-2" icon="pi pi-clock" severity="info" value="Vigente"></p-tag>
+                    <p-tag *ngIf="dato.estado=='COMPLETADA'"  styleClass="p-mr-2" icon="pi pi-check" severity="success" value="Completada"></p-tag>
+                    <p-tag *ngIf="dato.estado=='CADUCADA'"  styleClass="p-mr-2" icon="pi pi-trash" severity="danger" value="Caducada"></p-tag>
                 </td>
 
                 <td>

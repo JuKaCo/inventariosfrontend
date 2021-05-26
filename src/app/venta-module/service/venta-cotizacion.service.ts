@@ -36,7 +36,7 @@ export class VentaCotizacionService {
     );
   }
   getLista(data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/entrada/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
+    let url = environment.CEASSBACKEND + 'api/v1/cotizacion/listar?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );

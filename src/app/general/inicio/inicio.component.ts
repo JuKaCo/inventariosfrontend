@@ -107,6 +107,8 @@ export class inicioComponent implements OnInit {
   }
   getDatosUsuario() {
     this.datosUsuario = this.oAuthService.getIdentityClaims();
+    sessionStorage.setItem('privilegio',this.datosUsuario.privilegio);
+    sessionStorage.setItem('regional',this.datosUsuario.regional);
   }
   logOut() {
     this.oAuthService.revokeTokenAndLogout();

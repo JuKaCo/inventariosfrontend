@@ -245,7 +245,6 @@ export class FormularioClienteComponent implements OnInit {
     //this.formulario.get('codigo')?.setValue('Por asignar');
     // this.formulario.get('codigo')?.enable();
     if (this.privilegio != 'total') {
-      console.log((this.param['param_regional'])[0]);
       let data = (this.param['param_regional'])[0];
       this.formulario.get('id_regional')?.setValue(data);
       this.formulario.get('id_regional')?.disable();

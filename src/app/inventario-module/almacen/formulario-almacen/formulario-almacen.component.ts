@@ -238,6 +238,11 @@ export class FormularioAlmacenComponent implements OnInit {
     this.displayHeader = 'Formulario ' + this.header;
     this.formulario.get('codigo')?.setValue('Por asignar');
     this.formulario.get('codigo')?.disable();
+    if (this.privilegio != 'total') {
+      let data = (this.param['param_regional'])[0];
+      this.formulario.get('id_regional')?.setValue(data);
+      this.formulario.get('id_regional')?.disable();
+    }
   }
 
   editar(id: string): void {

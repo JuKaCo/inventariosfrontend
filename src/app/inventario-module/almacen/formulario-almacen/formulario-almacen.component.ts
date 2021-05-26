@@ -17,6 +17,8 @@ export class FormularioAlmacenComponent implements OnInit {
   displayHeader = "";
   header: string = "proveedor";
   modulo: string = "Proveedor";
+  id_regional: any;
+  privilegio: any;
   //dialog
   tipo: string = "";
   displayFrm: boolean = false;
@@ -35,7 +37,7 @@ export class FormularioAlmacenComponent implements OnInit {
   //emitir datos
   @Output() respform = new EventEmitter();
   //async
-  ver$!:Observable<any>;   
+  ver$!: Observable<any>;
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
@@ -43,9 +45,13 @@ export class FormularioAlmacenComponent implements OnInit {
     private loaderService: LoaderService,
     private generalService: GeneralService,
     private service: InventarioAlmacenService,
-  ) { }
+  ) {
+    this.id_regional = sessionStorage.getItem('regional');
+    this.privilegio = sessionStorage.getItem('privilegio');
+  }
 
   ngOnInit(): void {
+    this.getFilter({ query: '' }, 'param_regional');
     this.initForm();
   }
 
@@ -53,8 +59,8 @@ export class FormularioAlmacenComponent implements OnInit {
     this.formulario = this.formBuilder.group({});
     this.formulario.addControl('id', new FormControl({ value: '0', disabled: false }, []));
     this.formulario.addControl('codigo', new FormControl({ value: '', disabled: false }, [Validators.required]));
-    this.formulario.addControl('regional', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
-    this.formulario.addControl('programa', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
+    this.formulario.addControl('id_regional', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
+    this.formulario.addControl('id_programa', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
     this.formulario.addControl('nombre', new FormControl({ value: '', disabled: false }, [Validators.required]));
     this.formulario.addControl('direccion', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('telefono', new FormControl({ value: '', disabled: false }, [Validators.required]));
@@ -71,7 +77,11 @@ export class FormularioAlmacenComponent implements OnInit {
     if (tipo == 'param_regional') {
       this.generalService.getParamUrl('regional', filtro).subscribe(response => {
         if (response.success) {
-          this.param[tipo] = response.data;
+          if (this.privilegio != 'total') {
+            this.param[tipo] = response.data.filter((x: { id: any; }) => x.id == this.id_regional)
+          } else {
+            this.param[tipo] = response.data;
+          }
         } else {
           this.param[tipo] = [];
         }
@@ -133,7 +143,14 @@ export class FormularioAlmacenComponent implements OnInit {
   }
 
   guardarDatos(): void {
-    let data = this.formulario.value;
+    let data: any;
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.enable();
+      data = this.formulario.value;
+      this.formulario.get('id_regional')?.disable();
+    } else {
+      data = this.formulario.value;
+    }
 
     this.service.set(data).subscribe(response => {
       if (response.success) {
@@ -177,18 +194,23 @@ export class FormularioAlmacenComponent implements OnInit {
   }
 
   modificarDatos(): void {
-    //this.formulario.get('codigo')?.enable();
-    let data = this.formulario.value;
-    //this.formulario.get('codigo')?.disable();
+    let data: any;
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.enable();
+      data = this.formulario.value;
+      this.formulario.get('id_regional')?.disable();
+    } else {
+      data = this.formulario.value;
+    }
 
     let valores = {
-          //id: data.id,
-          codigo: data.codigo,
-          nombre: data.nombre,
-          regional: data.regional,
-          programa:data.programa,
-          direccion:data.direccion,
-          telefono:data.telefono
+      //id: data.id,
+      codigo: data.codigo,
+      nombre: data.nombre,
+      regional: data.id_regional,
+      programa: data.id_programa,
+      direccion: data.direccion,
+      telefono: data.telefono
     };
     this.service.setEdita(valores, data.id).subscribe(response => {
       if (response.success) {
@@ -230,14 +252,17 @@ export class FormularioAlmacenComponent implements OnInit {
           id: data.id,
           codigo: data.codigo,
           nombre: data.nombre,
-          regional: data.regional,
-          programa:data.programa,
-          direccion:data.direccion,
-          telefono:data.telefono
+          regional: data.id_regional,
+          programa: data.id_programa,
+          direccion: data.direccion,
+          telefono: data.telefono
         }
         this.formulario.setValue(valores);
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
+        if (this.privilegio != 'total') {
+          this.formulario.get('id_regional')?.disable();
+        }
 
       } else {
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
@@ -285,7 +310,7 @@ export class FormularioAlmacenComponent implements OnInit {
     this.displayHeader = 'Datos ' + this.header;
     this.resetFormValidUpload();
     //this.formulario.get('codigo')?.disable();
-    this.ver$=this.service.getRegistro(id);
+    this.ver$ = this.service.getRegistro(id);
     this.ver$.subscribe(response => {
       if (response.success) {
         this.datos = response.data;
@@ -301,12 +326,11 @@ export class FormularioAlmacenComponent implements OnInit {
         this.displayFrm = false;
       });
   }
-  selectRegional(event:any){
+  selectRegional(event: any) {
     this.formulario.get('direccion')?.setValue(event.direccion);
     this.formulario.get('telefono')?.setValue(event.telefono);
   }
-  limpiarReginalDependencia(){
-    console.log('entra limpia');
+  limpiarReginalDependencia() {
     this.formulario.get('direccion')?.setValue('');
     this.formulario.get('telefono')?.setValue('');
   }

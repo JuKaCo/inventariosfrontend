@@ -13,7 +13,7 @@
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
-                    <p-autoComplete formControlName="regional" inputId="inp_regional" [suggestions]="param.param_regional"
+                    <p-autoComplete formControlName="id_regional" inputId="inp_regional" [suggestions]="param.param_regional"
                         (completeMethod)="getFilter($event,'param_regional')" field="nombre" [minLength]="1"
                         [dropdown]="true" (onSelect)="selectRegional($event)" (onKeyUp)="limpiarReginalDependencia()">
                         <ng-template let-data pTemplate="item">
@@ -22,12 +22,12 @@
                     </p-autoComplete>
                     <label for="inp_regional">R2. Regional <span class="text-danger">*</span></label>
                 </span>
-                <app-mesaje-form-error [control]="formulario.controls['regional']" [valid]="formularioValid">
+                <app-mesaje-form-error [control]="formulario.controls['id_regional']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-12">
                 <span class="p-float-label">
-                    <p-autoComplete formControlName="programa" inputId="inp_programa" [suggestions]="param.param_programa"
+                    <p-autoComplete formControlName="id_programa" inputId="inp_programa" [suggestions]="param.param_programa"
                         (completeMethod)="getFilter($event,'param_programa')" field="nombre" [minLength]="1"
                         [dropdown]="true">
                         <ng-template let-data pTemplate="item">
@@ -36,7 +36,7 @@
                     </p-autoComplete>
                     <label for="inp_programa">PR3. Programa <span class="text-danger">*</span></label>
                 </span>
-                <app-mesaje-form-error [control]="formulario.controls['programa']" [valid]="formularioValid">
+                <app-mesaje-form-error [control]="formulario.controls['id_programa']" [valid]="formularioValid">
                 </app-mesaje-form-error>
             </div>
             <div class="p-field p-col-12 p-md-12">

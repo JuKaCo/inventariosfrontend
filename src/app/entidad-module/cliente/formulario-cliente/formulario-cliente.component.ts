@@ -282,6 +282,9 @@ export class FormularioClienteComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
         this.displayFrm = true;
         this.tipo = 'editar';
+        if (this.privilegio != 'total') {
+          this.formulario.get('id_regional')?.disable();
+        }
 
       } else {
         this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });

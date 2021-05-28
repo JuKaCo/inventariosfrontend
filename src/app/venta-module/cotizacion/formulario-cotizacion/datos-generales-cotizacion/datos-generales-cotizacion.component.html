@@ -3,7 +3,7 @@
     <br>
     <!--<input formControlName="id" type="hidden" pInputText>-->
     <div class="p-fluid p-grid">
-        <div class="p-field p-col-12 p-md-4">
+        <div class="p-field p-col-12 p-md-6">
             <span class="p-float-label">
                 <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
                 <label for="inp_codigo">CT1. Código<span class="text-danger">*</span></label>
@@ -11,24 +11,10 @@
             <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
             </app-mesaje-form-error>
         </div>
-        <div class="p-field p-col-12 p-md-8">
-            <span class="p-float-label">
-                <p-autoComplete formControlName="id_cliente" inputId="inp_tipo_entrada"
-                    [suggestions]="param.param_id_cliente" (completeMethod)="getFilter($event,'param_id_cliente')"
-                    field="valor" [minLength]="1" [dropdown]="true">
-                    <ng-template let-data pTemplate="item">
-                        <div><b>({{data.codigo}})</b> {{data.valor}}</div>
-                    </ng-template>
-                </p-autoComplete>
-                <label for="inp_tipo_entrada">C2. Cliente</label>
-            </span>
-            <app-mesaje-form-error [control]="formulario.controls['id_cliente']" [valid]="formularioValid">
-            </app-mesaje-form-error>
-        </div>
-        <div class="p-field p-col-12 p-md-4">
+        <div class="p-field p-col-12 p-md-6">
             <span class="p-float-label">
                 <p-autoComplete formControlName="id_regional" inputId="inp_inp_id_regional"
-                    [suggestions]="param.regional" (completeMethod)="getFilter($event,'regional')" field="nombre"
+                    [suggestions]="param.param_regional" (completeMethod)="getFilter($event,'param_regional')" field="nombre"
                     [minLength]="1" [dropdown]="true" (onSelect)="selectRegional($event)">
                     <ng-template let-data pTemplate="item">
                         <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
@@ -39,10 +25,24 @@
             <app-mesaje-form-error [control]="formulario.controls['id_regional']" [valid]="formularioValid">
             </app-mesaje-form-error>
         </div>
-        <div class="p-field p-col-12 p-md-4">
+        <div class="p-field p-col-12 p-md-12">
             <span class="p-float-label">
-                <p-autoComplete formControlName="id_almacen" inputId="inp_id_almacen" [suggestions]="param.almacen"
-                    (completeMethod)="getFilter($event,'almacen')" field="nombre" [minLength]="1" [dropdown]="true">
+                <p-autoComplete formControlName="id_cliente" inputId="inp_tipo_entrada"
+                    [suggestions]="param.param_cliente" (completeMethod)="getFilter($event,'param_cliente')"
+                    field="nombre" [minLength]="1" [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <b>{{data.nombre}}</b><br>{{data.direccion}}<br>{{data.nit}}
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_tipo_entrada">C2. Cliente</label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_cliente']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_almacen" inputId="inp_id_almacen" [suggestions]="param.param_almacen"
+                    (completeMethod)="getFilter($event,'param_almacen')" field="nombre" [minLength]="1" [dropdown]="true">
                     <ng-template let-data pTemplate="item">
                         <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
                     </ng-template>
@@ -53,7 +53,7 @@
             </app-mesaje-form-error>
         </div>
         
-        <div class="p-field p-col-12 p-md-4">
+        <div class="p-field p-col-12 p-md-6">
             <span class="p-float-label">
                 <input formControlName="dias_validez" type="text" id="inp_dias_validez" pInputText>
                 <label for="inp_factura_comercial">C5. Dias validez</label>

@@ -15,6 +15,8 @@ import { InventarioEntradaService } from 'src/app/inventario-module/service/inve
 export class DatosGeneralesCotizacionComponent implements OnInit {
   //datos generales
   modulo: string = 'Datos generales';
+  id_regional: any;
+  privilegio: any;
   //formulario
   formulario!: FormGroup;
   formularioValid: boolean = false;
@@ -31,7 +33,10 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     private loaderService: LoaderService,
     private generalService: GeneralService,
     private service: InventarioEntradaService,
-  ) { }
+  ) {
+    this.id_regional = sessionStorage.getItem('regional');
+    this.privilegio = sessionStorage.getItem('privilegio');
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -54,7 +59,13 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     this.formulario.get('codigo')?.disable();
     this.formulario.get('codigo')?.setValue('Por asignar');
     this.formulario.get('dias_validez')?.setValue('5');
-    
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.disable();
+    } else {
+      this.formulario.get('id_cliente')?.disable();
+      this.formulario.get('id_almacen')?.disable();
+    }
+
   }
   resetFormValidUpload() {
     this.formulario.reset();
@@ -135,11 +146,11 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
         let data = response.data;
         let valores = {
           id: data.id,
-            codigo: data.codigo,
-            id_cliente: data.id_cliente,
-            id_regional: data.id_regional,
-            id_almacen: data.id_almacen,
-            comentarios: data.id_proveedor,
+          codigo: data.codigo,
+          id_cliente: data.id_cliente,
+          id_regional: data.id_regional,
+          id_almacen: data.id_almacen,
+          comentarios: data.id_proveedor,
         };
         this.formulario.setValue(valores);
         this.loaderService.hide();
@@ -155,15 +166,16 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
 
   getFilter(event: any, tipo: string) {
     let filtro = event.query
-    if (tipo == 'regional' || tipo == 'almacen' || tipo == 'proveedor' || tipo == 'compra' || tipo == 'usuario') {
-      if (tipo == 'regional') {
+    if (tipo == 'param_regional' || tipo == 'param_almacen' || tipo == 'param_proveedor' || tipo == 'param_compra' || tipo == 'param_usuario' || tipo == 'param_cliente') {
+      if (tipo == 'param_regional') {
         this.formulario.get('id_almacen')?.setValue('');
         this.formulario.get('id_almacen')?.disable();
       }
-      if (tipo == 'almacen') {
+      if (tipo == 'param_almacen' || tipo == 'param_cliente') {
         filtro = filtro + '&id_regional=' + this.formulario.value.id_regional.id;
       }
-      this.generalService.getParamUrl(tipo, filtro).subscribe(response => {
+      let tipoURL = tipo.slice(6);
+      this.generalService.getParamUrl(tipoURL, filtro).subscribe(response => {
         if (response.success) {
           this.param[tipo] = response.data;
         } else {

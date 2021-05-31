@@ -207,8 +207,8 @@ export class FormularioAlmacenComponent implements OnInit {
       //id: data.id,
       codigo: data.codigo,
       nombre: data.nombre,
-      regional: data.id_regional,
-      programa: data.id_programa,
+      id_regional: data.id_regional,
+      id_programa: data.id_programa,
       direccion: data.direccion,
       telefono: data.telefono
     };
@@ -257,8 +257,8 @@ export class FormularioAlmacenComponent implements OnInit {
           id: data.id,
           codigo: data.codigo,
           nombre: data.nombre,
-          regional: data.id_regional,
-          programa: data.id_programa,
+          id_regional: data.id_regional,
+          id_programa: data.id_programa,
           direccion: data.direccion,
           telefono: data.telefono
         }

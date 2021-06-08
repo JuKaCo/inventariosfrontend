@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InventarioEntradaService } from 'src/app/inventario-module/service/inventario-entrada.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ThrowStmt } from '@angular/compiler';
+import { VentaCotizacionService } from 'src/app/venta-module/service/venta-cotizacion.service';
 
 @Component({
   selector: 'app-documentos-cotizacion',
@@ -14,7 +15,7 @@ export class DocumentosCotizacionComponent implements OnInit {
   //emitir datos
   @Output() respform = new EventEmitter();
   constructor(
-    private service: InventarioEntradaService,
+    private service: VentaCotizacionService,
     private messageService: MessageService,
   ) { }
 
@@ -25,9 +26,9 @@ export class DocumentosCotizacionComponent implements OnInit {
     this.respform.emit({ tipo: 'guardar-documentos-entrada', success: true });
 
   }
-  generarNotaIngreso() {
+  generarCotizacion() {
     this.messageService.add({ severity: 'info', summary: this.modulo, detail: 'Icnicia descarga de documento.' });
-    this.service.getReporteNotaIngreso(this.id).subscribe(response => {
+    this.service.getReporteCotizacion(this.id).subscribe(response => {
       let blob: any = new Blob([response], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       window.open(url);

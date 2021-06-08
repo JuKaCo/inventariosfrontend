@@ -111,7 +111,7 @@ export class ListadoCotizacionComponent implements OnInit {
   }
   getCotizacion(id: string) {
     this.messageService.add({ severity: 'info', summary: this.modulo, detail: 'Icnicia descarga de documento.' });
-    this.service.getReporteNotaIngreso(id).subscribe(response => {
+    this.service.getReporteCotizacion(id).subscribe(response => {
       let blob: any = new Blob([response], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       window.open(url);

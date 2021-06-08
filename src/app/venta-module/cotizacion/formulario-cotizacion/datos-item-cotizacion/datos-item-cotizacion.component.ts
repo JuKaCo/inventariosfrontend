@@ -58,10 +58,10 @@ export class DatosItemCotizacionComponent implements OnInit {
   }
 
   guardar(tipo: any) {
-    /* if (this.listaTabla.length > 0) {
+   if (this.cot.listaTabla.length > 0) {
        this.respform.emit({ tipo: 'guardar-datos-item-entrada', success: true });
      } else {
        this.messageService.add({ severity: 'warn', summary: this.modulo, detail: 'No tiene ningun item registrado.' });
-     }*/
+     }
   }
 }

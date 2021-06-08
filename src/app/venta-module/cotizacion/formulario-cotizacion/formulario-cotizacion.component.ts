@@ -112,6 +112,10 @@ export class FormularioCotizacionComponent implements OnInit {
        this.cdr.detectChanges();
        this.next2.id = this.id;
      }
+     if (this.activeIndex == 2) {
+      this.cdr.detectChanges();
+      this.next3.id = this.id;
+    }
    } else {
      this.activeIndex = 0;
      this.incia();
@@ -155,6 +159,7 @@ export class FormularioCotizacionComponent implements OnInit {
  }
 
  respformStep(event: any) {
+   console.log('--->>>',event)
    if (event.tipo == 'guardar-datos-generales') {
      if (event.success) {
        this.id = event.data.id;

@@ -48,8 +48,8 @@ export class VentaCotizacionService {
     );
   }
   //REPORTE
-  getReporteNotaIngreso(id:any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/reporte/entrada/notaingreso/'+id;
+  getReporteCotizacion(id:any): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/reporte/cotizacion/'+id;
     return this.http.get(url, {
       responseType: 'arraybuffer'
     }).pipe(

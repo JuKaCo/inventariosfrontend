@@ -1,64 +1,28 @@
 <h2>Datos Generales</h2>
 <div class="p-fluid p-grid" *ngIf="ver$ | async">
-    <div class="p-field p-col-12 p-md-4">
-        <h4>E1. Código</h4>
+    <div class="p-field p-col-12 p-md-6">
+        <h4>CT1. Código</h4>
         {{entrada.codigo}}
     </div>
-    <div class="p-field p-col-12 p-md-4">
+    <div class="p-field p-col-12 p-md-6">
         <h4>R2. Regional</h4>
         {{entrada.id_regional.nombre}}
     </div>
-    <div class="p-field p-col-12 p-md-4">
-        <h4>A3. Almacen</h4>
+    <div class="p-field p-col-12 p-md-12">
+        <h4>C3. Cliente</h4>
         {{entrada.id_almacen.nombre}}
     </div>
-    <div class="p-field p-col-12 p-md-4">
-        <h4>E4. Tipo entrada</h4>
-        {{entrada.tipo_entrada.valor}}
+    <div class="p-field p-col-12 p-md-6">
+        <h4>A4. Almacen</h4>
+        {{entrada.id_almacen.nombre}}
     </div>
-    <div class="p-field p-col-12 p-md-4">
-        <h4>PR5. Proveedor</h4>
-        {{entrada.id_proveedor.nombre}}
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <h4>C6. Compra</h4>
-        {{entrada.id_compra.codigo}}
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <h4>E7. Tipo adquisición</h4>
-        {{entrada.tipo_adquisicion.valor}}
-    </div>
-
-    <div class="p-field p-col-12 p-md-4">
-        <h4>E8. Tipo financiamiento</h4>
-        {{entrada.tipo_financiamiento.valor}}
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <h4>E9. Factura comercial</h4>
-        {{entrada.factura_comercial}}
-    </div>
-    <div class="p-field p-col-12 p-md-3">
-        <h4>E10. C-31</h4>
-        {{entrada.c_31}}
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <h4>E11. Modalidad de contratación</h4>
-        {{entrada.modalidad_contratacion.valor}}
-    </div>
-    <div class="p-field p-col-12 p-md-5">
-        <h4>E12. Cite contratato de compra</h4>
-        {{entrada.cite_contrato_compra}}
+    <div class="p-field p-col-12 p-md-6">
+        <h4>C5. Dias validez</h4>
+        {{entrada.dias_validez}}
     </div>
     <div class="p-field p-col-12 p-md-12">
-        <h4>E13. Nota</h4>
-        {{entrada.nota}}
-    </div>
-    <div class="p-field p-col-12 p-md-12">
-        <h4>E14. Comision</h4>
-        <p *ngFor="let item of entrada.comision">
-            {{item.nombres}} {{item.apellidos}}<br>
-            <small>{{item.cargo}}</small>
-        </p>
+        <h4>C6. Comentarios</h4>
+        {{entrada.comentarios}}
     </div>
 </div>
 <h2>Items</h2>
@@ -82,20 +46,10 @@
     <ng-template pTemplate="header">
         <tr>
             <th>Producto</th>
-            <!--<th>Registro sanitario</th>-->
             <th>Lote</th>
             <th style="width:6em">Fecha expiración</th>
-            <th>Precio factura</th>
             <th>Cant.</th>
-            <th style="width:6em">FOB</th>
-            <th style="width:6em">Factor</th>
-
-            <th>Precios</th>
-
-            <!--<th>Pre. total</th>
-            <th>Cost. almacen</th>
-            <th>Cost. neto</th>
-            <th>Pre.venta</th>-->
+            <th>Total</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-dato>
@@ -103,14 +57,10 @@
             <td>
                 <span class="p-column-title">Producto</span>
                 <span style="word-wrap: break-word;"> 
-                    {{dato?.id_producto.nombre_comercial}}<br>
-                    <b>RS.: </b>{{dato?.registro_sanitario}}
+                    <b>Cod.: {{dato?.id_producto_inventario.codigo}}</b><br>
+                    {{dato?.id_producto_inventario.nombre_comercial}}
                 </span>
             </td>
-            <!--<td>
-                <span class="p-column-title">Registro sanitario</span>
-                {{dato?.registro_sanitario}}
-            </td>-->
             <td>
                 <span class="p-column-title">Lote</span>
                 <span style="word-wrap: break-word; "> {{dato?.lote}}</span>
@@ -120,31 +70,13 @@
                 {{dato?.fecha_exp}}
             </td>
             <td>
-                <span class="p-column-title">Precio factura</span>
-                {{dato?.precio_factura | number:'1.0-5'}}
+                <span class="p-column-title">Cant</span>
+                {{dato?.cantidad}}
             </td>
             <td>
-                <span class="p-column-title">Cantidad</span>
-                {{dato?.cantidad | number:'1.0-5'}}
+                <span class="p-column-title">Total</span>
+                {{dato?.precio_total | number:'1.0-5'}}
             </td>
-            <td>
-                <span class="p-column-title">FOB</span>
-                {{dato?.precio_unidad_fob | number:'1.0-5'}}
-            </td>
-            <td>
-                <span class="p-column-title">Factor</span>
-                <!--{{dato?.factor.cod_grupo}}<br>-->
-                {{dato?.factor.codigo}}
-            </td>
-
-            <td>
-                <span class="p-column-title">Precios</span>
-                <b>PT:</b>{{dato?.precio_total}}<br>
-                <b>CA:</b>{{dato?.costo_almacen}}<br>
-                <b>CN:</b>{{dato?.costo_neto}}<br>
-                <b>PV:</b>{{dato?.precio_venta}}
-            </td>
-
         </tr>
     </ng-template>
 </p-table>

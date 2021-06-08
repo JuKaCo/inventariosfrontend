@@ -199,7 +199,7 @@ export class FormularioCotizacionComponent implements OnInit {
      icon: 'pi pi-exclamation-triangle',
      accept: () => {
        let valores = {
-         estado: 'COMPLETADO'
+         estado: 'VIGENTE'
        }
        this.service.setModifica(this.id, valores).subscribe(response => {
          if (response.success) {

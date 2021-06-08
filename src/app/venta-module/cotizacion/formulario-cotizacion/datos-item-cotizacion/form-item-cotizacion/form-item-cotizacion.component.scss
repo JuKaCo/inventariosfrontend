@@ -1,0 +1,52 @@
+.product-list-action {
+    display: flex ;
+    flex-direction: column;
+}
+
+.p-button {
+    margin-bottom: .5rem;
+    width: 100% !important;
+}
+
+:host ::ng-deep{
+	.product-price > input, .p-inputnumber-input{
+		width: 8em !important;
+	}
+}
+ 
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+    align-self: flex-end;
+}
+
+
+@media screen and (max-width: 576px) {
+	.product-list-item {
+		flex-direction: column !important;
+		align-items: center !important;
+
+	
+		.product-list-detail {
+			text-align: center;
+		}
+
+		.product-price {
+			align-self: center;
+		}
+
+		.product-list-action {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.product-list-action {
+			margin-top: 2rem;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+		}
+	}
+}

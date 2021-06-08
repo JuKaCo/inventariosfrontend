@@ -10,11 +10,11 @@
     </div>
     <p-steps [model]="items" [(activeIndex)]="activeIndex"></p-steps>
 
-    <app-datos-generales-cotizacion #nex1 (respform)="respformStep($event)" *ngIf="activeIndex==0">
+    <app-datos-generales-cotizacion #next1 (respform)="respformStep($event)" *ngIf="activeIndex==0">
     </app-datos-generales-cotizacion>
-    <app-datos-item-cotizacion #nex2 (respform)="respformStep($event)" *ngIf="activeIndex==1">
+    <app-datos-item-cotizacion #next2 (respform)="respformStep($event)" *ngIf="activeIndex==1">
     </app-datos-item-cotizacion>
-    <app-documentos-cotizacion #nex3 (respform)="respformStep($event)" *ngIf="activeIndex==2">
+    <app-documentos-cotizacion #next3 (respform)="respformStep($event)" *ngIf="activeIndex==2">
     </app-documentos-cotizacion>
     <app-terminar-cotizacion #next4 *ngIf="activeIndex==3"></app-terminar-cotizacion>
 

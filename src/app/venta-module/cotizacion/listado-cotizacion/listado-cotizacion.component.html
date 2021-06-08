@@ -77,11 +77,11 @@
 
                     <span [controlAcceso]="'editar'" class="icon-table"><i (click)="editar(dato)" class="pi pi-pencil"
                             pTooltip="Editar" tooltipPosition="top" placeholder="Top"
-                            *ngIf="dato?.estado=='PENDIENTE'"></i></span>
+                            *ngIf="dato?.estado=='VIGENTE'"></i></span>
 
                     <span [controlAcceso]="'eliminar'" class="icon-table"><i (click)="eliminar($event,dato)"
                             class="pi pi-times" pTooltip="Eliminar" tooltipPosition="top" placeholder="Top"
-                            *ngIf="dato?.estado=='PENDIENTE'"></i></span>
+                            *ngIf="dato?.estado=='VIGENTE'"></i></span>
                     
 
                 </td>

@@ -12,25 +12,25 @@ export class VentaCotizacionService {
   constructor(private http: HttpClient) { }
 
   set(data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/entrada/crear';
+    let url = environment.CEASSBACKEND + 'api/v1/cotizacion/crear';
     return this.http.post(url, data).pipe(
       catchError(this.handleError)
     );
   }
   setEdita(data: any, id: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/entrada/editar/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/cotizacion/editar/' + id;
     return this.http.put(url, data).pipe(
       catchError(this.handleError)
     );
   }
   setElimina(id: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/entrada/cambiarestado/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/cotizacion/cambiarestado/' + id;
     return this.http.delete(url).pipe(
       catchError(this.handleError)
     );
   }
   setModifica(id: string, data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/entrada/modificar/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/cotizacion/modificar/' + id;
     return this.http.patch(url, data).pipe(
       catchError(this.handleError)
     );
@@ -42,7 +42,7 @@ export class VentaCotizacionService {
     );
   }
   getRegistro(uuid: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/entrada/obtener/' + uuid;
+    let url = environment.CEASSBACKEND + 'api/v1/cotizacion/obtener/' + uuid;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );

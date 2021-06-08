@@ -1,0 +1,79 @@
+<h2>Listado de productos por cotizar</h2>
+<p-dataView #dv [value]="listaTabla" [paginator]="true" [rows]="rows.value" [lazy]="true"
+    (onLazyLoad)="loadDataKardex($event,buscar)" [totalRecords]="totalRecords" [loading]="loading" [first]="indice">
+    <ng-template pTemplate="header">
+        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                <i class="pi pi-search"></i>
+                <input type="search" pInputText placeholder="Buscar" [(ngModel)]="buscar"
+                    (ngModelChange)="loadDataKardex('texto',buscar)">
+            </span>
+            <span class="p-mb-2 p-mb-md-0">
+                <p-dropdown [options]="[
+                {code: '10', value: '10'},
+                {code: '20', value: '20'},
+                {code: '30', value: '30'},
+                {code: '40', value: '40'},
+                {code: '50', value: '50'}
+            ]" [(ngModel)]="rows" optionLabel="code" (ngModelChange)="loadDataKardex('rows',buscar)"></p-dropdown>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template let-product pTemplate="listItem">
+        <div class="p-col-12">
+            <div class="product-list-item">
+                <div class="product-list-detail">
+                    <div class="product-name">Código :{{product.id_producto_inventario.codigo}}
+                        <p-tag value="{{product.id_producto_inventario.tipo_controlado.valor}}"
+                            *ngIf="product.id_producto_inventario.tipo_controlado.codigo!=undefined"></p-tag>
+                    </div>
+                    <div class="product-description">
+                        <span><b>Nombre comercial:
+                            </b>{{product.id_producto_inventario.nombre_comercial}}<br></span>
+                        <span><b>Lote: </b>product.lote<br></span>
+                        <h3>Bs. {{product.precio_venta}}</h3>
+                    </div>
+                    <i class="pi pi-chart-bar product-category-icon"></i>
+                    <span class="product-category">Cantidad: {{product.cantidad}}</span>
+                </div>
+                <div>
+                    <div class="product-list-action">
+                        <span class="product-price">Total Bs.</span>
+                        <span class="product-price">{{product.precio_total}}</span>
+
+                        <span class="p-text-center"><i class="pi pi-calendar-times"></i> Fec. exp.
+                            <br>{{product.fecha_exp}}</span>
+                    </div>
+                    <div style="display: block;">
+                        <span [controlAcceso]="'editar'" class="icon-table" (click)="edit(product)"><i
+                                class="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+                                placeholder="Top"></i></span>
+                        <span [controlAcceso]="'eliminar'" class="icon-table" (click)="eliminar($event,product.id)"><i class="pi pi-times" pTooltip="Eliminar"
+                                tooltipPosition="top" placeholder="Top"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>
+
+<p-dialog [header]="displayHeader" [(visible)]="displayFrm" [modal]="true" styleClass="dialog-responsive-50"
+    [contentStyle]="{'overflow':'visible'}">
+    <div class="p-fluid p-grid">
+        <div class="p-field p-col-12 p-md-12">
+            <h3>Total Bs.: {{total | number:'1.0-6'}}</h3>
+            <p-inputNumber [(ngModel)]="cantidad" (onInput)="totalCal($event)"></p-inputNumber>
+            <span class="text-danger" *ngIf="!valid;else elseBlock">
+                Introdusca una cantidad mayor a 0.
+            </span>
+            <ng-template #elseBlock class="text-danger"><span class="text-danger">&nbsp;</span></ng-template>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button (click)="displayFrm=false;" icon="pi pi-times" label="Cerrar"
+            styleClass="p-button-raised p-button-text"></p-button>
+        <p-button (click)="confirmarEdirar($event)" label="Modificar" icon="pi pi-save">
+        </p-button>
+    </ng-template>
+</p-dialog>

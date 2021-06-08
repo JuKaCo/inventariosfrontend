@@ -1,0 +1,71 @@
+<h2>Listado de productos</h2>
+<p-dataView #dv [value]="listaTabla" [paginator]="true" [rows]="rows.value" [lazy]="true"
+    (onLazyLoad)="loadDataKardex($event,buscar)" [totalRecords]="totalRecords" [loading]="loading" [first]="indice">
+    <ng-template pTemplate="header">
+        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+            <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                <i class="pi pi-search"></i>
+                <input type="search" pInputText placeholder="Buscar" [(ngModel)]="buscar"
+                    (ngModelChange)="loadDataKardex('texto',buscar)">
+            </span>
+            <span class="p-mb-2 p-mb-md-0">
+                <p-dropdown [options]="[
+                {code: '10', value: '10'},
+                {code: '20', value: '20'},
+                {code: '30', value: '30'},
+                {code: '40', value: '40'},
+                {code: '50', value: '50'}
+            ]" [(ngModel)]="rows" optionLabel="code" (ngModelChange)="loadDataKardex('rows',buscar)"></p-dropdown>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template let-product pTemplate="listItem">
+        <div class="p-col-12">
+            <div class="product-list-item">
+                <div class="product-list-detail">
+                    <div class="product-name">Código :{{product.id_producto.codigo}}
+                        <p-tag value="{{product.id_producto.tipo_controlado.valor}}"
+                            *ngIf="product.id_producto.tipo_controlado.codigo!=undefined"></p-tag>
+                    </div>
+                    <div class="product-description">
+                        <span *ngIf="product.id_producto.nombre_comercial!=''"><b>Nombre comercial:
+                            </b>{{product.id_producto.nombre_comercial}}<br></span>
+                        <span *ngIf="product.id_producto.codigo_liname.cod_liname!=undefined"><b>Liname:
+                            </b>{{product.id_producto.codigo_liname.cod_liname}}<br></span>
+                        <span *ngIf="product.id_producto.medicamento!=''"><b>Medicamento:
+                            </b>{{product.id_producto.medicamento}}<br></span>
+                        <span *ngIf="product.id_producto.form_farm!=''"><b>Form. farm.:
+                            </b>{{product.id_producto.form_farm}}<br></span>
+                        <span *ngIf="product.id_producto.concen!=''"><b>Concentración:
+                            </b>{{product.id_producto.concen}}<br></span>
+                        <span *ngIf="product.id_producto.atq!=''"><b>ATQ: </b>{{product.id_producto.atq}}<br></span>
+                        <span *ngIf="product.id_producto.aclara_parti!=''"><b>Aclara. parti:
+                            </b>{{product.id_producto.aclara_parti}}<br></span>
+
+                        <span *ngIf="product.id_producto.codigo_linadime.cod_linadime!=undefined"><b>Linadime:
+                            </b>{{product.id_producto.codigo_linadime.cod_linadime}}<br></span>
+                        <span *ngIf="product.id_producto.dispositivo!=''"><b>Dispositivo:
+                            </b>{{product.id_producto.dispositivo}}<br></span>
+                        <span *ngIf="product.id_producto.especificacion_tec!=''"><b>Esp. tec.:
+                            </b>{{product.id_producto.especificacion_tec}}<br></span>
+                        <span *ngIf="product.id_producto.presentacion!=''"><b>Presentacion:
+                            </b>{{product.id_producto.presentacion}}<br></span>
+                        <span *ngIf="product.id_producto.nivel_uso_i!=''"><b>Nivel uso I:
+                            </b>{{product.id_producto.nivel_uso_i}}<br></span>
+                        <span *ngIf="product.id_producto.nivel_uso_ii!=''"><b>Nivel uso II:
+                            </b>{{product.id_producto.nivel_uso_ii}}<br></span>
+                        <span *ngIf="product.id_producto.nivel_uso_iii!=''"><b>Nivel uso III:
+                            </b>{{product.id_producto.nivel_uso_iii}}<br></span>
+                        <span><b>Lote: </b>{{product.lote}}<br></span>
+                        <h3>Bs. {{product.precio_venta}}</h3>
+                    </div>
+                    <i class="pi pi-chart-bar product-category-icon"></i>
+                    <span class="product-category">Cantidad en almacen: {{product.cantidad_actual}}</span>
+                </div>
+                <app-form-item-cotizacion (respformFI)="respformFI($event)" [kardex]="product" [id]="id"></app-form-item-cotizacion>
+                <!--<app-form-item-cotizacion #frm (respformI)="respformI($event)"></app-form-item-cotizacion>-->
+            </div>
+        </div>
+    </ng-template>
+    
+</p-dataView>

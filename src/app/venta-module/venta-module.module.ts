@@ -26,6 +26,11 @@ import {DividerModule} from 'primeng/divider';
 import {StepsModule} from 'primeng/steps';
 import {CalendarModule} from 'primeng/calendar';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {DataViewModule} from 'primeng/dataview';
+import {DropdownModule} from 'primeng/dropdown';
+import {SplitterModule} from 'primeng/splitter';
+
+
 
 import { GeneralModuleModule } from '../general-module/general-module.module';
 
@@ -38,6 +43,8 @@ import { DatosItemCotizacionComponent } from './cotizacion/formulario-cotizacion
 import { DocumentosCotizacionComponent } from './cotizacion/formulario-cotizacion/documentos-cotizacion/documentos-cotizacion.component';
 import { TerminarCotizacionComponent } from './cotizacion/formulario-cotizacion/terminar-cotizacion/terminar-cotizacion.component';
 import { FormItemCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/form-item-cotizacion/form-item-cotizacion.component';
+import { ListaItemKardexCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/lista-item-kardex-cotizacion/lista-item-kardex-cotizacion.component';
+import { ListaItemCotizaKardexCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/lista-item-cotiza-kardex-cotizacion/lista-item-cotiza-kardex-cotizacion.component';
 
 
 @NgModule({
@@ -49,7 +56,9 @@ import { FormItemCotizacionComponent } from './cotizacion/formulario-cotizacion/
     DatosItemCotizacionComponent,
     DocumentosCotizacionComponent,
     TerminarCotizacionComponent,
-    FormItemCotizacionComponent
+    FormItemCotizacionComponent,
+    ListaItemKardexCotizacionComponent,
+    ListaItemCotizaKardexCotizacionComponent
   ],
   imports: [
     CommonModule,
@@ -76,7 +85,10 @@ import { FormItemCotizacionComponent } from './cotizacion/formulario-cotizacion/
     DividerModule,
     StepsModule,
     CalendarModule,
-    InputNumberModule
+    InputNumberModule,
+    DataViewModule,
+    DropdownModule,
+    SplitterModule
   ]
 })
 export class VentaModuleModule { }

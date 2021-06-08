@@ -45,6 +45,7 @@ export class FormularioCotizacionComponent implements OnInit {
 
  //id formulario
  id: string = "";
+ id_alamcen:string="";
 
  constructor(
    private messageService: MessageService,
@@ -132,7 +133,7 @@ export class FormularioCotizacionComponent implements OnInit {
  }
 
  editar(id: string): void {
-   this.id = "";
+   this.id = id;
    this.activeIndex = 0;
    this.displayFrm = true;
    this.loaderService.show();
@@ -157,14 +158,15 @@ export class FormularioCotizacionComponent implements OnInit {
    if (event.tipo == 'guardar-datos-generales') {
      if (event.success) {
        this.id = event.data.id;
+       this.id_alamcen=event.data.id_almacen.id;
 
        this.calcSigueinte();
 
        this.loaderService.show();
        this.cdr.detectChanges();
        this.next2.id = this.id;
-       this.next2.cargarTabla(this.id);
-
+       this.next2.id_almacen = this.id_alamcen;
+       this.next2.cargarTabla(this.id,this.id_alamcen);
      }
    }
    if (event.tipo == 'guardar-datos-item-entrada') {

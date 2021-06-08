@@ -4,7 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
-import { InventarioEntradaService } from 'src/app/inventario-module/service/inventario-entrada.service';
+import { VentaCotizacionService } from 'src/app/venta-module/service/venta-cotizacion.service';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private loaderService: LoaderService,
     private generalService: GeneralService,
-    private service: InventarioEntradaService,
+    private service: VentaCotizacionService,
   ) {
     this.id_regional = sessionStorage.getItem('regional');
     this.privilegio = sessionStorage.getItem('privilegio');
@@ -59,6 +59,7 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     this.formulario.get('codigo')?.disable();
     this.formulario.get('codigo')?.setValue('Por asignar');
     this.formulario.get('dias_validez')?.setValue('5');
+    this.formulario.get('id')?.setValue('0');
     if (this.privilegio != 'total') {
       this.formulario.get('id_regional')?.disable();
     } else {
@@ -91,7 +92,8 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
             id_cliente: data.id_cliente,
             id_regional: data.id_regional,
             id_almacen: data.id_almacen,
-            comentarios: data.id_proveedor,
+            comentarios: data.comentarios,
+            dias_validez: data.dias_validez,
           };
           this.formulario.setValue(valores);
           this.respform.emit({ tipo: 'guardar-datos-generales', success: true, data: data });
@@ -119,7 +121,8 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
         id_cliente: data.id_cliente,
         id_regional: data.id_regional,
         id_almacen: data.id_almacen,
-        comentarios: data.id_proveedor,
+        comentarios: data.comentarios,
+        dias_validez: data.dias_validez,
       }
       this.service.setModifica(data.id, valores).subscribe(response => {
         if (response.success) {
@@ -141,16 +144,23 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
   }
   editar(id: any) {
     this.resetFormValidUpload();
+    if (this.privilegio != 'total') {
+      this.formulario.get('id_regional')?.disable();
+    } 
+    this.formulario.get('id_cliente')?.enable();
+    this.formulario.get('id_almacen')?.enable();
+
     this.service.getRegistro(id).subscribe(response => {
       if (response.success) {
         let data = response.data;
         let valores = {
           id: data.id,
-          codigo: data.codigo,
-          id_cliente: data.id_cliente,
-          id_regional: data.id_regional,
-          id_almacen: data.id_almacen,
-          comentarios: data.id_proveedor,
+            codigo: data.codigo,
+            id_cliente: data.id_cliente,
+            id_regional: data.id_regional,
+            id_almacen: data.id_almacen,
+            comentarios: data.comentarios,
+            dias_validez: data.dias_validez,
         };
         this.formulario.setValue(valores);
         this.loaderService.hide();
@@ -201,6 +211,9 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     }
   }
   selectRegional(event: any) {
+    this.formulario.get('id_almacen')?.setValue('');
     this.formulario.get('id_almacen')?.enable();
+    this.formulario.get('id_cliente')?.enable();
+    this.formulario.get('id_cliente')?.setValue('');
   }
 }

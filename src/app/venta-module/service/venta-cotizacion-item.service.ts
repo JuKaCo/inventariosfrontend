@@ -12,7 +12,7 @@ export class VentaCotizacionItemService {
   constructor(private http: HttpClient) { }
 
   set(data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/item/crear';
+    let url = environment.CEASSBACKEND + 'api/v1/itemsec/crear';
     return this.http.post(url, data).pipe(
       catchError(this.handleError)
     );
@@ -24,19 +24,25 @@ export class VentaCotizacionItemService {
     );
   }
   setElimina(id: string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/item/cambiarestado/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/itemsec/cambiarestado/' + id;
     return this.http.delete(url).pipe(
       catchError(this.handleError)
     );
   }
   setModifica(id: string, data: any): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/item/modificar/' + id;
+    let url = environment.CEASSBACKEND + 'api/v1/itemsec/modificar/' + id;
     return this.http.patch(url, data).pipe(
       catchError(this.handleError)
     );
   }
   getLista(data: any,id:string): Observable<any> {
-    let url = environment.CEASSBACKEND + 'api/v1/item/listar/'+id+'?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
+    let url = environment.CEASSBACKEND + 'api/v1/itemsec/listar/'+id+'?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
+    return this.http.get(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+  getListaKardex(data: any,id_almacen:string): Observable<any> {
+    let url = environment.CEASSBACKEND + 'api/v1/kardex/obtenerprods/'+id_almacen+'?indice=' + data.indice + '&limite=' + data.limite + '&filtro=' + data.filtro;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );

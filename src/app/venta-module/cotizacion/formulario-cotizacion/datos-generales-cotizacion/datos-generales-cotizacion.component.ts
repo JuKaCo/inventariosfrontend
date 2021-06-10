@@ -22,6 +22,7 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
   formularioValid: boolean = false;
   param: any = {};
   tipo: string = 'add';
+  estado: string = "";
 
   //emitir datos
   @Output() respform = new EventEmitter();
@@ -50,7 +51,7 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     this.formulario.addControl('id_regional', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
     this.formulario.addControl('id_almacen', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
     this.formulario.addControl('dias_validez', new FormControl({ value: '', disabled: false }, [Validators.required]));
-    this.formulario.addControl('comentarios', new FormControl({ value: '', disabled: false }, [Validators.required]));
+    this.formulario.addControl('comentarios', new FormControl({ value: '', disabled: false }, []));
     this.formularioValid = false;
     this.crear();
   }
@@ -114,7 +115,19 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
   }
   mod() {
     if (this.formulario.valid) {
+      if (this.estado == 'PENDIENTE') {
+        this.formulario.get('codigo')?.enable();
+        this.formulario.get('id_cliente')?.enable();
+        this.formulario.get('id_regional')?.enable();
+        this.formulario.get('id_almacen')?.enable();
+      }
       let data = this.formulario.value;
+      if (this.estado == 'PENDIENTE') {
+        this.formulario.get('codigo')?.disable();
+        this.formulario.get('id_cliente')?.disable();
+        this.formulario.get('id_regional')?.disable();
+        this.formulario.get('id_almacen')?.disable();
+      }
       let valores = {
         id: data.id,
         codigo: data.codigo,
@@ -146,23 +159,31 @@ export class DatosGeneralesCotizacionComponent implements OnInit {
     this.resetFormValidUpload();
     if (this.privilegio != 'total') {
       this.formulario.get('id_regional')?.disable();
-    } 
+    }
     this.formulario.get('id_cliente')?.enable();
     this.formulario.get('id_almacen')?.enable();
+
 
     this.service.getRegistro(id).subscribe(response => {
       if (response.success) {
         let data = response.data;
         let valores = {
           id: data.id,
-            codigo: data.codigo,
-            id_cliente: data.id_cliente,
-            id_regional: data.id_regional,
-            id_almacen: data.id_almacen,
-            comentarios: data.comentarios,
-            dias_validez: data.dias_validez,
+          codigo: data.codigo,
+          id_cliente: data.id_cliente,
+          id_regional: data.id_regional,
+          id_almacen: data.id_almacen,
+          comentarios: data.comentarios,
+          dias_validez: data.dias_validez,
         };
         this.formulario.setValue(valores);
+        this.estado = data.estado;
+        if (this.estado == 'PENDIENTE') {
+          this.formulario.get('codigo')?.disable();
+          this.formulario.get('id_cliente')?.disable();
+          this.formulario.get('id_regional')?.disable();
+          this.formulario.get('id_almacen')?.disable();
+        }
         this.loaderService.hide();
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
       } else {

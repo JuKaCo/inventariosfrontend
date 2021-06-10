@@ -45,6 +45,16 @@ import { TerminarCotizacionComponent } from './cotizacion/formulario-cotizacion/
 import { FormItemCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/form-item-cotizacion/form-item-cotizacion.component';
 import { ListaItemKardexCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/lista-item-kardex-cotizacion/lista-item-kardex-cotizacion.component';
 import { ListaItemCotizaKardexCotizacionComponent } from './cotizacion/formulario-cotizacion/datos-item-cotizacion/lista-item-cotiza-kardex-cotizacion/lista-item-cotiza-kardex-cotizacion.component';
+import { ViewVentaItemVentaComponent } from './venta/view-venta-item-venta/view-venta-item-venta.component';
+import { ListadoVentaComponent } from './venta/listado-venta/listado-venta.component';
+import { FormularioVentaComponent } from './venta/formulario-venta/formulario-venta.component';
+import { DatosGeneralesVentaComponent } from './venta/formulario-venta/datos-generales-venta/datos-generales-venta.component';
+import { DatosItemVentaComponent } from './venta/formulario-venta/datos-item-venta/datos-item-venta.component';
+import { FormItemVentaComponent } from './venta/formulario-venta/datos-item-venta/form-item-venta/form-item-venta.component';
+import { ListaItemVentaKardexVentaComponent } from './venta/formulario-venta/datos-item-venta/lista-item-venta-kardex-venta/lista-item-venta-kardex-venta.component';
+import { ListaItemKardexVentaComponent } from './venta/formulario-venta/datos-item-venta/lista-item-kardex-venta/lista-item-kardex-venta.component';
+import { DocumentosVentaComponent } from './venta/formulario-venta/documentos-venta/documentos-venta.component';
+import { TerminaVentaComponent } from './venta/formulario-venta/termina-venta/termina-venta.component';
 
 
 @NgModule({
@@ -58,7 +68,17 @@ import { ListaItemCotizaKardexCotizacionComponent } from './cotizacion/formulari
     TerminarCotizacionComponent,
     FormItemCotizacionComponent,
     ListaItemKardexCotizacionComponent,
-    ListaItemCotizaKardexCotizacionComponent
+    ListaItemCotizaKardexCotizacionComponent,
+    ViewVentaItemVentaComponent,
+    ListadoVentaComponent,
+    FormularioVentaComponent,
+    DatosGeneralesVentaComponent,
+    DatosItemVentaComponent,
+    FormItemVentaComponent,
+    ListaItemVentaKardexVentaComponent,
+    ListaItemKardexVentaComponent,
+    DocumentosVentaComponent,
+    TerminaVentaComponent,
   ],
   imports: [
     CommonModule,

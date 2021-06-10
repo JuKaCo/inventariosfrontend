@@ -21,6 +21,7 @@ export class FormularioCotizacionComponent implements OnInit {
  displayHeader = "";
  header: string = "cotización";
  modulo: string = "Cotizacion";
+ textEliminar:string ="Esta seguro de eliminar la cotización.";
  items!: MenuItem[];
  //steap
  activeIndex: number = 0;
@@ -134,6 +135,8 @@ export class FormularioCotizacionComponent implements OnInit {
    this.id = "";
    this.activeIndex = 0;
    this.displayFrm = true;
+   this.cdr.detectChanges();
+   this.next1.estado="";
  }
 
  editar(id: string): void {
@@ -145,7 +148,34 @@ export class FormularioCotizacionComponent implements OnInit {
    this.next1.editar(id)
  }
 
- eliminar(event: any, id: string) {
+ eliminar(event: any, id: any) {
+  this.confirmationService.close();
+  setTimeout(() => {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: this.textEliminar,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //confirm action
+        this.service.setElimina(id).subscribe(response => {
+          if (response.success) {
+            this.respform.emit({ tipo: 'eliminar', success: true, message: response.message });
+            this.messageService.add({ severity: 'success', summary: this.modulo, detail: 'Se consolido el archivo.' });
+          } else {
+            this.respform.emit({ tipo: 'eliminar', success: false, message: response.message });
+            this.messageService.add({ severity: 'warn', summary: this.modulo, detail: response.message });
+          }
+        },
+          error => {
+            this.respform.emit({ tipo: 'eliminar', success: false, message: error.message });
+            this.messageService.add({ severity: 'error', summary: this.modulo, detail: 'Error al consumir el servicio.' });
+          });
+      },
+      reject: () => {
+        //reject action
+      }
+    })
+  }, this.timeConfirm);
  }
 
  ver(id: string): void {

@@ -59,6 +59,7 @@ export class ListadoCotizacionComponent implements OnInit {
   }
 
   loadData(event: any) {
+    this.cdr.detectChanges();
     let indice = event.first;
     let limite = event.rows;
     let filtro = "";

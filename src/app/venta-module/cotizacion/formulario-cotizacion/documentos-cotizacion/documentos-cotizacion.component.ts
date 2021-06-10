@@ -1,7 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { InventarioEntradaService } from 'src/app/inventario-module/service/inventario-entrada.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { ThrowStmt } from '@angular/compiler';
 import { VentaCotizacionService } from 'src/app/venta-module/service/venta-cotizacion.service';
 
 @Component({

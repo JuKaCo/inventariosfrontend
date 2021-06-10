@@ -1,10 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
-import { UtilService } from 'src/app/general/services/util.service';
-import { ValidacionService } from 'src/app/general/services/validacion.service';
 import { MenuItem } from 'primeng/api';
 import { DatosGeneralesCotizacionComponent } from './datos-generales-cotizacion/datos-generales-cotizacion.component';
 import { DatosItemCotizacionComponent } from './datos-item-cotizacion/datos-item-cotizacion.component';
@@ -88,7 +85,6 @@ export class FormularioCotizacionComponent implements OnInit {
      this.activeIndex++;
    } else {
      this.activeIndex = this.maxIndex - 1;
-     this.termina();
    }
  }
  siguienteAccion(index: any) {
@@ -119,16 +115,7 @@ export class FormularioCotizacionComponent implements OnInit {
     }
    } else {
      this.activeIndex = 0;
-     this.incia();
    }
- }
-
- termina() {
-
- }
-
- incia() {
-
  }
 
  crear(): void {
@@ -189,7 +176,6 @@ export class FormularioCotizacionComponent implements OnInit {
  }
 
  respformStep(event: any) {
-   console.log('--->>>',event)
    if (event.tipo == 'guardar-datos-generales') {
      if (event.success) {
        this.id = event.data.id;

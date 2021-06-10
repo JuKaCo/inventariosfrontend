@@ -1,7 +1,6 @@
 import { MessageService } from 'primeng/api';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { LoaderService } from 'src/app/general/services/loader.service';
-import { FormItemCotizacionComponent } from './form-item-cotizacion/form-item-cotizacion.component';
 import { VentaCotizacionItemService } from 'src/app/venta-module/service/venta-cotizacion-item.service';
 import { ListaItemCotizaKardexCotizacionComponent } from './lista-item-cotiza-kardex-cotizacion/lista-item-cotiza-kardex-cotizacion.component';
 

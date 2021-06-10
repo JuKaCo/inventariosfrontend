@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { GeneralService } from 'src/app/general/services/general.service';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { ValidacionService } from 'src/app/general/services/validacion.service';
@@ -33,7 +32,6 @@ export class FormItemCotizacionComponent implements OnInit, OnChanges {
   total: number = 0;
   valid = false;
   constructor(
-    private formBuilder: FormBuilder,
     private messageService: MessageService,
     private loaderService: LoaderService,
     private generalService: GeneralService,

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
 import { LoaderService } from 'src/app/general/services/loader.service';
 import { VentaCotizacionItemService } from 'src/app/venta-module/service/venta-cotizacion-item.service';
 

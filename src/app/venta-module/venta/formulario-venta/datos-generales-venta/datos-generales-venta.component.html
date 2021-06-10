@@ -1,1 +1,74 @@
-<p>datos-generales-venta works!</p>
+<form [formGroup]="formulario" *ngIf="tipo=='add'">
+    <h2>Formulario datos generales</h2>
+    <br>
+    <!--<input formControlName="id" type="hidden" pInputText>-->
+    <div class="p-fluid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+            <span class="p-float-label">
+                <input formControlName="codigo" type="text" id="inp_codigo" pInputText>
+                <label for="inp_codigo">CT1. Código<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['codigo']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_regional" inputId="inp_inp_id_regional"
+                    [suggestions]="param.param_regional" (completeMethod)="getFilter($event,'param_regional')" field="nombre"
+                    [minLength]="1" [dropdown]="true" (onSelect)="selectRegional($event)">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_id_regional">R3. Regional<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_regional']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-12">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_cliente" inputId="inp_tipo_entrada"
+                    [suggestions]="param.param_cliente" (completeMethod)="getFilter($event,'param_cliente')"
+                    field="nombre" [minLength]="1" [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <b>{{data.nombre}}</b><br>{{data.direccion}}<br>{{data.nit}}
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_tipo_entrada">C2. Cliente</label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_cliente']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+            <span class="p-float-label">
+                <p-autoComplete formControlName="id_almacen" inputId="inp_id_almacen" [suggestions]="param.param_almacen"
+                    (completeMethod)="getFilter($event,'param_almacen')" field="nombre" [minLength]="1" [dropdown]="true">
+                    <ng-template let-data pTemplate="item">
+                        <div><b>({{data.codigo}})</b> {{data.nombre}}<br>{{data.direccion}}</div>
+                    </ng-template>
+                </p-autoComplete>
+                <label for="inp_id_almacen">A4. Almacen<span class="text-danger">*</span></label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['id_almacen']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-6">
+            <span class="p-float-label">
+                <input formControlName="dias_validez" type="text" id="inp_dias_validez" pInputText>
+                <label for="inp_factura_comercial">C5. Dias validez</label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['dias_validez']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+        <div class="p-field p-col-12 p-md-12">
+            <span class="p-float-label">
+                <textarea formControlName="comentarios" id="inp_comentarios" rows="2" cols="30" pInputTextarea></textarea>
+                <label for="inp_comentarios">C6. Comentarios</label>
+            </span>
+            <app-mesaje-form-error [control]="formulario.controls['comentarios']" [valid]="formularioValid">
+            </app-mesaje-form-error>
+        </div>
+     
+    </div>
+</form>

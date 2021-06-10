@@ -1,1 +1,11 @@
-<p>form-item-venta works!</p>
+<div class="product-list-action">
+    <span class="product-price">Total Bs.</span>
+    <span class="product-price">{{total | number:'1.0-6'}}</span>
+        <p-inputNumber [(ngModel)]="cantidad" (onInput)="totalCal($event)" ></p-inputNumber>
+        <span class="text-danger" *ngIf="!valid;else elseBlock">
+            Cantidad mayor a 0.
+        </span>
+        <ng-template #elseBlock class="text-danger"><span class="text-danger">&nbsp;</span></ng-template>
+        <p-button  (click)="confirmarGuardar($event)"  icon="pi pi-shopping-cart" label="Adicionar"></p-button>
+    <span class="p-text-center"><i class="pi pi-calendar-times"></i> Fec. exp. <br>{{kardex?.fecha_exp}}</span>
+</div>

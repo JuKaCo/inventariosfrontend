@@ -1,1 +1,10 @@
-<p>datos-item-venta works!</p>
+<h2>Registro de items</h2>
+<div class="p-grid">
+    <div class="p-col">
+        <app-lista-item-kardex-venta (respformI)="respformI($event)" [id_almacen]="id_almacen" [id]="id"></app-lista-item-kardex-venta>
+
+    </div>
+    <div class="p-col">
+        <app-lista-item-venta-kardex-venta #cot (respformI)="respformI($event)" [id_almacen]="id_almacen" [id]="id"></app-lista-item-venta-kardex-venta>
+    </div>
+</div>

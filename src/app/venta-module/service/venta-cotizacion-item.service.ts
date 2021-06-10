@@ -17,12 +17,12 @@ export class VentaCotizacionItemService {
       catchError(this.handleError)
     );
   }
-  setEdita(data: any, id: string): Observable<any> {
+  /*setEdita(data: any, id: string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/item/editar/' + id;
     return this.http.put(url, data).pipe(
       catchError(this.handleError)
     );
-  }
+  }*/
   setElimina(id: string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/itemsec/cambiarestado/' + id;
     return this.http.delete(url).pipe(
@@ -47,19 +47,19 @@ export class VentaCotizacionItemService {
       catchError(this.handleError)
     );
   }
-  getRegistro(uuid: string): Observable<any> {
+  /*getRegistro(uuid: string): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/item/obtener/' + uuid;
     return this.http.get(url).pipe(
       catchError(this.handleError)
     );
-  }
+  }*/
   //
-  getCalItemCalcula(data:any): Observable<any> {
+  /*getCalItemCalcula(data:any): Observable<any> {
     let url = environment.CEASSBACKEND + 'api/v1/item/calcular';
     return this.http.post(url, data).pipe(
       catchError(this.handleError)
     );
-  }
+  }*/
 
 
   handleError(error: any) {

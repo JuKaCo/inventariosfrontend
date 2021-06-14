@@ -73,7 +73,7 @@ export class FormularioProductoComponent implements OnInit {
     this.formulario.addControl('nivel_uso_ii', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('nivel_uso_iii', new FormControl({ value: '', disabled: false }, []));
     this.formulario.addControl('tipo_controlado', new FormControl({ value: '', disabled: false }, []));
-    this.formulario.addControl('categoria_prod', new FormControl({ value: '', disabled: false }, [ValidacionService.requiredAutoComplete]));
+    this.formulario.addControl('categoria_prod', new FormControl({ value: '', disabled: false }, []));
 
     this.formularioValid = false;
   }
@@ -240,13 +240,14 @@ export class FormularioProductoComponent implements OnInit {
     let data = this.formulario.value;
     //this.formulario.get('codigo')?.disable();
 
-    let valores = {
-  
+/*    let valores = {
       codigo: data.codigo,
       nombre_comercial: data.nombre_comercial,
       codigo_liname: data.codigo_liname,
       codigo_linadime:data.codigo_linadime,
       //reg_san: data.reg_san,
+      tipo_controlado:data.tipo_controlado,
+      categoria_prod:data.categoria_prod,
       referencia: data.referencia,
       medicamento: data.medicamento,
       concen: data.concen,
@@ -260,12 +261,11 @@ export class FormularioProductoComponent implements OnInit {
       nivel_uso_i: data.nivel_uso_i,
       nivel_uso_ii: data.nivel_uso_ii,
       nivel_uso_iii: data.nivel_uso_ii
-    };
+    };*/
 
     data = UtilService.modComboNull(data, ['codigo_liname', 'codigo_linadime', 'tipo_controlado', 'categoria_prod']);
     data = UtilService.modNullEspacio(data);
-
-    this.service.setEdita(valores, data.id).subscribe(response => {
+    this.service.setEdita(data, data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });
@@ -307,6 +307,8 @@ export class FormularioProductoComponent implements OnInit {
           codigo_liname: data.codigo_liname,
           codigo_linadime:data.codigo_linadime,
           //reg_san: data.reg_san,
+          tipo_controlado:data.tipo_controlado,
+          categoria_prod:data.categoria_prod,
           referencia: data.referencia,
           medicamento: data.medicamento,
           concen: data.concen,

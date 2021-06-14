@@ -167,17 +167,17 @@ export class FormularioDosificacionComponent implements OnInit {
     let data = this.formulario.value;
     //this.formulario.get('codigo')?.disable();
 
-    let valores = {
+    /*let valores = {
       llave_dosificacion: data.llave_dosificacion,
       nro_autorizacion: data.nro_autorizacion,
       fecha_exp: data.fecha_exp,
       regional: data.regional,
-    };
+    };*/
 
     data = UtilService.modComboNull(data, ['regional']);
     data = UtilService.modNullEspacio(data);
 
-    this.service.setEdita(valores, data.id).subscribe(response => {
+    this.service.setEdita(data, data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });

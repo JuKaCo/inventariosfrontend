@@ -198,7 +198,7 @@ export class FormularioClienteComponent implements OnInit {
       data = this.formulario.value;
     }
 
-    let valores = {
+   /* let valores = {
       nombre: data.nombre,
       telefono: data.telefono,
       correo: data.correo,
@@ -213,12 +213,12 @@ export class FormularioClienteComponent implements OnInit {
       subsector: data.subsector,
       tipo: data.tipo,
       id_regional: data.id_regional
-    };
+    };*/
 
     data = UtilService.modComboNull(data, ['dependencia', 'nivel', 'departamento', 'provincia', 'municipio', 'subsector', 'tipo']);
     data = UtilService.modNullEspacio(data);
 
-    this.service.setEdita(valores, data.id).subscribe(response => {
+    this.service.setEdita(data, data.id).subscribe(response => {
       if (response.success) {
         this.respform.emit({ tipo: this.tipo, success: true, message: response.message });
         this.messageService.add({ severity: 'success', summary: this.modulo, detail: response.message });

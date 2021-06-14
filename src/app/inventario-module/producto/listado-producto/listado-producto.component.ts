@@ -101,6 +101,7 @@ export class ListadoProductoComponent implements OnInit {
     if (event.tipo == 'cerrar') {
       if (event.success) {
         this.viewTable = true;
+        this.cdr.detectChanges();
       }
     }
   }

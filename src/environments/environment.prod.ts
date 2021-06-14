@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
-  OAUTH2OPENID: ['http://127.0.0.1/ceass-back-end/public/', 'http://localhost/ceass-back-end/public/', 'http://localhost/ceass-back-end/public'],
-  OAUTH2USER: 'web',
-  OAUTH2SERVER: 'http://192.168.1.232:8080/auth/realms/web',
-  OAUTH2CLIENTID: 'angular-web',
-  OAUTH2SERVICE: "http://192.168.1.232:8080/auth/realms/web/protocol/openid-connect/token",
-  CEASSBACKEND: "http://localhost/ceass-back-end/public/",
+  OAUTH2OPENID: ['http://192.168.1.226', 'http://192.168.1.226/'],
+  OAUTH2USER: 'asiru',
+  OAUTH2SERVER: 'http://192.168.1.232:8080/auth/realms/asiru',
+  OAUTH2CLIENTID: 'bf-asiru',
+  OAUTH2SERVICE: "http://192.168.1.232:8080/auth/realms/asiru/protocol/openid-connect/token",
+  CEASSBACKEND: "http://192.168.1.226/",
   lang: {
     "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
     "dayNamesShort": ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
